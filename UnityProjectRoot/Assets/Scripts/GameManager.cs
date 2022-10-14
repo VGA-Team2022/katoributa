@@ -1,60 +1,83 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 /// <summary>
-/// ƒQ[ƒ€‚ÌŠÇ—ƒNƒ‰ƒX
+/// ã‚²ãƒ¼ãƒ ã®ç®¡ç†ã‚¯ãƒ©ã‚¹
 /// </summary>
 public class GameManager
 {
-    #region ƒvƒƒpƒeƒB
+    #region ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
     /// <summary>
-    /// GameManager‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+    /// GameManagerã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
     /// </summary>
     public static GameManager Instance = new GameManager();
 
     /// <summary>
-    /// ‰áæ‚è“Ø‚Ìƒ‚[ƒh
+    /// èšŠå–ã‚Šè±šã®ãƒ¢ãƒ¼ãƒ‰
     /// </summary>
     public PlayerMode PlayerMode => _playerMode;
     #endregion
 
-    #region •Ï”
+    #region å¤‰æ•°
+
     float _gameTime;
     int _score;
+
     PlayerMode _playerMode = PlayerMode.Normal;
+
+    bool _isPause;
     #endregion
 
     /*ToDo
-    ƒXƒRƒA‚ÌŠÇ—
-    ŠÔ‚ÌŠÇ—
-    ƒ|[ƒYˆ—ü‚è
+    ã‚¹ã‚³ã‚¢ã®ç®¡ç†
+    æ™‚é–“ã®ç®¡ç†
+    ãƒãƒ¼ã‚ºå‡¦ç†å‘¨ã‚Š
     */
 
-    //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    //ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     public GameManager() 
     {
         Debug.Log("New GameManager");
     }
 
+    #region ã‚¤ãƒ™ãƒ³ãƒˆ
+
     /// <summary>
-    /// ‰áæ‚è“Ø‚Ìƒ‚[ƒh‚ğØ‚è‘Ö‚¦‚éŠÖ”
+    /// ãƒãƒ¼ã‚ºæ™‚ã®å‡¦ç†ã‚’ç™»éŒ²
+    /// </summary>
+    public event Action OnPause;
+    /// <summary>
+    /// ãƒãƒ¼ã‚ºè§£é™¤æ™‚ã®å‡¦ç†ã‚’ç™»éŒ²
+    /// </summary>
+    public event Action OnResume;
+
+    #endregion
+
+    /// <summary>
+    /// èšŠå–ã‚Šè±šã®ãƒ¢ãƒ¼ãƒ‰ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹é–¢æ•°
     /// </summary>
     /// <param name="mode"></param>
     public void PlayerModeChange(PlayerMode mode)
     {
         _playerMode = mode;
-        Debug.Log($"ƒ‚[ƒh‚ğØ‚è‘Ö‚¦‚½ {mode}");
+        Debug.Log($"ãƒ¢ãƒ¼ãƒ‰ã‚’åˆ‡ã‚Šæ›¿ãˆãŸ {mode}");
+    }
+
+    void OnUpdate()
+    {
+        
     }
 }
 
 /// <summary>
-/// ‰áæ‚è“Ø‚Ìƒ‚[ƒh—p‚ÌEnum
+/// èšŠå–ã‚Šè±šã®ãƒ¢ãƒ¼ãƒ‰ç”¨ã®Enum
 /// </summary>
 public enum PlayerMode
 {
-    //’Êíƒ‚[ƒh
+    //é€šå¸¸ãƒ¢ãƒ¼ãƒ‰
     Normal = 0,
-    //ƒƒ‰ƒƒ‰ƒ‚[ƒh
+    //ãƒ¡ãƒ©ãƒ¡ãƒ©ãƒ¢ãƒ¼ãƒ‰
     PowerUp = 1,
 }
