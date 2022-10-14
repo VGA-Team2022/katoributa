@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
 {
-    [SerializeField]float Interval = 10.0f;
-    [SerializeField] GameObject Enemy;
-    [SerializeField] GameObject SpawnPos;
-    [SerializeField] int EnemyLimit = 10;
+    [SerializeField]float _interval = 10.0f;
+    [SerializeField] GameObject _enemy;
+    [SerializeField] GameObject _spawnPos;
+    [SerializeField] int _enemyLimit = 10;
     float timer;
     // Start is called before the first frame update
     void Start()
@@ -18,9 +18,9 @@ public class EnemySpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(EnemyLimit > 0 && timer > Interval)
+        if(_enemyLimit > 0 && timer > _interval)
         {
-            Instantiate(Enemy, SpawnPos.transform);
+            Instantiate(_enemy, _spawnPos.transform);
             timer = 0;
         }
         timer += Time.deltaTime;
