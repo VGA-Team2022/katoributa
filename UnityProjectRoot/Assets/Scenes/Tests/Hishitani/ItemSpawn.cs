@@ -18,12 +18,17 @@ public class ItemSpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!Item && timer > SpawnTime)
+        if(Item.active == false && timer > SpawnTime)
         //対象のアイテムがとられていて、TimerがSpawnTimeより大きい場合、アイテムを生成
         //Timerのリセットはアイテム側でやってもらう予定
         {
-            Instantiate(Item,SpawnPos.transform);
+            Item.active = true;
         }
         timer += Time.deltaTime;
+    }
+
+    public void TimerLiset()
+    {
+        timer = 0.0f;
     }
 }
