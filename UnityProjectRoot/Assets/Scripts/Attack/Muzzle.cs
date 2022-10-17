@@ -18,6 +18,6 @@ public class Muzzle : MonoBehaviour
     public void OnAttack()
     {
         var bullet = Instantiate(bulletObject, gameObject.transform.position, Quaternion.identity);
-        bullet.transform.rotation = this.transform.rotation;
+        bullet.transform.rotation = this.transform.forward;
     }
 }
