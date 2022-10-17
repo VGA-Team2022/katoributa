@@ -25,7 +25,7 @@ public class SenkouHealth : MonoBehaviour
     private void ReduceHealth()
     {
         _health -= Time.deltaTime;
-        _healthText.text = _health.ToString("F2");
+        _healthText.text = "ü‚Ìc‚èŠÔF" + _health.ToString("F2");
     }
 
     /// <summary>
