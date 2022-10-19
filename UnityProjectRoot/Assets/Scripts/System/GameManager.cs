@@ -67,8 +67,33 @@ public class GameManager
 
     void OnUpdate()
     {
-        
+        if(Input.GetButtonDown("Cancel"))
+        {
+            //ポーズ中
+            if(_isPause)
+            {
+                OnResume?.Invoke();
+                Debug.Log("ポーズ解除");
+            }
+            else
+            {
+                OnPause?.Invoke();
+                Debug.Log("ポーズ開始");
+            }
+
+            //逆にする
+            _isPause = !_isPause;
+        }
     }
+
+    #region コールバック
+
+    public void SetupUpdateCallback(GameManagerAttachment attachment)
+    {
+        attachment.SetupCallBack(OnUpdate);
+    }
+
+    #endregion
 }
 
 /// <summary>
