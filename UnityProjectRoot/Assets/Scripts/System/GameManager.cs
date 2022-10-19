@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UniRx;
 
 /// <summary>
 /// ゲームの管理クラス
@@ -14,6 +15,9 @@ public class GameManager
     /// </summary>
     public static GameManager Instance = new GameManager();
 
+    public IReadOnlyReactiveProperty<float> GameTime => _gameTime;
+    public IReadOnlyReactiveProperty<int> Score => _score;
+
     /// <summary>
     /// 蚊取り豚のモード
     /// </summary>
@@ -22,8 +26,8 @@ public class GameManager
 
     #region 変数
 
-    float _gameTime;
-    int _score;
+    FloatReactiveProperty _gameTime = new FloatReactiveProperty();
+    IntReactiveProperty _score = new IntReactiveProperty();
 
     PlayerMode _playerMode = PlayerMode.Normal;
 
@@ -65,8 +69,23 @@ public class GameManager
         Debug.Log($"モードを切り替えた {mode}");
     }
 
+    /// <summary>
+    /// 変数の初期設定
+    /// </summary>
+    /// <param name="attachment"></param>
+    public void OnSetup(GameManagerAttachment attachment)
+    {
+        _gameTime.Value = attachment.GameTime;
+    }
+
+    /// <summary>
+    /// フレーム処理
+    /// </summary>
     void OnUpdate()
     {
+        _gameTime.Value -= Time.deltaTime;
+
+        //ポーズの処理部分
         if(Input.GetButtonDown("Cancel"))
         {
             //ポーズ中
