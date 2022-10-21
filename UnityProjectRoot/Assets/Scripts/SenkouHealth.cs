@@ -35,5 +35,6 @@ public class SenkouHealth : MonoBehaviour
     public void GetHeal(float value)
     {
         _health += value;
+        Debug.Log(value + "‰ñ•œ‚µ‚½");
     }
 }
