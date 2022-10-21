@@ -158,10 +158,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hp: 5
   _hpText: {fileID: 893351973}
-  _rayPos: {fileID: 2083046173}
-  _rayRange: 0.5
-  _fallDamage: 1
-  _damageDistance: 2
+  _damageSpeed: 3
+  _damage: 1
 --- !u!135 &105440637
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -287,7 +285,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &200472436

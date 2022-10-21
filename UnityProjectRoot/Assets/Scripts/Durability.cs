@@ -14,15 +14,9 @@ public class Durability : MonoBehaviour
     [Header("耐久力を表示するText")]
     [SerializeField, Tooltip("表示させるText")] Text _hpText;
 
-    [Header("落下関係")]
-    [SerializeField, Tooltip("Rayを飛ばす場所")] Transform _rayPos;
-    [SerializeField, Tooltip("Rayの距離")] float _rayRange = 0.5f;
-    [SerializeField, Tooltip("落下時のダメージ")] int _fallDamage = 1;
-    [SerializeField, Tooltip("ダメージを受ける際の距離")] float _damageDistance = 2f;
-
-    [Tooltip("落ちているかどうかのフラグ")] bool _isFall = false;
-    [Tooltip("落ちた時の場所")] float _fallPos = 0f;
-    [Tooltip("落下した距離")] float _fallDistance = 0f;
+    [Header("速度に応じてダメージを受ける処理")]
+    [SerializeField, Tooltip("ダメージを受ける速度の下限")] float _damageSpeed = 5f;
+    [SerializeField, Tooltip("ダメージ")] int _damage = 1;
 
 
     private void Start()
@@ -31,55 +25,20 @@ public class Durability : MonoBehaviour
         {
             Debug.LogError("HPテキストが設定されていません");
         }
-        if ( _rayPos == null)
-        {
-            Debug.LogError("Rayポジションが設定されていません");
-        }
 
-        _fallPos = transform.position.y;
         _hpText.text = "蚊取り豚の耐久力：" + _hp.ToString();
     }
 
-    private void Update()
+    private void CheckVelocity(Collision collision)
     {
-        Debug.DrawLine(_rayPos.position, _rayPos.position + Vector3.down * _rayRange, Color.red);
+        // 衝撃を5で割る（計算を楽にするため）
+        float impulse = collision.impulse.magnitude / 5f;
 
-        CheckFalling();
-    }
+        Debug.Log(impulse);
 
-    private void CheckFalling()
-    {
-        //　落ちている状態
-        if (_isFall)
+        if(impulse > _damageSpeed)
         {
-
-            //　落下地点と現在地の距離を計算（ジャンプ等で上に飛んで落下した場合を考慮する為の処理）
-            _fallPos = Mathf.Max(_fallPos, transform.position.y);
-
-            //　地面にレイが届いていたら
-            if (Physics.Linecast(_rayPos.position, _rayPos.position + Vector3.down * _rayRange, LayerMask.GetMask("Ground")))
-            {
-                //　落下距離を計算
-                _fallDistance = _fallPos - transform.position.y;
-                //　落下によるダメージが発生する距離を超える場合ダメージを与える
-                if (_fallDistance >= _damageDistance)
-                {
-                    TakeDamage((int)(_fallDamage));
-                    Debug.Log("ダメージを受けた");
-                }
-                _isFall = false;
-            }
-        }
-        else
-        {
-            //　地面にレイが届いていなければ落下地点を設定
-            if (!Physics.Linecast(_rayPos.position, _rayPos.position + Vector3.down * _rayRange, LayerMask.GetMask("Field", "Block")))
-            {
-                //　最初の落下地点を設定
-                _fallPos = transform.position.y;
-                _fallDistance = 0;
-                _isFall = true;
-            }
+            TakeDamage(_damage);
         }
     }
 
@@ -91,5 +50,10 @@ public class Durability : MonoBehaviour
     {
         _hp -= damage;
         _hpText.text = "蚊取り豚の耐久力：" + _hp.ToString();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        CheckVelocity(collision);
     }
 }
