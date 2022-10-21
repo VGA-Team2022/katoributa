@@ -40,6 +40,17 @@ public class GameManager
     ポーズ処理周り
     */
 
+    /*説明
+    PlayerModeChange(PlayerMode mode)
+        蚊取り豚のモードを変更させる関数
+        引数で与えられたモードに切り替わる
+
+    AddScore(int score)
+        スコアの加算をする関数
+        引数で与えられた値が負の値であれば、ログだけを出して加算はしない
+        0または正の値であった場合ログを出してスコアの加算を行う
+     */
+
     //コンストラクタ
     public GameManager() 
     {
@@ -67,6 +78,21 @@ public class GameManager
     {
         _playerMode = mode;
         Debug.Log($"モードを切り替えた {mode}");
+    }
+
+    /// <summary>
+    /// スコアを加算する
+    /// </summary>
+    public void AddScore(int score)
+    {
+        if(score < 0)
+        {
+            Debug.Log("与えられた値が不正な値でした");
+            return;
+        }
+
+        Debug.Log($"与えられた値:{score} 　現在のスコア:{_score.Value}");
+        _score.Value += score;
     }
 
     /// <summary>
