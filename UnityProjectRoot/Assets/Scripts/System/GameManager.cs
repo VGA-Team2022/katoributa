@@ -112,7 +112,7 @@ public class GameManager
         _gameTime.Value -= Time.deltaTime;
 
         //ポーズの処理部分
-        if(Input.GetButtonDown("Cancel"))
+        if(InputUtility.GetDownPause)
         {
             //ポーズ中
             if(_isPause)
