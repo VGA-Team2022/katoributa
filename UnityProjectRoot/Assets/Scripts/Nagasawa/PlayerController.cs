@@ -1,8 +1,11 @@
 using UnityEngine;
 
+/// <summary>
+/// プレイヤーを動かすコンポーネント
+/// </summary>
 public class PlayerController : MonoBehaviour
 {
-    [Tooltip("移動パターンの制御 Velocityはかくかく,AddForceはスーッと"), SerializeField] 
+    [Tooltip("移動パターンの制御 Velocityはかくかく,AddForceはスーッと"), SerializeField]
     PlayerMovePatternTest _movePattern;
 
     [Tooltip("プレイヤーのスピード"), SerializeField]
@@ -11,11 +14,17 @@ public class PlayerController : MonoBehaviour
     [Tooltip("プレイヤーの移動入力に対する追従度、PlayerSpeedに準拠 AddForceのみ"), SerializeField]
     float _playerSpeedMultiply = 5.0f;
 
+    [Tooltip("スピードの上限 AddForceのみ"), SerializeField]
+    float _maximizePlayerSpeed = 5.0f;
+
     [Tooltip("ジャンプ力"), SerializeField]
     float _playerJumpSpeed = 3.0f;
 
     [Tooltip("地面のレイヤー"), SerializeField]
     LayerMask _groundLayer;
+
+    [Tooltip("設置判定を可視化するかどうか")]
+    bool _isGroundDebug = true;
 
     [Tooltip("設置判定のサイズ"), SerializeField]
     Vector3 _groundCollisionSize;
@@ -30,6 +39,7 @@ public class PlayerController : MonoBehaviour
     float _airDrag = 0f;
 
     Vector3 _centor;
+
     Rigidbody _rb;
 
     void Start()
@@ -42,9 +52,9 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void SetUp()
     {
-        if(!TryGetComponent(out _rb))
+        if (!TryGetComponent(out _rb))
         {
-            _rb =  gameObject.AddComponent<Rigidbody>();
+            _rb = gameObject.AddComponent<Rigidbody>();
         }
 
         //ContainsのRotationX,Zを固定
@@ -98,8 +108,11 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void AddForceMove()
     {
-        Vector3 dir = PlayerVec(InputUtility.GetDirectionMove);
-        _rb.AddForce(_playerSpeedMultiply * (dir - _rb.velocity));
+        if (_rb.velocity.magnitude <= _maximizePlayerSpeed)
+        {
+            Vector3 dir = PlayerVec(InputUtility.GetDirectionMove);
+            _rb.AddForce(_playerSpeedMultiply * (dir - _rb.velocity));
+        }
     }
 
     /// <summary>
@@ -118,7 +131,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// 重力管理
     /// </summary>
     void ControlDrag()
     {
@@ -134,10 +147,11 @@ public class PlayerController : MonoBehaviour
 
     /// <summary>
     /// プレイヤーがジャンプする機能
+    /// 改良予定
     /// </summary>
     void PlayerJump()
     {
-        if(InputUtility.GetDownJump)
+        if (InputUtility.GetDownJump)
         {
             _rb.AddForce(Vector3.up * _playerJumpSpeed, ForceMode.Impulse);
         }
@@ -165,6 +179,18 @@ public class PlayerController : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+
+    /// <summary>
+    /// Layer判定のGizmo表示
+    /// </summary>
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        if(_isGroundDebug)
+        {
+            Gizmos.DrawCube(_centor, _groundCollisionSize);
         }
     }
 
