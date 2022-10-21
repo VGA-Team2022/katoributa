@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    [SerializeField] SenkouHealth _target;
     [SerializeField] float _heal = 10;
     [SerializeField] float _respawnTime = 1.0f;
     float _timer = 0.0f;
@@ -39,9 +38,14 @@ public class Item : MonoBehaviour
     }
     public void Delete() // ƒAƒCƒeƒ€‚ğ‚Æ‚Á‚½‚Ìˆ—
     {
-        _target.GetHeal(_heal);
-        _timer = 0.0f;
-        _collider.enabled = false;
-        _renderer.enabled = false;
+        SenkouHealth _senko = other.GetComponent<SenkouHealth>();
+        if (_senko)
+        {
+            _senko.GetHeal(_heal);
+            _timer = 0.0f;
+            _collider.enabled = false;
+            _renderer.enabled = false;
+            Debug.Log("‚³‚í‚Á‚½");
+        }
     }
 }
