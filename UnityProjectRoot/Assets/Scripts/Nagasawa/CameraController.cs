@@ -41,12 +41,6 @@ public class CameraController : MonoBehaviour
         UpdateCursorLock();
     }
 
-    void CameraState()
-    {
-        _composer.m_HorizontalDamping = _cameraDamping;
-        _composer.m_VerticalDamping = _cameraDamping;
-    }
-
     /// <summary>
     /// 最初のセットアップ
     /// </summary>
@@ -54,6 +48,15 @@ public class CameraController : MonoBehaviour
     {
         _tpf = _vcam.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
         _composer = _vcam.GetCinemachineComponent<CinemachineComposer>();
+    }
+
+    /// <summary>
+    /// カメラの状態を変更する
+    /// </summary>
+    void CameraState()
+    {
+        _composer.m_HorizontalDamping = _cameraDamping;
+        _composer.m_VerticalDamping = _cameraDamping;
     }
 
     /// <summary>
