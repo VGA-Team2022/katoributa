@@ -5,16 +5,13 @@ using UnityEngine;
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
-    [Tooltip("移動パターンの制御 Velocityはかくかく,AddForceはスーッと"), SerializeField]
-    PlayerMovePatternTest _movePattern;
-
     [Tooltip("プレイヤーのスピード"), SerializeField]
     float _playerSpeed = 5.0f;
 
-    [Tooltip("プレイヤーの移動入力に対する追従度、PlayerSpeedに準拠 AddForceのみ"), SerializeField]
+    [Tooltip("プレイヤーの移動入力に対する追従度、PlayerSpeedに準拠"), SerializeField]
     float _playerSpeedMultiply = 5.0f;
 
-    [Tooltip("スピードの上限 AddForceのみ"), SerializeField]
+    [Tooltip("スピードの上限"), SerializeField]
     float _maximizePlayerSpeed = 5.0f;
 
     [Tooltip("ジャンプ力"), SerializeField]
@@ -56,9 +53,6 @@ public class PlayerController : MonoBehaviour
         {
             _rb = gameObject.AddComponent<Rigidbody>();
         }
-
-        //ContainsのRotationX,Zを固定
-        _rb.constraints = (RigidbodyConstraints)80;
     }
 
     void Update()
@@ -77,36 +71,6 @@ public class PlayerController : MonoBehaviour
     /// Playerの移動方法を決定するステート
     /// </summary>
     void PlayerMove()
-    {
-        switch (_movePattern)
-        {
-            case PlayerMovePatternTest.Velocity:
-                VelocityMove();
-                break;
-            case PlayerMovePatternTest.AddForce:
-                AddForceMove();
-                break;
-            default:
-                Debug.LogError("移動パターンを指定してください");
-                break;
-        }
-    }
-
-    /// <summary>
-    /// Rigidbodyのvelocityを使って移動をする。
-    /// かくかくした動き
-    /// </summary>
-    void VelocityMove()
-    {
-        Vector3 dir = PlayerVec(InputUtility.GetDirectionMove);
-        _rb.velocity = dir;
-    }
-
-    /// <summary>
-    /// RigidbodyのAddForceを使い移動する。
-    /// スーッと動いて、スーッと止まる。追従度設定可能。
-    /// </summary>
-    void AddForceMove()
     {
         if (_rb.velocity.magnitude <= _maximizePlayerSpeed)
         {
@@ -192,14 +156,5 @@ public class PlayerController : MonoBehaviour
         {
             Gizmos.DrawCube(_centor, _groundCollisionSize);
         }
-    }
-
-    /// <summary>
-    /// プランナーさんにテストしていただくための列挙
-    /// </summary>
-    enum PlayerMovePatternTest
-    {
-        Velocity,
-        AddForce,
     }
 }
