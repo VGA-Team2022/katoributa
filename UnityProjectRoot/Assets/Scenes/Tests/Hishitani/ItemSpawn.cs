@@ -7,7 +7,7 @@ public class ItemSpawn : MonoBehaviour
     [SerializeField] GameObject _spawnPos;
     [SerializeField] GameObject _item;
     [SerializeField] float _spawnTime = 10.0f;
-    float _timer;
+    public float _timer;
 
     // Start is called before the first frame update
     void Start()
