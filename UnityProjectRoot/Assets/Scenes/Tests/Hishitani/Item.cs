@@ -36,16 +36,4 @@ public class Item : MonoBehaviour
             Debug.Log("‚³‚í‚Á‚½");
         } 
     }
-    public void Delete() // ƒAƒCƒeƒ€‚ğ‚Æ‚Á‚½‚Ìˆ—
-    {
-        SenkouHealth _senko = other.GetComponent<SenkouHealth>();
-        if (_senko)
-        {
-            _senko.GetHeal(_heal);
-            _timer = 0.0f;
-            _collider.enabled = false;
-            _renderer.enabled = false;
-            Debug.Log("‚³‚í‚Á‚½");
-        }
-    }
 }
