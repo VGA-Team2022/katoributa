@@ -4,31 +4,14 @@ using UnityEngine;
 
 public class ItemSpawn : MonoBehaviour
 {
-    [SerializeField] GameObject _spawnPos;
-    [SerializeField] GameObject _item;
-    [SerializeField] float _spawnTime = 10.0f;
-    float _timer;
-
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] Item _item;
+    [SerializeField] List<GameObject> _spawnPosition;
+    private void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(_item.active == false && _timer > _spawnTime)
-        //対象のアイテムがとられていて、TimerがSpawnTimeより大きい場合、アイテムを生成
-        //Timerのリセットはアイテム側でやってもらう予定
+        for (int i = 0; i < _spawnPosition.Count; i++)
         {
-            _item.active = true;
+            Instantiate(_item, _spawnPosition[i].transform);
+            Debug.Log("アイテム出した");
         }
-        _timer += Time.deltaTime;
-    }
-
-    public void TimerLiset()
-    {
-        _timer = 0.0f;
     }
 }

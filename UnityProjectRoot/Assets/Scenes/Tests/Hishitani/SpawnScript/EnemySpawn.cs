@@ -6,7 +6,7 @@ public class EnemySpawn : MonoBehaviour
 {
     [SerializeField]float _interval = 10.0f;
     [SerializeField] GameObject _enemy;
-    [SerializeField] GameObject _spawnPos;
+    [SerializeField] List<GameObject>  _spawnPos;
     [SerializeField] int _enemyLimit = 10;
     float timer;
     // Start is called before the first frame update
@@ -20,7 +20,7 @@ public class EnemySpawn : MonoBehaviour
     {
         if(_enemyLimit > 0 && timer > _interval)
         {
-            Instantiate(_enemy, _spawnPos.transform);
+            Instantiate(_enemy, _spawnPos[Random.Range(0,_spawnPos.Count)].transform);
             timer = 0;
         }
         timer += Time.deltaTime;
