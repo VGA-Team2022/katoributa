@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
 /// 蚊取り線香（体力）の挙動を制御するコンポーネント
@@ -12,7 +12,7 @@ public class SenkouHealth : MonoBehaviour
     [SerializeField, Tooltip("体力の最大値")] float _health = 60f;
 
     [Header("UI")]
-    [SerializeField, Tooltip("体力を表示させるテキスト")] Text _healthText;
+    [SerializeField, Tooltip("体力を表示させるテキスト")] TMP_Text _healthText;
 
     private void Update()
     {

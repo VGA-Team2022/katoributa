@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-
+using TMPro;
 /// <summary>
 /// 線香豚の耐久力（高いところから落ちるとHPが減る）
 /// </summary>
@@ -12,7 +11,7 @@ public class Durability : MonoBehaviour
     [SerializeField, Tooltip("耐久力")] int _hp = 5;
 
     [Header("耐久力を表示するText")]
-    [SerializeField, Tooltip("表示させるText")] Text _hpText;
+    [SerializeField, Tooltip("表示させるText")] TMP_Text _hpText;
 
     [Header("速度に応じてダメージを受ける処理")]
     [SerializeField, Tooltip("ダメージを受ける速度の下限")] float _damageSpeed = 5f;
