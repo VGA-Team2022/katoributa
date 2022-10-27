@@ -101,7 +101,7 @@ public class GameManager
     /// <param name="attachment"></param>
     public void OnSetup(GameManagerAttachment attachment)
     {
-        _gameTime.Value = attachment.GameTime;
+        
     }
 
     /// <summary>
@@ -109,7 +109,7 @@ public class GameManager
     /// </summary>
     void OnUpdate()
     {
-        _gameTime.Value -= Time.deltaTime;
+        _gameTime.Value += Time.deltaTime;
 
         //ポーズの処理部分
         if(InputUtility.GetDownPause)

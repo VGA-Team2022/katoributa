@@ -17,7 +17,7 @@ public class SystemPresenter : MonoBehaviour
             {
                 var m = (int)(x / 60);
                 var s = (int)(x - (60 * m));
-                _timerText.SetText($"Žc‚èŽžŠÔ [{m:00} : {s:00}]");
+                _timerText.SetText($"Œo‰ßŽžŠÔ [{m:00} : {s:00}]");
             }).AddTo(this);
         }
         if(_countText)

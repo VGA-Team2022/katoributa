@@ -12,6 +12,8 @@ public class SoundPlayer : MonoBehaviour
     [Header("設定")]
     [SerializeField, Tooltip("立体音響にする時はチェック")] bool _3DPositioning;
     [SerializeField, Tooltip("使用するCueSheet")] CueSheet _cueSheet;
+    [Space(10)]
+    [SerializeField, Tooltip("Logを表示する")] bool _debugLog = true; 
 
     CriAtomSource _source;
     CriAtomEx.CueInfo[] _cueInfoList;
@@ -64,7 +66,9 @@ public class SoundPlayer : MonoBehaviour
                 //最後まで見つからなかったら戻る
                 if(i == _cueInfoList.Length - 1)
                 {
-                    Debug.LogError($"[{_cueSheet}]に[{name}]がありません");
+                    if(_debugLog)
+                        Debug.LogError($"[{_cueSheet}]に[{name}]がありません");
+
                     return;
                 }
             }
@@ -97,7 +101,9 @@ public class SoundPlayer : MonoBehaviour
                 //最後まで見つからなかったら戻る
                 if (i == _cueInfoList.Length - 1)
                 {
-                    Debug.LogError($"[{_cueSheet}]に指定されたID[{id}]がありません");
+                    if(_debugLog)
+                        Debug.LogError($"[{_cueSheet}]に指定されたID[{id}]がありません");
+
                     return;
                 }
             }
