@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 8834018290156486188}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -113,10 +113,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _wayPoints:
-  - {x: 0, y: 3, z: -4.38}
-  - {x: 0, y: 3, z: 3.4}
-  - {x: 5.23, y: 3, z: 3.4}
-  - {x: 0, y: 3, z: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _moveTime: 0
+  _pathType: 0
 --- !u!114 &8834018290156486194
 MonoBehaviour:
   m_ObjectHideFlags: 0
