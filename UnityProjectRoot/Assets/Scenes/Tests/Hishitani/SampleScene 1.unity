@@ -348,7 +348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _item: {fileID: 1994121010}
-  _spawnTime: 1
+  _spawnPosition: []
 --- !u!4 &875450158
 Transform:
   m_ObjectHideFlags: 0
@@ -695,7 +695,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 60
-  _healthText: {fileID: 549879879}
+  _healthText: {fileID: 0}
 --- !u!1 &1642575437
 GameObject:
   m_ObjectHideFlags: 0
@@ -940,9 +940,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a3d124c7dbc7254996c3389e7c7b2a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetItem: {fileID: 875450157}
-  _target: {fileID: 1559826100}
   _heal: 10
+  _respawnTime: 1
+  _senko: {fileID: 1559826100}
 --- !u!65 &1994121012
 BoxCollider:
   m_ObjectHideFlags: 0
