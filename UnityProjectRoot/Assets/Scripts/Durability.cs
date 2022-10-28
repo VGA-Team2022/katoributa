@@ -53,6 +53,13 @@ public class Durability : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        CheckVelocity(collision);
+        if(collision.gameObject.layer != 10)
+        {
+            CheckVelocity(collision);
+        }
+        else
+        {
+            Debug.Log("ƒNƒbƒVƒ‡ƒ“‚ÉÕ“Ë");
+        }
     }
 }
