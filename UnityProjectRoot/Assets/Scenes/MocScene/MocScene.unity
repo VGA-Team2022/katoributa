@@ -553,6 +553,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5752991162027582185, guid: 8f2104a8ae934604d872d5a88fe2cc76, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0bc2acba1ed8f2c449685833686d51cd, type: 2}
     - target: {fileID: 6113151107120366396, guid: 8f2104a8ae934604d872d5a88fe2cc76, type: 3}
       propertyPath: m_Name
       value: ChMD_Katoributa_test
@@ -1241,10 +1245,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1735,7 +1739,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerSpeed: 20
-  _playerSpeedMultiply: 5
+  _playerSpeedMultiply: 1
   _maximizePlayerSpeed: 10
   _playerJumpSpeed: 10
   _groundLayer:

@@ -94,6 +94,11 @@ public class GameManager
         Debug.Log($"与えられた値:{score} 　現在のスコア:{_score.Value}");
         _score.Value += score;
     }
+    
+    public void OnMosquitoDestroy(MosquitoMove mos)
+    {
+
+    }
 
     /// <summary>
     /// 変数の初期設定
