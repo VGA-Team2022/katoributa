@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Item : MonoBehaviour
@@ -9,6 +7,7 @@ public class Item : MonoBehaviour
     float _timer = 0.0f;
     Collider _collider;
     Renderer _renderer;
+    [SerializeField] SenkouHealth _senko;
     private void Start()
     {
         _collider = gameObject.GetComponent<Collider>();
@@ -26,9 +25,9 @@ public class Item : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        SenkouHealth _senko = other.GetComponent<SenkouHealth>();
-        if (_senko)
+        if (other.tag == "Player")
         {
+            Debug.Log("�Ă΂ꂽ");
             _senko.GetHeal(_heal);
             _timer = 0.0f;
             _collider.enabled = false;
