@@ -19,10 +19,6 @@ public class GameManager
     public IReadOnlyReactiveProperty<int> Score => _score;
     public IReadOnlyReactiveProperty<int> Quota => _quota;
 
-    /// <summary>
-    /// 蚊取り豚のモード
-    /// </summary>
-    public PlayerMode PlayerMode => _playerMode;
     #endregion
 
     #region 変数
@@ -30,8 +26,6 @@ public class GameManager
     FloatReactiveProperty _gameTime = new FloatReactiveProperty();
     IntReactiveProperty _score = new IntReactiveProperty();
     IntReactiveProperty _quota = new IntReactiveProperty();
-
-    PlayerMode _playerMode = PlayerMode.Normal;
 
     bool _isPause;
     #endregion
@@ -70,6 +64,15 @@ public class GameManager
     /// </summary>
     public event Action OnResume;
 
+    /// <summary>
+    /// メラメラモードがPowerUpになった時に呼ばれるイベント
+    /// </summary>
+    public event Action OnPowerUpEvent;
+    /// <summary>
+    /// メラメラモードがNormalになった時に呼ばれるイベント
+    /// </summary>
+    public event Action OnPowerDownEvent;
+
     #endregion
 
     /// <summary>
@@ -78,7 +81,16 @@ public class GameManager
     /// <param name="mode"></param>
     public void PlayerModeChange(PlayerMode mode)
     {
-        _playerMode = mode;
+        switch(mode)
+        {
+            case PlayerMode.PowerUp:
+                OnPowerUpEvent?.Invoke();
+                break;
+            case PlayerMode.Normal:
+                OnPowerDownEvent?.Invoke();
+                break;
+        }
+
         Debug.Log($"モードを切り替えた {mode}");
     }
 
