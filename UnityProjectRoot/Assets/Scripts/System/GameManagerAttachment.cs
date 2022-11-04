@@ -5,11 +5,14 @@ using UnityEngine;
 public class GameManagerAttachment : MonoBehaviour
 {
     #region 変数
-
+    [SerializeField, Tooltip("倒さないといけない敵のノルマ(個)")] int _quota = 10;
     #endregion
 
     #region プロパティ
-
+    /// <summary>
+    /// 敵のノルマ
+    /// </summary>
+    public int Quota => _quota;
     #endregion
 
     #region デリゲート

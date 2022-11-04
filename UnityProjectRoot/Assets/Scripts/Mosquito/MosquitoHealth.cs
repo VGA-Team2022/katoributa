@@ -1,19 +1,29 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ‰á‚Ì‘Ì—ÍA‰Œ‚É“–‚½‚Á‚½‚Ì‹““®
+/// èšŠã®ä½“åŠ›ã€ç…™ã«å½“ãŸã£ãŸæ™‚ã®æŒ™å‹•
 /// </summary>
 public class MosquitoHealth : MonoBehaviour
 {
-    [Header("‰á‚Ì‘Ì—Í")]
-    [SerializeField, Tooltip("‰á‚Ì‘Ì—Í")] int _health = 3;
+    [Header("èšŠã®ä½“åŠ›")]
+    [SerializeField, Tooltip("èšŠã®ä½“åŠ›")] int _health = 3;
+
+    public delegate void DestroyDelegate();
+    public DestroyDelegate OnDestroy;
 
     public void TakeDamage(int damage)
     {
         _health -= damage;
-        Debug.Log($"‰á‚ªƒ_ƒ[ƒW‚ğó‚¯‚½(ó‚¯‚½ƒ_ƒ[ƒWF{damage})");
+        Debug.Log($"èšŠãŒãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ãŸ(å—ã‘ãŸãƒ€ãƒ¡ãƒ¼ã‚¸ï¼š{damage})");
+
+        if(_health >= 0)
+        {
+            Debug.Log($"èšŠãŒå€’ã•ã‚ŒãŸ");
+            OnDestroy?.Invoke();
+            Destroy(this.gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -22,7 +32,7 @@ public class MosquitoHealth : MonoBehaviour
         if(other.gameObject.layer == 8)
         {
             TakeDamage(1);
-            Debug.Log("‰á‚ª‰Œ‚É“–‚½‚Á‚½");
+            Debug.Log("èšŠãŒç…™ã«å½“ãŸã£ãŸ");
         }
     }
 }

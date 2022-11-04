@@ -17,6 +17,7 @@ public class GameManager
 
     public IReadOnlyReactiveProperty<float> GameTime => _gameTime;
     public IReadOnlyReactiveProperty<int> Score => _score;
+    public IReadOnlyReactiveProperty<int> Quota => _quota;
 
     /// <summary>
     /// 蚊取り豚のモード
@@ -28,6 +29,7 @@ public class GameManager
 
     FloatReactiveProperty _gameTime = new FloatReactiveProperty();
     IntReactiveProperty _score = new IntReactiveProperty();
+    IntReactiveProperty _quota = new IntReactiveProperty();
 
     PlayerMode _playerMode = PlayerMode.Normal;
 
@@ -94,11 +96,6 @@ public class GameManager
         Debug.Log($"与えられた値:{score} 　現在のスコア:{_score.Value}");
         _score.Value += score;
     }
-    
-    public void OnMosquitoDestroy(MosquitoMove mos)
-    {
-
-    }
 
     /// <summary>
     /// 変数の初期設定
@@ -106,7 +103,8 @@ public class GameManager
     /// <param name="attachment"></param>
     public void OnSetup(GameManagerAttachment attachment)
     {
-        
+        //倒すノルマを設定
+        _quota.Value = attachment.Quota;
     }
 
     /// <summary>
