@@ -22,6 +22,7 @@ public class MosquitoHealth : MonoBehaviour
         {
             Debug.Log($"蚊が倒された");
             OnDestroy?.Invoke();
+            GameManager.Instance.AddScore(1);
             Destroy(this.gameObject);
         }
     }
