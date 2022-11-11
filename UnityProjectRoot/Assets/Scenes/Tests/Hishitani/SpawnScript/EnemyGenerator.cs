@@ -8,6 +8,8 @@ public class EnemyGenerator : MonoBehaviour
     [SerializeField, Tooltip("巡回する座標")] Transform[] _wayPoints;
     [SerializeField, Tooltip("巡回する座標の数")] int _wayPointsLimit = 4;
     [SerializeField, Tooltip("マップ内に何体出現していいか")] int _limit = 10;
+
+    int _createCount;
     
     void Start()
     {
@@ -24,14 +26,14 @@ public class EnemyGenerator : MonoBehaviour
     /// <summary>
     /// 敵を生成する
     /// </summary>
-    public void Spawn()
+    void Spawn()
     {
         var quotaCount = GameManager.Instance.Quota.Value;
-        var defeatCount = GameManager.Instance.Score.Value;
 
-        //（ノルマ - 倒した数）が０以下であれば何もしない
-        if (quotaCount - defeatCount <= 0) return;
+        //生成した回数がノルマ数よりも多くなったらそれ以上は増やさない
+        if (quotaCount <= _createCount) return;
 
+        _createCount++;
         var points = new Transform[_wayPointsLimit];
 
         for(int i = 0; i < _wayPointsLimit; i++)
