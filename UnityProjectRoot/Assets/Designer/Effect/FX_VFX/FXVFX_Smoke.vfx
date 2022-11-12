@@ -20,7 +20,7 @@ MonoBehaviour:
     x: 628
     y: -419
     width: 918
-    height: 2799
+    height: 2798
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -641,7 +641,7 @@ MonoBehaviour:
   particlePerStripCount: 16
   needsComputeBounds: 0
   boundsMode: 0
-  m_Space: 0
+  m_Space: 1
 --- !u!114 &8926484042661614580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2297,7 +2297,7 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614686}
       inputSlot: {fileID: 8926484042661614601}
-    position: {x: 744, y: 506.39996}
+    position: {x: 731.2, y: 524.8}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661614686
@@ -2515,9 +2515,9 @@ MonoBehaviour:
       inputSlot: {fileID: 8926484042661614664}
     - outputSlot: {fileID: 8926484042661614710}
       inputSlot: {fileID: 8926484042661614665}
-    position: {x: 732.8, y: 424.8}
+    position: {x: 718.4, y: 596}
     expandedSlots: []
-    expanded: 1
+    expanded: 0
 --- !u!114 &8926484042661614708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2862,7 +2862,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614757}
   - {fileID: 8926484042661614758}
   m_OutputSlots: []
-  m_Disabled: 0
+  m_Disabled: 1
   mode: 1
   radiusMode: 0
   roughSurface: 0
@@ -3669,7 +3669,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UIIgnoredErrors: []
-  m_Parent: {fileID: 0}
+  m_Parent: {fileID: 114350483966674976}
   m_Children: []
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
@@ -3719,7 +3719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UIIgnoredErrors: []
-  m_Parent: {fileID: 0}
+  m_Parent: {fileID: 114350483966674976}
   m_Children: []
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
