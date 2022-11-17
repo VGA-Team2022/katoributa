@@ -392,11 +392,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2242581268185914369, guid: 086f22414f7ec4d4c887591b398cbfae, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.264
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2242581268185914369, guid: 086f22414f7ec4d4c887591b398cbfae, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.205
+      value: 0.0451
       objectReference: {fileID: 0}
     - target: {fileID: 2242581268185914369, guid: 086f22414f7ec4d4c887591b398cbfae, type: 3}
       propertyPath: m_LocalPosition.z
@@ -444,6 +444,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2242581269680541659, guid: 086f22414f7ec4d4c887591b398cbfae, type: 3}
       propertyPath: m_InitialEventNameOverriden
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2242581269680541659, guid: 086f22414f7ec4d4c887591b398cbfae, type: 3}
+      propertyPath: m_PropertySheet.m_NamedObject.m_Array.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2242581269680541659, guid: 086f22414f7ec4d4c887591b398cbfae, type: 3}
+      propertyPath: m_PropertySheet.m_NamedObject.m_Array.Array.data[0].m_Name
+      value: Mosquito Tex
+      objectReference: {fileID: 0}
+    - target: {fileID: 2242581269680541659, guid: 086f22414f7ec4d4c887591b398cbfae, type: 3}
+      propertyPath: m_PropertySheet.m_NamedObject.m_Array.Array.data[0].m_Value
+      value: 
+      objectReference: {fileID: 2800000, guid: 5cffaf7f61b99104aa44b9afa71d0706, type: 3}
+    - target: {fileID: 2242581269680541659, guid: 086f22414f7ec4d4c887591b398cbfae, type: 3}
+      propertyPath: m_PropertySheet.m_NamedObject.m_Array.Array.data[0].m_Overridden
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -507,5 +523,9 @@ PrefabInstance:
       propertyPath: m_Asset
       value: 
       objectReference: {fileID: 8926484042661614526, guid: b8b4af9f51c96b742856dfdb8e38d097, type: 3}
+    - target: {fileID: 6107195061929640801, guid: 2dd4da75439eb6842997c374ecf41f86, type: 3}
+      propertyPath: m_ResetSeedOnPlay
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2dd4da75439eb6842997c374ecf41f86, type: 3}
