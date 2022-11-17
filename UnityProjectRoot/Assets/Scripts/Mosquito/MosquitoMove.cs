@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
-using System.Linq;
+using UniRx;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(MosquitoHealth))]
@@ -31,6 +30,8 @@ public class MosquitoMove : MonoBehaviour
 
     float _stopTimer;
 
+    float _delayRandomTime;
+
     Rigidbody _rb;
     Transform _thisTransform;
     SoundPlayer _sound;
@@ -45,6 +46,8 @@ public class MosquitoMove : MonoBehaviour
 
     private void Start()
     {
+        _delayRandomTime = Random.Range(0, 5000);
+
         //ランダムな速さにする
         _currentMoveSpeed = Random.Range(_moveSpeed.x, _moveSpeed.y);
 
@@ -56,7 +59,9 @@ public class MosquitoMove : MonoBehaviour
 
         if (_sound)
         {
-            _sound.PlaySound(_cueId);
+            //少しずらして再生させる
+            Observable.Timer(System.TimeSpan.FromMilliseconds(_delayRandomTime))
+                .Subscribe(_ => _sound.PlaySound(_cueId));
         }
 
         //パーリンノイズで使用するYの値

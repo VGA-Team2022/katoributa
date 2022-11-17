@@ -235,6 +235,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ADX
       objectReference: {fileID: 0}
+    - target: {fileID: 1034167970264363598, guid: b791f7fbf9fb45148a8189bbba221008, type: 3}
+      propertyPath: dontDestroyOnLoad
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1034167970723845991, guid: b791f7fbf9fb45148a8189bbba221008, type: 3}
+      propertyPath: atomConfig.acfFileName
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b791f7fbf9fb45148a8189bbba221008, type: 3}
 --- !u!1 &665471447
@@ -975,6 +983,10 @@ PrefabInstance:
     - target: {fileID: 4369398153503939301, guid: 0934c2048a4047f4ba01a23b6845a31b, type: 3}
       propertyPath: m_Name
       value: EnemyGenerator
+      objectReference: {fileID: 0}
+    - target: {fileID: 4369398153503939306, guid: 0934c2048a4047f4ba01a23b6845a31b, type: 3}
+      propertyPath: _limit
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4369398153503939307, guid: 0934c2048a4047f4ba01a23b6845a31b, type: 3}
       propertyPath: m_RootOrder
