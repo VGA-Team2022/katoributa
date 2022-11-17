@@ -12,6 +12,8 @@ public class SoundPlayer : MonoBehaviour
     [Header("設定")]
     [SerializeField, Tooltip("立体音響にする時はチェック")] bool _3DPositioning = true;
     [SerializeField, Tooltip("ループ再生時はチェック")] bool _loop;
+    [SerializeField, Range(0f,1f), Tooltip("音のボリューム")] float _volume = 1f;
+    [Space(10)]
     [SerializeField, Tooltip("使用するCueSheet")] CueSheet _cueSheet = CueSheet.SE;
     [Space(10)]
     [SerializeField, Tooltip("Logを表示する")] bool _debugLog = true; 
