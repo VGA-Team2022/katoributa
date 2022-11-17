@@ -35,9 +35,13 @@ public class PlayerController : MonoBehaviour
     [Tooltip("ãÛíÜÇ…Ç¢ÇÈÇ∆Ç´ÇÃèdóÕ"), SerializeField]
     float _airDrag = 0f;
 
+    bool _isMove;
+
     Vector3 _centor;
 
     Rigidbody _rb;
+
+    SoundPlayer _soundPlayer;
 
     void Start()
     {
@@ -53,6 +57,7 @@ public class PlayerController : MonoBehaviour
         {
             _rb = gameObject.AddComponent<Rigidbody>();
         }
+        _soundPlayer = GetComponent<SoundPlayer>();
     }
 
     void Update()
@@ -76,6 +81,11 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 dir = PlayerVec(InputUtility.GetDirectionMove);
             _rb.AddForce(_playerSpeedMultiply * (dir - _rb.velocity));
+        }
+
+        if (_isMove)
+        {
+            _soundPlayer.PlaySound("SE_walk wood 3");
         }
     }
 
@@ -118,6 +128,7 @@ public class PlayerController : MonoBehaviour
         if (InputUtility.GetDownJump)
         {
             _rb.AddForce(Vector3.up * _playerJumpSpeed, ForceMode.Impulse);
+            _soundPlayer.PlaySound("SE_jump1");
         }
     }
 
@@ -127,6 +138,15 @@ public class PlayerController : MonoBehaviour
     void PlayerState()
     {
         _centor = transform.position + _playerCentor;
+
+        if (InputUtility.GetDirectionMove == Vector2.zero || !IsGround())
+        {
+            _isMove = false;
+        }
+        else
+        {
+            _isMove = true;
+        }
     }
 
     /// <summary>
