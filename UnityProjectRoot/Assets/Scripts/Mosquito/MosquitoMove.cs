@@ -22,6 +22,8 @@ public class MosquitoMove : MonoBehaviour
     [SerializeField, Tooltip("移動する速さ(Xが最低値・Yが最大値)")] Vector2 _moveSpeed = Vector2.one;
     [SerializeField, Tooltip("巡回地点を変更するまでの距離")] float _moveNextDistance = 0.2f;
     [SerializeField, Tooltip("巡回地点に着いてから次に動き出すまでの時間")] float _stopTime = 0.5f;
+    [Header("サウンド")]
+    [SerializeField, Tooltip("蚊の移動音(ID)")] int _cueId = 3;
 
     int _random;
     int _currentIndex;
@@ -31,25 +33,32 @@ public class MosquitoMove : MonoBehaviour
 
     Rigidbody _rb;
     Transform _thisTransform;
+    SoundPlayer _sound;
 
     private void Awake()
     {
-
         //キャッシュ
         _rb = GetComponent<Rigidbody>();
         _thisTransform = this.transform;
-
-        //ランダムな速さにする
-        _currentMoveSpeed = Random.Range(_moveSpeed.x, _moveSpeed.y);
-
-        if (_rb is null) return;
-
-        //重量を無効化
-        _rb.useGravity = false;
+        _sound = GetComponent<SoundPlayer>();
     }
 
     private void Start()
-    {   
+    {
+        //ランダムな速さにする
+        _currentMoveSpeed = Random.Range(_moveSpeed.x, _moveSpeed.y);
+
+        if (_rb)
+        {
+            //重量を無効化
+            _rb.useGravity = false;
+        }
+
+        if (_sound)
+        {
+            _sound.PlaySound(_cueId);
+        }
+
         //パーリンノイズで使用するYの値
         _random = Random.Range(0, 10);
     }

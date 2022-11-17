@@ -10,8 +10,9 @@ using CriWare;
 public class SoundPlayer : MonoBehaviour
 {
     [Header("設定")]
-    [SerializeField, Tooltip("立体音響にする時はチェック")] bool _3DPositioning;
-    [SerializeField, Tooltip("使用するCueSheet")] CueSheet _cueSheet;
+    [SerializeField, Tooltip("立体音響にする時はチェック")] bool _3DPositioning = true;
+    [SerializeField, Tooltip("ループ再生時はチェック")] bool _loop;
+    [SerializeField, Tooltip("使用するCueSheet")] CueSheet _cueSheet = CueSheet.SE;
     [Space(10)]
     [SerializeField, Tooltip("Logを表示する")] bool _debugLog = true; 
 
@@ -51,6 +52,8 @@ public class SoundPlayer : MonoBehaviour
     {
         var atomExPlayer = _source.player;
 
+        atomExPlayer.Loop(_loop);
+
         //再生中で無ければ
         if(atomExPlayer.GetStatus() != CriAtomExPlayer.Status.Playing)
         {
@@ -85,6 +88,8 @@ public class SoundPlayer : MonoBehaviour
     public void PlaySound(int id)
     {
         var atomExPlayer = _source.player;
+
+        atomExPlayer.Loop(_loop);
 
         //このオブジェクトについているSourceが再生中で無ければ
         if (atomExPlayer.GetStatus() != CriAtomExPlayer.Status.Playing)
