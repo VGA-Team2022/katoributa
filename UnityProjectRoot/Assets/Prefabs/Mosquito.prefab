@@ -194,5 +194,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _3DPositioning: 1
   _loop: 1
+  _volume: 0.15
   _cueSheet: 1
   _debugLog: 1

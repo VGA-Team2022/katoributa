@@ -16,7 +16,7 @@ public class SoundPlayer : MonoBehaviour
     [Space(10)]
     [SerializeField, Tooltip("使用するCueSheet")] CueSheet _cueSheet = CueSheet.SE;
     [Space(10)]
-    [SerializeField, Tooltip("Logを表示する")] bool _debugLog = true; 
+    [SerializeField, Tooltip("Logを表示する")] bool _debugLog = true;
 
     CriAtomSource _source;
     CriAtomEx.CueInfo[] _cueInfoList;
@@ -29,6 +29,7 @@ public class SoundPlayer : MonoBehaviour
 
         ///立体音響にするかの設定
         _source.use3dPositioning = _3DPositioning;
+        _source.player.SetVolume(_volume);
 
         StartCoroutine(Init());
     }
