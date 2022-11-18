@@ -53,6 +53,8 @@ public class PlayerController : MonoBehaviour
 
     float _currentMaximizeSpeed;
 
+    int _currentPlayerMode;
+
     void Start()
     {
         SetUp();
@@ -84,6 +86,7 @@ public class PlayerController : MonoBehaviour
         PlayerState();
         ControlDrag();
         PlayerJump();
+        PlayerPowerUpControll();
     }
 
     void FixedUpdate()
@@ -148,6 +151,15 @@ public class PlayerController : MonoBehaviour
         {
             _rb.AddForce(Vector3.up * _playerJumpSpeed, ForceMode.Impulse);
             _soundPlayer.PlaySound("SE_jump1");
+        }
+    }
+
+    void PlayerPowerUpControll()
+    {
+        if(InputUtility.GetDownActionSwitch)
+        {
+            _currentPlayerMode = _currentPlayerMode++ % 2;
+            GameManager.Instance.PlayerModeChange((PlayerMode)_currentPlayerMode);
         }
     }
 
