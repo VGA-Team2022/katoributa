@@ -43,6 +43,16 @@ public class PlayerController : MonoBehaviour
 
     SoundPlayer _soundPlayer;
 
+    [SerializeField]
+    float _merameraPlayerSpeed = 10.0f;
+
+    [SerializeField]
+    float _merameraPlayerMaximizeSpeed = 10.0f;
+
+    float _currentSpeed;
+
+    float _currentMaximizeSpeed;
+
     void Start()
     {
         SetUp();
@@ -58,6 +68,15 @@ public class PlayerController : MonoBehaviour
             _rb = gameObject.AddComponent<Rigidbody>();
         }
         _soundPlayer = GetComponent<SoundPlayer>();
+        PlayerPowerDown();
+        GameManager.Instance.OnPowerUpEvent += PlayerPowerUp;
+        GameManager.Instance.OnPowerDownEvent += PlayerPowerDown;
+    }
+
+    void OnDestroy()
+    {
+        GameManager.Instance.OnPowerUpEvent -= PlayerPowerUp;
+        GameManager.Instance.OnPowerDownEvent -= PlayerPowerDown;
     }
 
     void Update()
@@ -77,7 +96,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void PlayerMove()
     {
-        if (_rb.velocity.magnitude <= _maximizePlayerSpeed)
+        if (_rb.velocity.magnitude <= _currentMaximizeSpeed)
         {
             Vector3 dir = PlayerVec(InputUtility.GetDirectionMove);
             _rb.AddForce(_playerSpeedMultiply * (dir - _rb.velocity));
@@ -98,7 +117,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 vec = new Vector3(inputVec.x, 0, inputVec.y);
         vec.Normalize();
-        vec *= _playerSpeed;
+        vec *= _currentSpeed;
         vec.y = _rb.velocity.y;
         vec = transform.TransformDirection(vec);
         return vec;
@@ -176,5 +195,17 @@ public class PlayerController : MonoBehaviour
         {
             Gizmos.DrawCube(_centor, _groundCollisionSize);
         }
+    }
+
+    void PlayerPowerUp()
+    {
+        _currentSpeed = _merameraPlayerSpeed;
+        _currentMaximizeSpeed = _merameraPlayerMaximizeSpeed;
+    }
+
+    void PlayerPowerDown()
+    {
+        _currentSpeed = _playerSpeed;
+        _currentMaximizeSpeed = _maximizePlayerSpeed;
     }
 }
