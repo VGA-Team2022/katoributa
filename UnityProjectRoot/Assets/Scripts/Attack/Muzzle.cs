@@ -32,14 +32,14 @@ public class Muzzle : MonoBehaviour
 
     public void OnAttack()
     {
-        _effect.initialEventName = "OnPlay";
+        _effect.enabled = true;
         _collider.enabled = true;
         _time = 0;
     }
 
     public void StopAttack()
     {
-        _effect.initialEventName = "OnStop";
+        _effect.enabled = false;
         _collider.enabled = false;
     }
 }
