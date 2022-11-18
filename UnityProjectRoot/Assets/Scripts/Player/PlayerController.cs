@@ -144,7 +144,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void PlayerJump()
     {
-        if (InputUtility.GetDownJump)
+        if (InputUtility.GetDownJump && IsGround())
         {
             _rb.AddForce(Vector3.up * _playerJumpSpeed, ForceMode.Impulse);
             _soundPlayer.PlaySound("SE_jump1");
