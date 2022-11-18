@@ -26,14 +26,4 @@ public class MosquitoHealth : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-
-        if(other.gameObject.layer == 8)
-        {
-            TakeDamage(1);
-            Debug.Log("蚊が煙に当たった");
-        }
-    }
 }
