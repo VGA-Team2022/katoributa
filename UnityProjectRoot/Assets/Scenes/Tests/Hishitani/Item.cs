@@ -8,6 +8,7 @@ public class Item : MonoBehaviour
     Collider _collider;
     Renderer _renderer;
     [SerializeField] SenkouHealth _senko;
+    [SerializeField] SoundPlayer _soundPlayer;
     private void Start()
     {
         _collider = gameObject.GetComponent<Collider>();
@@ -27,6 +28,7 @@ public class Item : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            _soundPlayer.PlaySound("SE_item get mono");
             Debug.Log("�Ă΂ꂽ");
             _senko.GetHeal(_heal);
             _timer = 0.0f;
