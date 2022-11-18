@@ -173,8 +173,8 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  _groundCollisionSize: {x: 0.9, y: 0.01, z: 0.9}
-  _playerCentor: {x: 0, y: 0, z: 0}
+  _groundCollisionSize: {x: 0.9, y: 0.1, z: 0.9}
+  _playerCentor: {x: 0, y: -0.3, z: 0}
   _groundDrag: 0
   _airDrag: 0
 --- !u!114 &6657567093022885520
