@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 8834018290156486189}
   - component: {fileID: 8834018290156486194}
   - component: {fileID: 8834018290156486195}
+  - component: {fileID: -8924389907683632700}
+  - component: {fileID: 8667172920155184212}
   m_Layer: 0
   m_Name: Mosquito
   m_TagString: Untagged
@@ -112,13 +114,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3fec6f59a759504ba65782a8c24098e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wayPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _moveTime: 0
-  _pathType: 0
+  _moveSpeed: {x: 1, y: 1}
+  _moveNextDistance: 0.2
+  _stopTime: 0.5
+  _cueId: 0
 --- !u!114 &8834018290156486194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,3 +147,53 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-8924389907683632700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8834018290156486188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1e631c3b9947b54c823c6853a05529c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playOnStart: 0
+  _regionOnStart: {fileID: 0}
+  _listenerOnStart: {fileID: 0}
+  _use3dPositioning: 1
+  _freezeOrientation: 0
+  _loop: 0
+  _volume: 1
+  _pitch: 0
+  _androidUseLowLatencyVoicePool: 0
+  need_to_player_update_all: 1
+  _use3dRandomization: 0
+  _randomPositionListMaxLength: 0
+  randomize3dConfig:
+    followsOriginalSource: 0
+    calculationType: 0
+    calculationParameters:
+    - 0
+    - 0
+    - 0
+  _cueName: 
+  _cueSheet: 
+--- !u!114 &8667172920155184212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8834018290156486188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d94f8f170743ca438b5a2802799224b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _3DPositioning: 1
+  _loop: 1
+  _volume: 0.15
+  _cueSheet: 1
+  _debugLog: 1

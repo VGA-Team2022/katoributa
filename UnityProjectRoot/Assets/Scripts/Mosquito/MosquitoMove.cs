@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
-using System.Linq;
+using UniRx;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(MosquitoHealth))]
@@ -18,10 +17,12 @@ public class MosquitoMove : MonoBehaviour
      */
 
     [Header("蚊の巡回地点")]
-    [SerializeField, Tooltip("蚊の巡回地点")] Transform[] _wayPoints;
+    [Tooltip("蚊の巡回地点")] Vector3?[] _wayPoints;
     [SerializeField, Tooltip("移動する速さ(Xが最低値・Yが最大値)")] Vector2 _moveSpeed = Vector2.one;
     [SerializeField, Tooltip("巡回地点を変更するまでの距離")] float _moveNextDistance = 0.2f;
     [SerializeField, Tooltip("巡回地点に着いてから次に動き出すまでの時間")] float _stopTime = 0.5f;
+    [Header("サウンド")]
+    [SerializeField, Tooltip("蚊の移動音(ID)")] int _cueId = 3;
 
     int _random;
     int _currentIndex;
@@ -29,26 +30,40 @@ public class MosquitoMove : MonoBehaviour
 
     float _stopTimer;
 
+    float _delayRandomTime;
+
     Rigidbody _rb;
     Transform _thisTransform;
+    SoundPlayer _sound;
 
     private void Awake()
     {
         //キャッシュ
         _rb = GetComponent<Rigidbody>();
         _thisTransform = this.transform;
+        _sound = GetComponent<SoundPlayer>();
+    }
+
+    private void Start()
+    {
+        _delayRandomTime = Random.Range(0, 5000);
 
         //ランダムな速さにする
         _currentMoveSpeed = Random.Range(_moveSpeed.x, _moveSpeed.y);
 
-        if (_rb is null) return;
+        if (_rb)
+        {
+            //重量を無効化
+            _rb.useGravity = false;
+        }
 
-        //重量を無効化
-        _rb.useGravity = false;
-    }
+        if (_sound)
+        {
+            //少しずらして再生させる
+            Observable.Timer(System.TimeSpan.FromMilliseconds(_delayRandomTime))
+                .Subscribe(_ => _sound.PlaySound(_cueId));
+        }
 
-    private void Start()
-    {   
         //パーリンノイズで使用するYの値
         _random = Random.Range(0, 10);
     }
@@ -59,7 +74,7 @@ public class MosquitoMove : MonoBehaviour
         if(_rb is null) return;
 
         //向かっている巡回地点との距離が一定以下になったら目的地の更新
-        if (Vector3.Distance(_thisTransform.position, _wayPoints[_currentIndex].position) < _moveNextDistance)
+        if (Vector3.Distance(_thisTransform.position, _wayPoints[_currentIndex].Value) < _moveNextDistance)
         {
             //一定時間止まってから
             _stopTimer += Time.deltaTime;
@@ -76,7 +91,7 @@ public class MosquitoMove : MonoBehaviour
             return;
         }
 
-        var dir = _wayPoints[_currentIndex].position - _thisTransform.position;
+        var dir = _wayPoints[_currentIndex].Value - _thisTransform.position;
         dir.Normalize();
 
         //ベクトル更新
@@ -88,7 +103,7 @@ public class MosquitoMove : MonoBehaviour
     /// 生成時にマップ内のランダムな座標を設定する
     /// </summary>
     /// <param name="points"></param>
-    public void Init(Transform[] points)
+    public void Init(Vector3?[] points)
     {
         //一旦空にしてから追加
         _wayPoints = null;
