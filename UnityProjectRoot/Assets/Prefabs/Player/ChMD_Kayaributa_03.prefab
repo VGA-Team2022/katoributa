@@ -502,7 +502,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   _groundCollisionSize: {x: 0.9, y: 0.1, z: 0.9}
-  _playerCentor: {x: 0, y: -0.3, z: 0}
+  _playerCentor: {x: 0, y: -0.5, z: 0}
   _groundDrag: 0
   _airDrag: 0
   _merameraPlayerSpeed: 30
