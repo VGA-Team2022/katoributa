@@ -25,6 +25,14 @@ public class SenkouHealth : MonoBehaviour
     private void ReduceHealth()
     {
         _health -= Time.deltaTime;
+
+        _health = Mathf.Max(0, _health);
+
+        if(_health <= 0)
+        {
+            GameManager.Instance.OnGameOver();
+        }
+
         _healthText.text = "ü‚ÌŽc‚èŽžŠÔF" + _health.ToString("F2");
     }
 

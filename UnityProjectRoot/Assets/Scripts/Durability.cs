@@ -73,5 +73,6 @@ public class Durability : MonoBehaviour
     {
         Debug.Log("Ž€‚ñ‚¾");
         _breaker.Break(_fracture, Vector3.zero);
+        GameManager.Instance.OnGameOver();
     }
 }
