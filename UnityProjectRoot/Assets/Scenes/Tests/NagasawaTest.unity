@@ -577,6 +577,8 @@ MonoBehaviour:
   _playerCentor: {x: 0, y: -0.05, z: 0}
   _groundDrag: 0
   _airDrag: 0
+  _merameraPlayerSpeed: 10
+  _merameraPlayerMaximizeSpeed: 10
 --- !u!54 &276146309
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1253,6 +1255,10 @@ PrefabInstance:
       propertyPath: _vcam
       value: 
       objectReference: {fileID: 294856711}
+    - target: {fileID: 7211827040853916291, guid: ae53d1395f1e4e14981c8dcb26f935a3, type: 3}
+      propertyPath: _merameraPlayerSpeed
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae53d1395f1e4e14981c8dcb26f935a3, type: 3}
 --- !u!1001 &6837438250352757964

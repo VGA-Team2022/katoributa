@@ -177,6 +177,8 @@ MonoBehaviour:
   _playerCentor: {x: 0, y: -0.3, z: 0}
   _groundDrag: 0
   _airDrag: 0
+  _merameraPlayerSpeed: 30
+  _merameraPlayerMaximizeSpeed: 10
 --- !u!114 &6657567093022885520
 MonoBehaviour:
   m_ObjectHideFlags: 0
