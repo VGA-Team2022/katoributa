@@ -8,6 +8,8 @@ public class Muzzle : MonoBehaviour
 {
     [SerializeField] VisualEffect _effect;
     BoxCollider _collider;
+    float _time;
+    float _effectTime = 1.0f;
 
     void Start()
     {
@@ -16,11 +18,13 @@ public class Muzzle : MonoBehaviour
 
     private void Update()
     {
+        _time += Time.deltaTime;
         if (InputUtility.GetDownFire)
         {
             OnAttack();
         }
-        else
+        
+        if(_time >= _effectTime)
         {
             StopAttack();
         }
@@ -30,6 +34,7 @@ public class Muzzle : MonoBehaviour
     {
         _effect.initialEventName = "OnPlay";
         _collider.enabled = true;
+        _time = 0;
     }
 
     public void StopAttack()
