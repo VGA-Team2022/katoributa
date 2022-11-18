@@ -2,10 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.VFX;
 
 public class Muzzle : MonoBehaviour
 {
-    [SerializeField]GameObject bulletObject;
+    [SerializeField] VisualEffect _effect;
+    BoxCollider _collider;
+
+    void Start()
+    {
+        _collider = _effect.GetComponent<BoxCollider>();
+    }
 
     private void Update()
     {
@@ -13,11 +20,21 @@ public class Muzzle : MonoBehaviour
         {
             OnAttack();
         }
+        else
+        {
+            StopAttack();
+        }
     }
 
     public void OnAttack()
     {
-        var bullet = Instantiate(bulletObject, gameObject.transform.position, Quaternion.identity);
-        bullet.transform.forward = this.transform.forward;
+        _effect.initialEventName = "OnPlay";
+        _collider.enabled = true;
+    }
+
+    public void StopAttack()
+    {
+        _effect.initialEventName = "OnStop";
+        _collider.enabled = false;
     }
 }
