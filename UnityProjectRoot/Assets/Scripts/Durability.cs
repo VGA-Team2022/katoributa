@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using BreakObject;
 /// <summary>
 /// 線香豚の耐久力（高いところから落ちるとHPが減る）
 /// </summary>
@@ -16,7 +17,8 @@ public class Durability : MonoBehaviour
     [Header("速度に応じてダメージを受ける処理")]
     [SerializeField, Tooltip("ダメージを受ける速度の下限")] float _damageSpeed = 5f;
     [SerializeField, Tooltip("ダメージ")] int _damage = 1;
-
+    [SerializeField] Breaker _breaker;
+    [SerializeField] Fracture _fracture;
 
     private void Start()
     {
@@ -38,6 +40,10 @@ public class Durability : MonoBehaviour
         if(impulse > _damageSpeed)
         {
             TakeDamage(_damage);
+            if(_hp <= 0)
+            {
+                OnDead();
+            }
         }
     }
 
@@ -61,5 +67,11 @@ public class Durability : MonoBehaviour
         {
             Debug.Log("クッションに衝突");
         }
+    }
+
+    void OnDead()
+    {
+        Debug.Log("死んだ");
+        _breaker.Break(_fracture, Vector3.zero);
     }
 }
