@@ -21,7 +21,6 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("AAA");
         if (other.gameObject.layer == 7)
         {
             Debug.Log("‰á‚ª’e‚É“–‚½‚Á‚½");
