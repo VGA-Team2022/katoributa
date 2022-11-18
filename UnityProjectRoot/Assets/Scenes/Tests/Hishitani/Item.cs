@@ -8,10 +8,13 @@ public class Item : MonoBehaviour
     Collider _collider;
     Renderer _renderer;
     [SerializeField] SenkouHealth _senko;
+    [SerializeField] SoundPlayer _soundPlayer;
+    [SerializeField] string _soundName = "SE_item get mono";
     private void Start()
     {
         _collider = gameObject.GetComponent<Collider>();
         _renderer = gameObject.GetComponent<Renderer>();
+        _senko = GameObject.FindGameObjectWithTag("Player").GetComponent<SenkouHealth>();
     }
     private void Update()
     {
@@ -27,12 +30,20 @@ public class Item : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Debug.Log("ŒÄ‚Î‚ê‚½");
-            _senko.GetHeal(_heal);
-            _timer = 0.0f;
-            _collider.enabled = false;
-            _renderer.enabled = false;
-            Debug.Log("‚³‚í‚Á‚½");
+            if(!_senko)
+            {
+                Debug.Log("_senko‚É‰½‚à“ü‚Á‚Ä‚È‚¢");
+            }
+            else
+            {
+                _soundPlayer.PlaySound(_soundName);
+                Debug.Log("ŒÄ‚Î‚ê‚½");
+                _senko.GetHeal(_heal);
+                _timer = 0.0f;
+                _collider.enabled = false;
+                _renderer.enabled = false;
+                Debug.Log("‚³‚í‚Á‚½");
+            } 
         } 
     }
 }

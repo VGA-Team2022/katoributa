@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(WayPoint))]
 public class EnemyGenerator : MonoBehaviour
 {
     [SerializeField, Tooltip("蚊のプレハブ")] MosquitoMove _enemy;//蚊のオブジェクト
-    [SerializeField, Tooltip("巡回する座標")] Transform[] _wayPoints;
+    [Tooltip("巡回する座標")] Vector3[] _wayPoints;
     [SerializeField, Tooltip("巡回する座標の数")] int _wayPointsLimit = 4;
     [SerializeField, Tooltip("マップ内に何体出現していいか")] int _limit = 10;
 
@@ -13,6 +14,8 @@ public class EnemyGenerator : MonoBehaviour
     
     void Start()
     {
+        _wayPoints = GetComponent<WayPoint>().LocalNodes;
+
         //wayPointsLimitが座標よりも大きかった時に丸める
         _wayPointsLimit = Mathf.Clamp(_wayPointsLimit, 0, _wayPoints.Length);
 
@@ -34,7 +37,7 @@ public class EnemyGenerator : MonoBehaviour
         if (quotaCount <= _createCount) return;
 
         _createCount++;
-        var points = new Transform[_wayPointsLimit];
+        var points = new Vector3?[_wayPointsLimit];
 
         for(int i = 0; i < _wayPointsLimit; i++)
         {
@@ -46,7 +49,7 @@ public class EnemyGenerator : MonoBehaviour
         }
 
         //敵を作成
-        var enemy = Instantiate(_enemy, points[0].position, Quaternion.identity);
+        var enemy = Instantiate(_enemy, points[0].Value, Quaternion.identity);
         //敵の巡回位置を設定
         enemy.Init(points);
 

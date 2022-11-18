@@ -10,10 +10,13 @@ using CriWare;
 public class SoundPlayer : MonoBehaviour
 {
     [Header("設定")]
-    [SerializeField, Tooltip("立体音響にする時はチェック")] bool _3DPositioning;
-    [SerializeField, Tooltip("使用するCueSheet")] CueSheet _cueSheet;
+    [SerializeField, Tooltip("立体音響にする時はチェック")] bool _3DPositioning = true;
+    [SerializeField, Tooltip("ループ再生時はチェック")] bool _loop;
+    [SerializeField, Range(0f,1f), Tooltip("音のボリューム")] float _volume = 1f;
     [Space(10)]
-    [SerializeField, Tooltip("Logを表示する")] bool _debugLog = true; 
+    [SerializeField, Tooltip("使用するCueSheet")] CueSheet _cueSheet = CueSheet.SE;
+    [Space(10)]
+    [SerializeField, Tooltip("Logを表示する")] bool _debugLog = true;
 
     CriAtomSource _source;
     CriAtomEx.CueInfo[] _cueInfoList;
@@ -26,6 +29,8 @@ public class SoundPlayer : MonoBehaviour
 
         ///立体音響にするかの設定
         _source.use3dPositioning = _3DPositioning;
+        _source.volume = _volume;
+        _source.loop = _loop;
 
         StartCoroutine(Init());
     }
@@ -49,11 +54,19 @@ public class SoundPlayer : MonoBehaviour
     /// <param name="name"></param>
     public void PlaySound(string name)
     {
-        var atomExPlayer = _source.player;
-
-        //再生中で無ければ
-        if(atomExPlayer.GetStatus() != CriAtomExPlayer.Status.Playing)
+        if (_cueInfoList is null || _atomExAcb is null)
         {
+            if (_debugLog)
+                Debug.LogError("データの取得が出来ていません");
+
+            return;
+        }
+
+        //var atomExPlayer = _source.player;
+
+        ////再生中で無ければ
+        //if(atomExPlayer.GetStatus() != CriAtomExPlayer.Status.Playing)
+        //{
             //例外をチェック
             for(int i = 0; i < _cueInfoList.Length; i++)
             {
@@ -74,9 +87,11 @@ public class SoundPlayer : MonoBehaviour
             }
 
             //設定
-            atomExPlayer.SetCue(_atomExAcb, name);
-            atomExPlayer.Start();
-        }
+            _source.cueName = name;
+            _source.cueSheet = _cueSheet.ToString();
+
+            _source.Play();
+        //}
     }
     /// <summary>
     /// IDによる再生
@@ -84,13 +99,21 @@ public class SoundPlayer : MonoBehaviour
     /// <param name="id"></param>
     public void PlaySound(int id)
     {
-        var atomExPlayer = _source.player;
-
-        //このオブジェクトについているSourceが再生中で無ければ
-        if (atomExPlayer.GetStatus() != CriAtomExPlayer.Status.Playing)
+        if (_cueInfoList is null || _atomExAcb is null)
         {
-            //例外をチェック
-            for (int i = 0; i < _cueInfoList.Length; i++)
+            if (_debugLog)
+                Debug.LogError("データの取得が出来ていません");
+
+            return;
+        }
+
+        //var atomExPlayer = _source.player;
+
+        ////このオブジェクトについているSourceが再生中で無ければ
+        //if (atomExPlayer.GetStatus() != CriAtomExPlayer.Status.Playing)
+        //{
+        //例外をチェック
+        for (int i = 0; i < _cueInfoList.Length; i++)
             {
                 //CueInfoListに指定されたIDがあったら通す
                 if (_cueInfoList[i].id == id)
@@ -109,9 +132,12 @@ public class SoundPlayer : MonoBehaviour
             }
 
             //設定
-            atomExPlayer.SetCue(_atomExAcb, id);
-            atomExPlayer.Start();
-        }
+            var name = _cueInfoList[id].name;
+            _source.cueName = name;
+            _source.cueSheet = _cueSheet.ToString();
+
+            _source.Play();
+        //}
     }
 
     /*MEMO
