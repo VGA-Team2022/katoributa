@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4112420992106365590}
   - component: {fileID: 2039420268510826363}
   - component: {fileID: 7449056564760656818}
+  - component: {fileID: 7722543327396575958}
   m_Layer: 5
   m_Name: Durability
   m_TagString: Untagged
@@ -135,6 +136,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7722543327396575958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248223159156164966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a0f933df54af624988f6c72b09d5709, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &735804038568147495
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,7 +159,7 @@ GameObject:
   - component: {fileID: 3781937433497459671}
   - component: {fileID: 6637283453311868996}
   - component: {fileID: 6463362114561380763}
-  - component: {fileID: 5626726656194262296}
+  - component: {fileID: 8644113026214024621}
   m_Layer: 5
   m_Name: HealthTImeLimit
   m_TagString: Untagged
@@ -202,7 +215,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u7DDA\u9999\u306E\u6B8B\u308A\u6642\u9593\uFF1A00.00"
+  m_text: "\u7DDA\u9999\u306E\u6B8B\u308A\u6642\u9593\uFF1A[00:00]"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 19d1feb9a36704a439a369adedc58bf5, type: 2}
   m_sharedMaterial: {fileID: -312209006456595782, guid: 19d1feb9a36704a439a369adedc58bf5, type: 2}
@@ -271,7 +284,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &5626726656194262296
+--- !u!114 &8644113026214024621
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -280,11 +293,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 735804038568147495}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 346c314185c67e24c94d5c390d5c6574, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a0f933df54af624988f6c72b09d5709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 60
-  _healthText: {fileID: 6463362114561380763}
 --- !u!1 &5681632361238802050
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,6 +720,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8589437722234559423}
   - component: {fileID: 8583051769288579764}
+  - component: {fileID: 2507362352181091032}
   m_Layer: 5
   m_Name: Rect
   m_TagString: Untagged
@@ -735,8 +747,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 341.61755, y: -78.20795}
-  m_SizeDelta: {x: 683.2346, y: 156.4159}
+  m_AnchoredPosition: {x: 377.182, y: -78.20795}
+  m_SizeDelta: {x: 754.3635, y: 156.4159}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8583051769288579764
 MonoBehaviour:
@@ -764,3 +776,17 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &2507362352181091032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8032504759644495309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35fe2bdd67d93144b9a08a1ba4c2f857, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _senkouText: {fileID: 8644113026214024621}
+  _hpText: {fileID: 7722543327396575958}

@@ -29,6 +29,12 @@ public class GameManagerAttachment : MonoBehaviour
 
     private void Awake()
     {
+        if (_gameOverPanel)
+            _gameOverPanel.gameObject.SetActive(false);
+
+        if (_gameClearPanel)
+            _gameClearPanel.gameObject.SetActive(false);
+
         GameManager.Instance.SetupUpdateCallback(this);
         GameManager.Instance.OnSetup(this);
     }
