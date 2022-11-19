@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
-public class SystemPresenter : MonoBehaviour
+public class SystemTextPresenter : MonoBehaviour
 {
     [Header("設定")]
     [SerializeField, Tooltip("制限時間のテキストを設定")] MVPText _timerText;

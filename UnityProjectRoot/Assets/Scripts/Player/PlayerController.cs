@@ -55,6 +55,9 @@ public class PlayerController : MonoBehaviour
 
     int _currentPlayerMode;
 
+    //ˆêŽž“I‚É’Ç‰Á
+    float _timer;
+
     void Start()
     {
         SetUp();
@@ -107,7 +110,13 @@ public class PlayerController : MonoBehaviour
 
         if (_isMove)
         {
-            _soundPlayer.PlaySound("SE_walk wood 3");
+            _timer += Time.fixedDeltaTime;
+
+            if (_timer >= 0.4f)
+            {
+                _timer = 0;
+                _soundPlayer.PlaySound("SE_walk wood 3");
+            }
         }
     }
 

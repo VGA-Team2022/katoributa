@@ -133,8 +133,13 @@ public class GameManager
     /// <param name="attachment"></param>
     public void OnSetup(GameManagerAttachment attachment)
     {
+        //初期化
+        _score.Value = 0;
+        _gameTime.Value = 0;
+
         //倒すノルマを設定
         _quota.Value = attachment.Quota;
+        //パネルの参照
         _gameClearPanel = attachment.GameClearPanel;
         _gameOverPanel = attachment.GameOverPanel;
     }
