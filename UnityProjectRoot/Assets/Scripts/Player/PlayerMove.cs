@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    [Header("通常時")]
     [Tooltip("プレイヤーのスピード"), SerializeField]
-    float _playerSpeed = 5.0f;
+    float _playerSpeed = 20.0f;
 
     [Tooltip("プレイヤーの移動入力に対する追従度、PlayerSpeedに準拠"), SerializeField]
-    float _playerSpeedMultiply = 5.0f;
+    float _playerSpeedMultiply = 1.0f;
 
     [Tooltip("スピードの上限"), SerializeField]
     float _maximizePlayerSpeed = 5.0f;
 
     [Tooltip("リジッドボディ")]
     Rigidbody _rb;
+
+    Animator _anim;
 
     [Tooltip("現在の最大スピード")]
     float _currentMaximizeSpeed;
@@ -25,14 +28,30 @@ public class PlayerMove : MonoBehaviour
     [Tooltip("サウンドプレイヤーコンポーネント")]
     SoundPlayer _soundPlayer;
 
+    [Header("メラメラ時")]
     [Tooltip("メラメラ時のスピード"), SerializeField]
-    float _merameraPlayerSpeed = 10.0f;
+    float _merameraPlayerSpeed = 20.0f;
 
     [Tooltip("メラメラ時の最大スピード"), SerializeField]
-    float _merameraPlayerMaximizeSpeed = 10.0f;
+    float _merameraPlayerMaximizeSpeed = 5.0f;
 
     [Tooltip("プレイヤーステートコンポーネント")]
     PlayerState _playerState;
+
+    [Header("サウンド")]
+    [SerializeField]
+    int _walkSoundId = 2;
+
+    [Header("マテリアル")]
+    [SerializeField]
+    Material _normalMaterial;
+
+    [SerializeField]
+    Material _merameraMaterial;
+
+    [Space(5)]
+    [SerializeField]
+    SkinnedMeshRenderer _skinnedMesh;
 
     void Start()
     {
@@ -53,14 +72,20 @@ public class PlayerMove : MonoBehaviour
         {
             _rb = gameObject.AddComponent<Rigidbody>();
         }
+
+        _anim = GetComponent<Animator>();
         _soundPlayer = GetComponent<SoundPlayer>();
         _playerState = GetComponent<PlayerState>();
         PlayerPowerDown();
+    }
+
+    void OnEnable()
+    {
         GameManager.Instance.OnPowerUpEvent += PlayerPowerUp;
         GameManager.Instance.OnPowerDownEvent += PlayerPowerDown;
     }
 
-    void OnDestroy()
+    private void OnDisable()
     {
         GameManager.Instance.OnPowerUpEvent -= PlayerPowerUp;
         GameManager.Instance.OnPowerDownEvent -= PlayerPowerDown;
@@ -77,10 +102,8 @@ public class PlayerMove : MonoBehaviour
             _rb.AddForce(_playerSpeedMultiply * (dir - _rb.velocity));
         }
 
-        if (_playerState.IsMove)
-        {
-            _soundPlayer.PlaySound("SE_walk wood 3");
-        }
+        //アニメーションのパラメータに値を設定
+        _anim.SetFloat("Speed", _currentSpeed);
     }
 
     /// <summary>
@@ -102,11 +125,28 @@ public class PlayerMove : MonoBehaviour
     {
         _currentSpeed = _merameraPlayerSpeed;
         _currentMaximizeSpeed = _merameraPlayerMaximizeSpeed;
+
+        if(_skinnedMesh && _merameraMaterial)
+            _skinnedMesh.material = _merameraMaterial;
     }
 
     void PlayerPowerDown()
     {
         _currentSpeed = _playerSpeed;
         _currentMaximizeSpeed = _maximizePlayerSpeed;
+
+        if (_skinnedMesh && _normalMaterial)
+            _skinnedMesh.material = _normalMaterial;
+    }
+
+    /// <summary>
+    /// 歩く時の音を再生する
+    /// </summary>
+    public void EmitWalkSound()
+    {
+        if (_playerState.IsMove)
+        {
+            _soundPlayer.PlaySound(_walkSoundId);
+        }
     }
 }

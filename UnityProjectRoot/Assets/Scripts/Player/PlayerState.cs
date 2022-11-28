@@ -5,6 +5,8 @@ public class PlayerState : MonoBehaviour
     [Tooltip("リジッドボディコンポーネント")]
     Rigidbody _rb;
 
+    Animator _anim;
+
     [Tooltip("動いているかどうか")]
     bool _isMove;
 
@@ -34,11 +36,22 @@ public class PlayerState : MonoBehaviour
 
     public bool IsMove => _isMove;
 
+    private void Start()
+    {
+        SetUp();
+    }
+
     void Update()
     {
         PlayerStateMethod();
         ControlDrag();
         PlayerPowerUpControll();
+    }
+
+    void SetUp()
+    {
+        _anim = GetComponent<Animator>();
+        _rb = GetComponent<Rigidbody>();
     }
 
     /// <summary>
@@ -65,7 +78,8 @@ public class PlayerState : MonoBehaviour
     {
         if (InputUtility.GetDownActionSwitch)
         {
-            _currentPlayerMode = _currentPlayerMode++ % 2;
+            _currentPlayerMode++;
+            _currentPlayerMode %= 2;
             GameManager.Instance.PlayerModeChange((PlayerMode)_currentPlayerMode);
         }
     }
@@ -92,15 +106,16 @@ public class PlayerState : MonoBehaviour
     /// <returns>設置しているかどうか</returns>
     public bool IsGround()
     {
+        bool hit = false;
+
         Collider[] collision = Physics.OverlapBox(_centor, _groundCollisionSize, Quaternion.identity, _groundLayer);
         if (collision.Length != 0)
         {
-            return true;
+            hit = true;
         }
-        else
-        {
-            return false;
-        }
+
+        _anim.SetBool("IsGround", hit);
+        return hit;
     }
 
 
