@@ -196,6 +196,7 @@ GameObject:
   - component: {fileID: -1080720026638566311}
   - component: {fileID: -1679053436153605562}
   - component: {fileID: 2164259957406201827}
+  - component: {fileID: 2351448190718401452}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -401,6 +402,10 @@ MonoBehaviour:
   _maximizePlayerSpeed: 5
   _merameraPlayerSpeed: 30
   _merameraPlayerMaximizeSpeed: 10
+  _walkSoundId: 2
+  _normalMaterial: {fileID: 2100000, guid: b31ec49fd2a6fc946806c2428e1bd767, type: 2}
+  _merameraMaterial: {fileID: 2100000, guid: 498d28d478aa9e04baacd8ab0ce74567, type: 2}
+  _skinnedMesh: {fileID: 1957903507866538374}
 --- !u!114 &2164259957406201827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,6 +419,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerJumpSpeed: 10
+  _merameraJumpSpeed: 8
+  _jumpSoundId: 1
+--- !u!95 &2351448190718401452
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5684026963800286780}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e414dfd0392f5d74f9d6ed6d873e1076, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7789755066614832396
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,8 +2,17 @@ using UnityEngine;
 
 public class PlayerJump : MonoBehaviour
 {
+    [Header("通常時")]
     [Tooltip("ジャンプ力"), SerializeField]
-    float _playerJumpSpeed = 3.0f;
+    float _playerJumpSpeed = 8.0f;
+
+    [Header("メラメラ時")]
+    [SerializeField]
+    float _merameraJumpSpeed = 8f;
+
+    [Header("サウンド")]
+    [SerializeField]
+    int _jumpSoundId = 1;
 
     [Tooltip("プレイヤーステートコンポーネント")]
     PlayerState _playerState;
@@ -18,6 +27,7 @@ public class PlayerJump : MonoBehaviour
     {
         _playerState = GetComponent<PlayerState>();
         _rb = GetComponent<Rigidbody>();
+        _soundPlayer = GetComponent<SoundPlayer>();
     }
 
     void Update()
@@ -34,7 +44,7 @@ public class PlayerJump : MonoBehaviour
         if (InputUtility.GetDownJump && _playerState.IsGround())
         {
             _rb.AddForce(Vector3.up * _playerJumpSpeed, ForceMode.Impulse);
-            _soundPlayer.PlaySound("SE_jump1");
+            _soundPlayer.PlaySound(_jumpSoundId);
         }
     }
 }
