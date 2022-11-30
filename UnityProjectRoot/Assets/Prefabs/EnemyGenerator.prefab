@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d0317c156e073a4ba440b1481e0b57b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemy: {fileID: 8834018290156486189, guid: 6dbcd87ff51acaa488cf31358b976b0b, type: 3}
+  _enemy: {fileID: 8227102006180052365, guid: 6dbcd87ff51acaa488cf31358b976b0b, type: 3}
   _wayPointsLimit: 4
   _limit: 10
 --- !u!114 &990204353
