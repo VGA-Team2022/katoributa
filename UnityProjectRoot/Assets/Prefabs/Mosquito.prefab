@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 288649191501778520}
   - component: {fileID: 288649191501778521}
   - component: {fileID: 8227102006180052365}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mosquito
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,6 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3fec6f59a759504ba65782a8c24098e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _wayPoints: []
   _moveSpeed: {x: 1, y: 4}
   _moveNextDistance: 0.2
   _stopTime: 1
@@ -173,7 +174,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.05
+  m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &288649191501778527
 Rigidbody:
@@ -237,7 +238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _3DPositioning: 1
-  _loop: 0
+  _loop: 1
   _volume: 1
   _cueSheet: 1
   _debugLog: 1
