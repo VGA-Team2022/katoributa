@@ -13,6 +13,7 @@ public class SenkouHealth : MonoBehaviour
     [SerializeField, Tooltip("蚊取り線香の残り時間")] FloatReactiveProperty _senkouTime = new FloatReactiveProperty(60f);
     [SerializeField, Tooltip("メラメラモード時の線香の減る時間")] float _onPowerUpSpeed = 2f;
     [Tooltip("現在の減るスピード")] float _currentSpeed = 1f;
+    [Tooltip("ポーズしているかどうか")] bool _isPaused;
 
     [Header("無敵フラグ")]
     [SerializeField] bool _godMode;
@@ -31,6 +32,8 @@ public class SenkouHealth : MonoBehaviour
     {
         if (_godMode) return;
 
+        if (_isPaused) return;
+
         _senkouTime.Value -= Time.deltaTime * _currentSpeed;
 
         _senkouTime.Value = Mathf.Max(0, _senkouTime.Value);
@@ -39,6 +42,16 @@ public class SenkouHealth : MonoBehaviour
         {
             GameManager.Instance.OnGameOver();
         }
+    }
+
+    private void OnPause()
+    {
+        _isPaused = true;
+    }
+
+    private void OnResume()
+    {
+        _isPaused = false;
     }
 
     private void EnabledPowerUp()
@@ -55,12 +68,16 @@ public class SenkouHealth : MonoBehaviour
     {
         GameManager.Instance.OnPowerUpEvent += EnabledPowerUp;
         GameManager.Instance.OnPowerDownEvent += DisabledPowerUp;
+        GameManager.Instance.OnPause += OnPause;
+        GameManager.Instance.OnResume += OnResume;
     }
 
     private void OnDisable()
     {
         GameManager.Instance.OnPowerUpEvent -= EnabledPowerUp;
         GameManager.Instance.OnPowerDownEvent -= DisabledPowerUp;
+        GameManager.Instance.OnPause -= OnPause;
+        GameManager.Instance.OnResume -= OnResume;
     }
 
     /// <summary>
