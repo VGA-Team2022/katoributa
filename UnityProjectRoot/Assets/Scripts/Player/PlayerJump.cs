@@ -23,11 +23,26 @@ public class PlayerJump : MonoBehaviour
     [Tooltip("プレイヤーの音コンポーネント")]
     SoundPlayer _soundPlayer;
 
+    float _currentJumpSpeed;
+
     void Start()
     {
         _playerState = GetComponent<PlayerState>();
         _rb = GetComponent<Rigidbody>();
         _soundPlayer = GetComponent<SoundPlayer>();
+        PlayerJumpPowerDown();
+    }
+
+    void OnEnable()
+    {
+        GameManager.Instance.OnPowerUpEvent += PlayerJumpPowerUp;
+        GameManager.Instance.OnPowerDownEvent += PlayerJumpPowerDown;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.OnPowerUpEvent -= PlayerJumpPowerUp;
+        GameManager.Instance.OnPowerDownEvent -= PlayerJumpPowerDown;
     }
 
     void Update()
@@ -43,8 +58,18 @@ public class PlayerJump : MonoBehaviour
     {
         if (InputUtility.GetDownJump && _playerState.IsGround())
         {
-            _rb.AddForce(Vector3.up * _playerJumpSpeed, ForceMode.Impulse);
+            _rb.AddForce(Vector3.up * _currentJumpSpeed, ForceMode.Impulse);
             _soundPlayer.PlaySound(_jumpSoundId);
         }
+    }
+
+    void PlayerJumpPowerUp()
+    {
+        _currentJumpSpeed = _merameraJumpSpeed;
+    }
+
+    void PlayerJumpPowerDown()
+    {
+        _currentJumpSpeed = _playerJumpSpeed;
     }
 }

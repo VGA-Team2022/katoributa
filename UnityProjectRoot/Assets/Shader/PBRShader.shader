@@ -9,27 +9,29 @@ Shader "TK/Material/PBRShader"
         _Smoothness("Smoothness", Range(0.0, 1.0)) = 0.0
     }
 
-        SubShader
+    SubShader
+    {
+        Tags
+        {
+            "RenderType" = "Opaque"
+            "RenderPipeline" = "UniversalPipeline"
+            "UniversalMaterialType" = "Lit"
+            "IgnoreProjector" = "True"
+            "Queue" = "Geometry"
+        }
+
+        Cull Off
+
+        Pass
         {
             Tags
             {
-                "RenderType" = "Opaque"
-                "RenderPipeline" = "UniversalPipeline"
-                "UniversalMaterialType" = "Lit"
-                "IgnoreProjector" = "True"
-                "Queue" = "Geometry"
+                "LightMode" = "UniversalForward"
             }
 
-            Pass
-            {
-                Tags
-                {
-                    "LightMode" = "UniversalForward"
-                }
-
-                HLSLPROGRAM
-                #pragma vertex vert
-                #pragma fragment frag
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
 
             // Universal Render Pipeline keywords
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
@@ -111,50 +113,115 @@ Shader "TK/Material/PBRShader"
                 return output;
             }
 
-            half4 frag(Varyings input) : SV_Target
-            {
-                // SurfaceDataを作成
-                SurfaceData surfaceData;
-                surfaceData.normalTS = UnpackNormal(SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, input.uv));
-                half4 col = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, input.uv) * _BaseColor;
-                surfaceData.albedo = col.rgb;
-                surfaceData.alpha = col.a;
-                surfaceData.emission = 0.0;
-                surfaceData.metallic = _Metallic;
-                surfaceData.occlusion = 1.0;
-                surfaceData.smoothness = _Smoothness;
-                surfaceData.specular = 0.0;
-                surfaceData.clearCoatMask = 0.0h;
-                surfaceData.clearCoatSmoothness = 0.0h;
+        half4 frag(Varyings input) : SV_Target
+        {
+            // SurfaceDataを作成
+            SurfaceData surfaceData;
+            surfaceData.normalTS = UnpackNormal(SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, input.uv));
+            half4 col = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, input.uv) * _BaseColor;
+            surfaceData.albedo = col.rgb;
+            surfaceData.alpha = col.a;
+            surfaceData.emission = 0.0;
+            surfaceData.metallic = _Metallic;
+            surfaceData.occlusion = 1.0;
+            surfaceData.smoothness = _Smoothness;
+            surfaceData.specular = 0.0;
+            surfaceData.clearCoatMask = 0.0h;
+            surfaceData.clearCoatSmoothness = 0.0h;
 
-                // InputDataを作成
-                InputData inputData = (InputData)0;
-                inputData.positionWS = input.positionWS;
-                inputData.normalWS = TransformTangentToWorld(surfaceData.normalTS, half3x3(input.tangentWS.xyz, input.bitangentWS.xyz, input.normalWS.xyz));
-                inputData.normalWS = NormalizeNormalPerPixel(inputData.normalWS);
-                inputData.viewDirectionWS = SafeNormalize(input.viewDirWS);
-                inputData.fogCoord = input.fogFactor;
-                inputData.vertexLighting = input.vertexLight;
-                inputData.bakedGI = SAMPLE_GI(input.lightmapUV, input.vertexSH, inputData.normalWS);
-                inputData.normalizedScreenSpaceUV = GetNormalizedScreenSpaceUV(input.positionHCS);
-                inputData.shadowMask = SAMPLE_SHADOWMASK(input.lightmapUV);
-                #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
-                    inputData.shadowCoord = input.shadowCoord;
-                #elif defined(MAIN_LIGHT_CALCULATE_SHADOWS)
-                    inputData.shadowCoord = TransformWorldToShadowCoord(input.positionWS);
-                #else
-                    inputData.shadowCoord = float4(0, 0, 0, 0);
-                #endif
+            // InputDataを作成
+            InputData inputData = (InputData)0;
+            inputData.positionWS = input.positionWS;
+            inputData.normalWS = TransformTangentToWorld(surfaceData.normalTS, half3x3(input.tangentWS.xyz, input.bitangentWS.xyz, input.normalWS.xyz));
+            inputData.normalWS = NormalizeNormalPerPixel(inputData.normalWS);
+            inputData.viewDirectionWS = SafeNormalize(input.viewDirWS);
+            inputData.fogCoord = input.fogFactor;
+            inputData.vertexLighting = input.vertexLight;
+            inputData.bakedGI = SAMPLE_GI(input.lightmapUV, input.vertexSH, inputData.normalWS);
+            inputData.normalizedScreenSpaceUV = GetNormalizedScreenSpaceUV(input.positionHCS);
+            inputData.shadowMask = SAMPLE_SHADOWMASK(input.lightmapUV);
+            #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
+                inputData.shadowCoord = input.shadowCoord;
+            #elif defined(MAIN_LIGHT_CALCULATE_SHADOWS)
+                inputData.shadowCoord = TransformWorldToShadowCoord(input.positionWS);
+            #else
+                inputData.shadowCoord = float4(0, 0, 0, 0);
+            #endif
 
-                    // PBRのライティング計算
-                    half4 color = UniversalFragmentPBR(inputData, surfaceData);
+                // PBRのライティング計算
+                half4 color = UniversalFragmentPBR(inputData, surfaceData);
 
-                    // フォグを適用
-                    color.rgb = MixFog(color.rgb, inputData.fogCoord);
+                // フォグを適用
+                color.rgb = MixFog(color.rgb, inputData.fogCoord);
 
-                    return color;
-                }
-                ENDHLSL
+                return color;
             }
+            ENDHLSL
         }
+
+        Pass
+        {
+            Name "DepthOnly"
+            Tags{"LightMode" = "DepthOnly"}
+
+            ZWrite On
+            ColorMask 0
+            
+
+            HLSLPROGRAM
+            #pragma exclude_renderers gles gles3 glcore
+            #pragma target 4.5
+
+            #pragma vertex DepthOnlyVertex
+            #pragma fragment DepthOnlyFragment
+
+            // -------------------------------------
+            // Material Keywords
+            #pragma shader_feature_local_fragment _ALPHATEST_ON
+            #pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+
+            //--------------------------------------
+            // GPU Instancing
+            #pragma multi_compile_instancing
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
+            ENDHLSL
+        }
+
+            // This pass is used when drawing to a _CameraNormalsTexture texture
+        Pass
+        {
+            Name "DepthNormals"
+            Tags{"LightMode" = "DepthNormals"}
+
+            ZWrite On
+            
+
+            HLSLPROGRAM
+            #pragma exclude_renderers gles gles3 glcore
+            #pragma target 4.5
+
+            #pragma vertex DepthNormalsVertex
+            #pragma fragment DepthNormalsFragment
+
+            // -------------------------------------
+            // Material Keywords
+            #pragma shader_feature_local _NORMALMAP
+            #pragma shader_feature_local _PARALLAXMAP
+            #pragma shader_feature_local _ _DETAIL_MULX2 _DETAIL_SCALED
+            #pragma shader_feature_local_fragment _ALPHATEST_ON
+            #pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+
+            //--------------------------------------
+            // GPU Instancing
+            #pragma multi_compile_instancing
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitDepthNormalsPass.hlsl"
+            ENDHLSL
+        }
+    }
 }
