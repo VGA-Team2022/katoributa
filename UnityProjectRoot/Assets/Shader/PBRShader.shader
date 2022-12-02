@@ -9,27 +9,27 @@ Shader "TK/Material/PBRShader"
         _Smoothness("Smoothness", Range(0.0, 1.0)) = 0.0
     }
 
-        SubShader
+    SubShader
+    {
+        Tags
+        {
+            "RenderType" = "Opaque"
+            "RenderPipeline" = "UniversalPipeline"
+            "UniversalMaterialType" = "Lit"
+            "IgnoreProjector" = "True"
+            "Queue" = "Geometry"
+        }
+
+        Pass
         {
             Tags
             {
-                "RenderType" = "Opaque"
-                "RenderPipeline" = "UniversalPipeline"
-                "UniversalMaterialType" = "Lit"
-                "IgnoreProjector" = "True"
-                "Queue" = "Geometry"
+                "LightMode" = "UniversalForward"
             }
 
-            Pass
-            {
-                Tags
-                {
-                    "LightMode" = "UniversalForward"
-                }
-
-                HLSLPROGRAM
-                #pragma vertex vert
-                #pragma fragment frag
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
 
             // Universal Render Pipeline keywords
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
@@ -111,50 +111,50 @@ Shader "TK/Material/PBRShader"
                 return output;
             }
 
-            half4 frag(Varyings input) : SV_Target
-            {
-                // SurfaceDataを作成
-                SurfaceData surfaceData;
-                surfaceData.normalTS = UnpackNormal(SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, input.uv));
-                half4 col = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, input.uv) * _BaseColor;
-                surfaceData.albedo = col.rgb;
-                surfaceData.alpha = col.a;
-                surfaceData.emission = 0.0;
-                surfaceData.metallic = _Metallic;
-                surfaceData.occlusion = 1.0;
-                surfaceData.smoothness = _Smoothness;
-                surfaceData.specular = 0.0;
-                surfaceData.clearCoatMask = 0.0h;
-                surfaceData.clearCoatSmoothness = 0.0h;
+        half4 frag(Varyings input) : SV_Target
+        {
+            // SurfaceDataを作成
+            SurfaceData surfaceData;
+            surfaceData.normalTS = UnpackNormal(SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, input.uv));
+            half4 col = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, input.uv) * _BaseColor;
+            surfaceData.albedo = col.rgb;
+            surfaceData.alpha = col.a;
+            surfaceData.emission = 0.0;
+            surfaceData.metallic = _Metallic;
+            surfaceData.occlusion = 1.0;
+            surfaceData.smoothness = _Smoothness;
+            surfaceData.specular = 0.0;
+            surfaceData.clearCoatMask = 0.0h;
+            surfaceData.clearCoatSmoothness = 0.0h;
 
-                // InputDataを作成
-                InputData inputData = (InputData)0;
-                inputData.positionWS = input.positionWS;
-                inputData.normalWS = TransformTangentToWorld(surfaceData.normalTS, half3x3(input.tangentWS.xyz, input.bitangentWS.xyz, input.normalWS.xyz));
-                inputData.normalWS = NormalizeNormalPerPixel(inputData.normalWS);
-                inputData.viewDirectionWS = SafeNormalize(input.viewDirWS);
-                inputData.fogCoord = input.fogFactor;
-                inputData.vertexLighting = input.vertexLight;
-                inputData.bakedGI = SAMPLE_GI(input.lightmapUV, input.vertexSH, inputData.normalWS);
-                inputData.normalizedScreenSpaceUV = GetNormalizedScreenSpaceUV(input.positionHCS);
-                inputData.shadowMask = SAMPLE_SHADOWMASK(input.lightmapUV);
-                #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
-                    inputData.shadowCoord = input.shadowCoord;
-                #elif defined(MAIN_LIGHT_CALCULATE_SHADOWS)
-                    inputData.shadowCoord = TransformWorldToShadowCoord(input.positionWS);
-                #else
-                    inputData.shadowCoord = float4(0, 0, 0, 0);
-                #endif
+            // InputDataを作成
+            InputData inputData = (InputData)0;
+            inputData.positionWS = input.positionWS;
+            inputData.normalWS = TransformTangentToWorld(surfaceData.normalTS, half3x3(input.tangentWS.xyz, input.bitangentWS.xyz, input.normalWS.xyz));
+            inputData.normalWS = NormalizeNormalPerPixel(inputData.normalWS);
+            inputData.viewDirectionWS = SafeNormalize(input.viewDirWS);
+            inputData.fogCoord = input.fogFactor;
+            inputData.vertexLighting = input.vertexLight;
+            inputData.bakedGI = SAMPLE_GI(input.lightmapUV, input.vertexSH, inputData.normalWS);
+            inputData.normalizedScreenSpaceUV = GetNormalizedScreenSpaceUV(input.positionHCS);
+            inputData.shadowMask = SAMPLE_SHADOWMASK(input.lightmapUV);
+            #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
+                inputData.shadowCoord = input.shadowCoord;
+            #elif defined(MAIN_LIGHT_CALCULATE_SHADOWS)
+                inputData.shadowCoord = TransformWorldToShadowCoord(input.positionWS);
+            #else
+                inputData.shadowCoord = float4(0, 0, 0, 0);
+            #endif
 
-                    // PBRのライティング計算
-                    half4 color = UniversalFragmentPBR(inputData, surfaceData);
+                // PBRのライティング計算
+                half4 color = UniversalFragmentPBR(inputData, surfaceData);
 
-                    // フォグを適用
-                    color.rgb = MixFog(color.rgb, inputData.fogCoord);
+                // フォグを適用
+                color.rgb = MixFog(color.rgb, inputData.fogCoord);
 
-                    return color;
-                }
-                ENDHLSL
+                return color;
             }
+            ENDHLSL
         }
+    }
 }

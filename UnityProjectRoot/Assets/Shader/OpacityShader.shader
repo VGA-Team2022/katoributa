@@ -38,10 +38,9 @@ Shader "TK/Custom/OpacityShader"
         {
             HLSLPROGRAM
 
+            CBUFFER_START(UnityPerMaterial)
             sampler2D _BaseMap;
             sampler2D _CutMap;
-
-            CBUFFER_START(UnityPerMaterial)
             float4 _BaseMap_ST;
             half4 _BaseColor;
             float4 _CutMap_ST;
@@ -68,69 +67,69 @@ Shader "TK/Custom/OpacityShader"
 
             ENDHLSL
         }
+        Pass
+        {
+            Name "DepthOnly"
+            Tags{"LightMode" = "DepthOnly"}
+
+            ZWrite On
+            ColorMask 0
+            Cull[_Cull]
+
+            HLSLPROGRAM
+            #pragma exclude_renderers gles gles3 glcore
+            #pragma target 4.5
+
+            #pragma vertex DepthOnlyVertex
+            #pragma fragment DepthOnlyFragment
+
+            // -------------------------------------
+            // Material Keywords
+            #pragma shader_feature_local_fragment _ALPHATEST_ON
+            #pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+
+            //--------------------------------------
+            // GPU Instancing
+            #pragma multi_compile_instancing
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
+            ENDHLSL
+        }
+
+            // This pass is used when drawing to a _CameraNormalsTexture texture
             Pass
-            {
-                Name "DepthOnly"
-                Tags{"LightMode" = "DepthOnly"}
+        {
+            Name "DepthNormals"
+            Tags{"LightMode" = "DepthNormals"}
 
-                ZWrite On
-                ColorMask 0
-                Cull[_Cull]
+            ZWrite On
+            Cull[_Cull]
 
-                HLSLPROGRAM
-                #pragma exclude_renderers gles gles3 glcore
-                #pragma target 4.5
+            HLSLPROGRAM
+            #pragma exclude_renderers gles gles3 glcore
+            #pragma target 4.5
 
-                #pragma vertex DepthOnlyVertex
-                #pragma fragment DepthOnlyFragment
+            #pragma vertex DepthNormalsVertex
+            #pragma fragment DepthNormalsFragment
 
-                // -------------------------------------
-                // Material Keywords
-                #pragma shader_feature_local_fragment _ALPHATEST_ON
-                #pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+            // -------------------------------------
+            // Material Keywords
+            #pragma shader_feature_local _NORMALMAP
+            #pragma shader_feature_local _PARALLAXMAP
+            #pragma shader_feature_local _ _DETAIL_MULX2 _DETAIL_SCALED
+            #pragma shader_feature_local_fragment _ALPHATEST_ON
+            #pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
-                //--------------------------------------
-                // GPU Instancing
-                #pragma multi_compile_instancing
-                #pragma multi_compile _ DOTS_INSTANCING_ON
+            //--------------------------------------
+            // GPU Instancing
+            #pragma multi_compile_instancing
+            #pragma multi_compile _ DOTS_INSTANCING_ON
 
-                #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
-                #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
-                ENDHLSL
-            }
-
-                // This pass is used when drawing to a _CameraNormalsTexture texture
-                Pass
-            {
-                Name "DepthNormals"
-                Tags{"LightMode" = "DepthNormals"}
-
-                ZWrite On
-                Cull[_Cull]
-
-                HLSLPROGRAM
-                #pragma exclude_renderers gles gles3 glcore
-                #pragma target 4.5
-
-                #pragma vertex DepthNormalsVertex
-                #pragma fragment DepthNormalsFragment
-
-                // -------------------------------------
-                // Material Keywords
-                #pragma shader_feature_local _NORMALMAP
-                #pragma shader_feature_local _PARALLAXMAP
-                #pragma shader_feature_local _ _DETAIL_MULX2 _DETAIL_SCALED
-                #pragma shader_feature_local_fragment _ALPHATEST_ON
-                #pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-
-                //--------------------------------------
-                // GPU Instancing
-                #pragma multi_compile_instancing
-                #pragma multi_compile _ DOTS_INSTANCING_ON
-
-                #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
-                #include "Packages/com.unity.render-pipelines.universal/Shaders/LitDepthNormalsPass.hlsl"
-                ENDHLSL
-            }
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitDepthNormalsPass.hlsl"
+            ENDHLSL
+        }
     }
 }
