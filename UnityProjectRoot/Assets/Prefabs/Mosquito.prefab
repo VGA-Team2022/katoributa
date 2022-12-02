@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8834018290156486188
+--- !u!1 &288649191501778522
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,66 +8,141 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8834018290156486193}
-  - component: {fileID: 8834018290156486192}
-  - component: {fileID: 8834018290156486191}
-  - component: {fileID: 8834018290156486190}
-  - component: {fileID: 8834018290156486189}
-  - component: {fileID: 8834018290156486194}
-  - component: {fileID: 8834018290156486195}
-  - component: {fileID: -8924389907683632700}
-  - component: {fileID: 8667172920155184212}
-  m_Layer: 0
+  - component: {fileID: 288649191501778513}
+  - component: {fileID: 288649191501778514}
+  - component: {fileID: 288649191501778515}
+  - component: {fileID: 288649191501778524}
+  - component: {fileID: 288649191501778525}
+  - component: {fileID: 288649191501778526}
+  - component: {fileID: 288649191501778527}
+  - component: {fileID: 288649191501778520}
+  - component: {fileID: 288649191501778521}
+  - component: {fileID: 8227102006180052365}
+  m_Layer: 7
   m_Name: Mosquito
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8834018290156486193
+--- !u!4 &288649191501778513
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8834018290156486188}
+  m_GameObject: {fileID: 288649191501778522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_LocalPosition: {x: 0, y: 3.866, z: 2.012}
+  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8834018290156486192
-MeshFilter:
+--- !u!114 &288649191501778514
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8834018290156486188}
-  m_Mesh: {fileID: 5387599940676884355, guid: 66af1e5176457424bb0e51d1186e33b1, type: 3}
---- !u!23 &8834018290156486191
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8834018290156486188}
+  m_GameObject: {fileID: 288649191501778522}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95cc68ea24a94e447b487063f8876ba0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 3
+  _fallingSpeed: 5
+--- !u!114 &288649191501778515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288649191501778522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3fec6f59a759504ba65782a8c24098e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _wayPoints: []
+  _moveSpeed: {x: 1, y: 4}
+  _moveNextDistance: 0.2
+  _stopTime: 1
+  _cueId: 3
+--- !u!2083052967 &288649191501778524
+VisualEffect:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288649191501778522}
+  m_Enabled: 1
+  m_Asset: {fileID: 8926484042661614526, guid: e1c1d2a3eb2e7304abb4919529a3af8b, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
+  m_StartSeed: 0
+  m_ResetSeedOnPlay: 1
+  m_ResourceVersion: 1
+  m_PropertySheet:
+    m_Float:
+      m_Array:
+      - m_Value: 10
+        m_Name: Turbulence Drag
+        m_Overridden: 0
+      - m_Value: 10
+        m_Name: Mosquito Rate
+        m_Overridden: 1
+      - m_Value: 2.5
+        m_Name: Turbulence Intensity
+        m_Overridden: 0
+    m_Vector2f:
+      m_Array: []
+    m_Vector3f:
+      m_Array:
+      - m_Value: {x: 0, y: 0, z: 0}
+        m_Name: Position
+        m_Overridden: 1
+    m_Vector4f:
+      m_Array: []
+    m_Uint:
+      m_Array: []
+    m_Int:
+      m_Array: []
+    m_Matrix4x4f:
+      m_Array: []
+    m_AnimationCurve:
+      m_Array: []
+    m_Gradient:
+      m_Array: []
+    m_NamedObject:
+      m_Array:
+      - m_Value: {fileID: 2800000, guid: 276d9e395ae18fe40a9b4988549f2349, type: 3}
+        m_Name: Mosquito Tex
+        m_Overridden: 1
+    m_Bool:
+      m_Array: []
+--- !u!73398921 &288649191501778525
+VFXRenderer:
+  serializedVersion: 1
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288649191501778522}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 5561349426305759274, guid: 66af1e5176457424bb0e51d1186e33b1, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -88,58 +163,28 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &8834018290156486190
+--- !u!135 &288649191501778526
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8834018290156486188}
+  m_GameObject: {fileID: 288649191501778522}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8834018290156486189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8834018290156486188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3fec6f59a759504ba65782a8c24098e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveSpeed: {x: 1, y: 4}
-  _moveNextDistance: 0.2
-  _stopTime: 0.5
-  _cueId: 3
---- !u!114 &8834018290156486194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8834018290156486188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95cc68ea24a94e447b487063f8876ba0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _health: 3
---- !u!54 &8834018290156486195
+--- !u!54 &288649191501778527
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8834018290156486188}
+  m_GameObject: {fileID: 288649191501778522}
   serializedVersion: 2
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -147,13 +192,13 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-8924389907683632700
+--- !u!114 &288649191501778520
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8834018290156486188}
+  m_GameObject: {fileID: 288649191501778522}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1e631c3b9947b54c823c6853a05529c, type: 3}
@@ -180,13 +225,13 @@ MonoBehaviour:
     - 0
   _cueName: 
   _cueSheet: 
---- !u!114 &8667172920155184212
+--- !u!114 &288649191501778521
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8834018290156486188}
+  m_GameObject: {fileID: 288649191501778522}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d94f8f170743ca438b5a2802799224b, type: 3}
@@ -194,6 +239,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _3DPositioning: 1
   _loop: 1
-  _volume: 0.15
+  _volume: 1
   _cueSheet: 1
   _debugLog: 1
+--- !u!114 &8227102006180052365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288649191501778522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b95dad9d94350e94aaf54be8e6c89943, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
