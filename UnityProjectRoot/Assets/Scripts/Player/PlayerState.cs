@@ -22,7 +22,7 @@ public class PlayerState : MonoBehaviour
     [Tooltip("地面のレイヤー"), SerializeField]
     LayerMask[] _groundLayers;
 
-    [Tooltip("それぞれの着地音")]
+    [Tooltip("それぞれの着地音"), SerializeField]
     int[] _landingSoundIds;
 
     [Tooltip("現状のプレイヤーのモード")]
