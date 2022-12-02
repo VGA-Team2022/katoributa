@@ -38,9 +38,11 @@ Shader "TK/Custom/OpacityShader"
         {
             HLSLPROGRAM
 
-            CBUFFER_START(UnityPerMaterial)
+
             sampler2D _BaseMap;
             sampler2D _CutMap;
+
+            CBUFFER_START(UnityPerMaterial)
             float4 _BaseMap_ST;
             half4 _BaseColor;
             float4 _CutMap_ST;
