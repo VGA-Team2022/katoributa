@@ -1315,6 +1315,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChMD_Kayaributa_03
       objectReference: {fileID: 0}
+    - target: {fileID: 6657567093022885520, guid: ae53d1395f1e4e14981c8dcb26f935a3, type: 3}
+      propertyPath: _cam
+      value: 
+      objectReference: {fileID: 858609755}
+    - target: {fileID: 6657567093022885520, guid: ae53d1395f1e4e14981c8dcb26f935a3, type: 3}
+      propertyPath: _vcam
+      value: 
+      objectReference: {fileID: 294856711}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae53d1395f1e4e14981c8dcb26f935a3, type: 3}
 --- !u!1001 &6837438250352757964
