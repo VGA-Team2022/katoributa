@@ -76,19 +76,19 @@ public class PlayerMove : MonoBehaviour
         _anim = GetComponent<Animator>();
         _soundPlayer = GetComponent<SoundPlayer>();
         _playerState = GetComponent<PlayerState>();
-        PlayerPowerDown();
+        PlayerMovePowerDown();
     }
 
     void OnEnable()
     {
-        GameManager.Instance.OnPowerUpEvent += PlayerPowerUp;
-        GameManager.Instance.OnPowerDownEvent += PlayerPowerDown;
+        GameManager.Instance.OnPowerUpEvent += PlayerMovePowerUp;
+        GameManager.Instance.OnPowerDownEvent += PlayerMovePowerDown;
     }
 
     private void OnDisable()
     {
-        GameManager.Instance.OnPowerUpEvent -= PlayerPowerUp;
-        GameManager.Instance.OnPowerDownEvent -= PlayerPowerDown;
+        GameManager.Instance.OnPowerUpEvent -= PlayerMovePowerUp;
+        GameManager.Instance.OnPowerDownEvent -= PlayerMovePowerDown;
     }
 
     /// <summary>
@@ -96,14 +96,14 @@ public class PlayerMove : MonoBehaviour
     /// </summary>
     void PlayerMoveMethod()
     {
-        if (_rb.velocity.magnitude <= _currentMaximizeSpeed)
+        if (_playerState.PlayerSpeedSqrMagnitude <= _currentMaximizeSpeed * _currentMaximizeSpeed)
         {
             Vector3 dir = PlayerVec(InputUtility.GetDirectionMove);
             _rb.AddForce(_playerSpeedMultiply * (dir - _rb.velocity));
         }
 
         //アニメーションのパラメータに値を設定
-        _anim.SetFloat("Speed", _currentSpeed);
+        _anim.SetFloat("Speed", _playerState.PlayerSpeedSqrMagnitude);
     }
 
     /// <summary>
@@ -121,7 +121,7 @@ public class PlayerMove : MonoBehaviour
         return vec;
     }
 
-    void PlayerPowerUp()
+    void PlayerMovePowerUp()
     {
         _currentSpeed = _merameraPlayerSpeed;
         _currentMaximizeSpeed = _merameraPlayerMaximizeSpeed;
@@ -130,7 +130,7 @@ public class PlayerMove : MonoBehaviour
             _skinnedMesh.material = _merameraMaterial;
     }
 
-    void PlayerPowerDown()
+    void PlayerMovePowerDown()
     {
         _currentSpeed = _playerSpeed;
         _currentMaximizeSpeed = _maximizePlayerSpeed;
