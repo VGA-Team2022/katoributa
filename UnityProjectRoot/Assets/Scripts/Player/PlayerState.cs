@@ -20,7 +20,10 @@ public class PlayerState : MonoBehaviour
     Vector3 _playerCentor;
 
     [Tooltip("地面のレイヤー"), SerializeField]
-    LayerMask _groundLayer;
+    LayerMask[] _groundLayers;
+
+    [Tooltip("それぞれの着地音")]
+    int[] _landingSoundIds;
 
     [Tooltip("現状のプレイヤーのモード")]
     int _currentPlayerMode;
@@ -34,8 +37,16 @@ public class PlayerState : MonoBehaviour
     [Tooltip("設置判定のサイズ"), SerializeField]
     Vector3 _groundCollisionSize;
 
+    [Tooltip("サウンドプレイヤーコンポーネント")]
+    SoundPlayer _soundPlayer;
+
+    bool _isLanding;
+
+    float _playerSpeedSqrMagnitude;
+
     public bool IsMove => _isMove;
 
+    public float PlayerSpeedSqrMagnitude => _playerSpeedSqrMagnitude;
     private void Start()
     {
         SetUp();
@@ -52,6 +63,7 @@ public class PlayerState : MonoBehaviour
     {
         _anim = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
+        _soundPlayer = GetComponent<SoundPlayer>();
     }
 
     /// <summary>
@@ -60,6 +72,7 @@ public class PlayerState : MonoBehaviour
     void PlayerStateMethod()
     {
         _centor = transform.position + _playerCentor;
+        _playerSpeedSqrMagnitude = Vector3.ProjectOnPlane(_rb.velocity, Vector3.up).sqrMagnitude;
 
         if (InputUtility.GetDirectionMove == Vector2.zero || !IsGround())
         {
@@ -108,12 +121,24 @@ public class PlayerState : MonoBehaviour
     {
         bool hit = false;
 
-        Collider[] collision = Physics.OverlapBox(_centor, _groundCollisionSize, Quaternion.identity, _groundLayer);
-        if (collision.Length != 0)
+        for(int i = 0; i < _groundLayers.Length; i++)
         {
-            hit = true;
+            Collider[] collision = Physics.OverlapBox(_centor, _groundCollisionSize, Quaternion.identity, _groundLayers[i]);
+            if (collision.Length != 0)
+            {
+                hit = true;
+                if(!_isLanding)
+                {
+                    _isLanding = true;
+                    _soundPlayer.PlaySound(_landingSoundIds[i]);
+                }
+            }
         }
 
+        if (!hit)
+        {
+            _isLanding = false;
+        }
         _anim.SetBool("IsGround", hit);
         return hit;
     }
