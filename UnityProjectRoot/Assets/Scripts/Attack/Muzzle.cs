@@ -6,40 +6,35 @@ using UnityEngine.VFX;
 
 public class Muzzle : MonoBehaviour
 {
-    [SerializeField] VisualEffect _effect;
-    BoxCollider _collider;
-    float _time;
-    float _effectTime = 1.0f;
+    [SerializeField] Bullet _bullet;
+    [SerializeField] Transform _muzzuleTransform;
 
-    void Start()
+    GameObject _root;
+
+    private void Awake()
     {
-        _collider = _effect.GetComponent<BoxCollider>();
+        if(!_muzzuleTransform)
+        {
+            _muzzuleTransform = this.transform;
+        }
+    }
+
+    private void Start()
+    {
+        _root = new GameObject("BulletRoot");
     }
 
     private void Update()
     {
-        _time += Time.deltaTime;
-        if (InputUtility.GetDownFire)
+        if(InputUtility.GetDownFire)
         {
             OnAttack();
         }
-        
-        if(_time >= _effectTime)
-        {
-            StopAttack();
-        }
     }
 
-    public void OnAttack()
+    void OnAttack()
     {
-        _effect.SendEvent("OnPlay");
-        _collider.enabled = true;
-        _time = 0;
-    }
-
-    public void StopAttack()
-    {
-        _effect.SendEvent("StopPlay");
-        _collider.enabled = false;
+        var bullet = Instantiate(_bullet, _muzzuleTransform.position, Quaternion.identity, _root.transform);
+        bullet.transform.LookAt(_muzzuleTransform.forward);
     }
 }
