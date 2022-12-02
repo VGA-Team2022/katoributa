@@ -16,10 +16,10 @@ MonoBehaviour:
   - title: Mosquito Crowd
     position:
       serializedVersion: 2
-      x: 1760
+      x: 1785
       y: -219
-      width: 835
-      height: 2597
+      width: 810
+      height: 2601
     contents:
     - model: {fileID: 8926484042661614691}
       id: 0
@@ -72,15 +72,15 @@ MonoBehaviour:
   stickyNoteInfos: []
   categories:
   - name: Mosquito
-    collapsed: 0
+    collapsed: 1
   - name: Turbulence
-    collapsed: 0
+    collapsed: 1
   uiBounds:
     serializedVersion: 2
-    x: 1760
-    y: -219
-    width: 2470
-    height: 4192
+    x: 1785
+    y: -220
+    width: 811
+    height: 2602
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -347,7 +347,7 @@ MonoBehaviour:
   m_Nodes:
   - m_Id: 1
     linkedSlots: []
-    position: {x: 1785, y: 2117}
+    position: {x: 1810, y: 2192}
     expandedSlots: []
     expanded: 1
 --- !u!114 &8926484042661614642
