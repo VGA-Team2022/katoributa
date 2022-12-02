@@ -8,13 +8,17 @@ public class Shooter : MonoBehaviour
     [SerializeField, Tooltip("生成する弾のプレハブをアタッチ")]
     GameObject _bulletPref = null;
 
+    [SerializeField, Tooltip("一度に表示できる弾の数")]
+    int _bulletCapacity = 30;
+
     /// <summary> 発射した弾 </summary>
-    GameObject[] _bullets = new GameObject[30];
+    GameObject[] _bullets = null;
 
     // Start is called before the first frame update
     void Start()
     {
-        for(int i = 0; i < _bullets.Length; i++)
+        _bullets = new GameObject[_bulletCapacity];
+        for (int i = 0; i < _bullets.Length; i++)
         {
             _bullets[i] = Instantiate(_bulletPref);
             _bullets[i].SetActive(false);
