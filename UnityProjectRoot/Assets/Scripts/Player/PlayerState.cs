@@ -113,8 +113,6 @@ public class PlayerState : MonoBehaviour
             _rb.drag = _airDrag;
             _rb.AddForce((_multiplierGravity - 1f) * Physics.gravity, ForceMode.Acceleration);
         }
-
-        
     }
 
     /// <summary>

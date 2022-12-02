@@ -53,6 +53,8 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     SkinnedMeshRenderer _skinnedMesh;
 
+    bool _isPowerUp;
+
     void Start()
     {
         SetUp();
@@ -96,6 +98,9 @@ public class PlayerMove : MonoBehaviour
     /// </summary>
     void PlayerMoveMethod()
     {
+        if (!_isPowerUp && !_playerState.IsGround())
+            return;
+
         if (_playerState.PlayerSpeedSqrMagnitude <= _currentMaximizeSpeed * _currentMaximizeSpeed)
         {
             Vector3 dir = PlayerVec(InputUtility.GetDirectionMove);
@@ -125,6 +130,7 @@ public class PlayerMove : MonoBehaviour
     {
         _currentSpeed = _merameraPlayerSpeed;
         _currentMaximizeSpeed = _merameraPlayerMaximizeSpeed;
+        _isPowerUp = true;
 
         if(_skinnedMesh && _merameraMaterial)
             _skinnedMesh.material = _merameraMaterial;
@@ -134,6 +140,7 @@ public class PlayerMove : MonoBehaviour
     {
         _currentSpeed = _playerSpeed;
         _currentMaximizeSpeed = _maximizePlayerSpeed;
+        _isPowerUp = false;
 
         if (_skinnedMesh && _normalMaterial)
             _skinnedMesh.material = _normalMaterial;
