@@ -20,6 +20,8 @@ Shader "TK/Material/PBRShader"
             "Queue" = "Geometry"
         }
 
+        Cull Off
+
         Pass
         {
             Tags
@@ -164,7 +166,7 @@ Shader "TK/Material/PBRShader"
 
             ZWrite On
             ColorMask 0
-            Cull[_Cull]
+            
 
             HLSLPROGRAM
             #pragma exclude_renderers gles gles3 glcore
@@ -195,7 +197,7 @@ Shader "TK/Material/PBRShader"
             Tags{"LightMode" = "DepthNormals"}
 
             ZWrite On
-            Cull[_Cull]
+            
 
             HLSLPROGRAM
             #pragma exclude_renderers gles gles3 glcore
