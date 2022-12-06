@@ -44,6 +44,8 @@ public class PlayerState : MonoBehaviour
 
     float _playerSpeedSqrMagnitude;
 
+    [SerializeField] float _multiplierGravity = 1.0f;
+
     public bool IsMove => _isMove;
 
     public float PlayerSpeedSqrMagnitude => _playerSpeedSqrMagnitude;
@@ -109,9 +111,9 @@ public class PlayerState : MonoBehaviour
         else
         {
             _rb.drag = _airDrag;
+            _rb.AddForce((_multiplierGravity - 1f) * Physics.gravity, ForceMode.Acceleration);
         }
     }
-
 
     /// <summary>
     /// ê›íuîªíË
