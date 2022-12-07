@@ -8,8 +8,10 @@ public class Muzzle : MonoBehaviour
 {
     [SerializeField] Bullet _bullet;
     [SerializeField] Transform _muzzuleTransform;
+    [SerializeField] int _limit = 20;
+    [SerializeField] GameObject a;
 
-    GameObject _root;
+    ObjectPool<Bullet> _pool = new ObjectPool<Bullet> ();
 
     private void Awake()
     {
@@ -21,20 +23,27 @@ public class Muzzle : MonoBehaviour
 
     private void Start()
     {
-        _root = new GameObject("BulletRoot");
+        var pos = _muzzuleTransform.position;
+        pos.z += 100;
+
+        a.transform.position = Camera.main.WorldToScreenPoint (pos);
+
+        var root = new GameObject("BulletRoot").transform;
+
+        _pool.SetBaseObj(_bullet, root);
+        _pool.SetCapacity(_limit);
     }
 
     private void Update()
     {
         if(InputUtility.GetDownFire)
         {
-            OnAttack();
+            Fire();
         }
     }
 
-    void OnAttack()
+    void Fire()
     {
-        var bullet = Instantiate(_bullet, _muzzuleTransform.position, Quaternion.identity, _root.transform);
-        bullet.transform.LookAt(_muzzuleTransform.forward);
+        var bullet = _pool.Instantiate();
     }
 }
