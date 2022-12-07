@@ -24,15 +24,6 @@ public class ShakeCamera : MonoBehaviour
         _source.m_ImpulseDefinition.m_FrequencyGain = _shakeGain;
     }
 
-    public void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.I))
-        {
-            Debug.Log("“Ç‚ñ‚¾");
-            ShakeMethod();
-        }
-    }
-
     public void ShakeMethod()
     {
         _source.GenerateImpulse();
