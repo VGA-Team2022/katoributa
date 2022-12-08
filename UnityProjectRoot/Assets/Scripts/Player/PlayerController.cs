@@ -53,6 +53,11 @@ public class PlayerController : MonoBehaviour
 
     float _currentMaximizeSpeed;
 
+    int _currentPlayerMode;
+
+    //ˆêŽž“I‚É’Ç‰Á
+    float _timer;
+
     void Start()
     {
         SetUp();
@@ -84,6 +89,7 @@ public class PlayerController : MonoBehaviour
         PlayerState();
         ControlDrag();
         PlayerJump();
+        PlayerPowerUpControll();
     }
 
     void FixedUpdate()
@@ -104,7 +110,13 @@ public class PlayerController : MonoBehaviour
 
         if (_isMove)
         {
-            _soundPlayer.PlaySound("SE_walk wood 3");
+            _timer += Time.fixedDeltaTime;
+
+            if (_timer >= 0.4f)
+            {
+                _timer = 0;
+                _soundPlayer.PlaySound("SE_walk wood 3");
+            }
         }
     }
 
@@ -148,6 +160,15 @@ public class PlayerController : MonoBehaviour
         {
             _rb.AddForce(Vector3.up * _playerJumpSpeed, ForceMode.Impulse);
             _soundPlayer.PlaySound("SE_jump1");
+        }
+    }
+
+    void PlayerPowerUpControll()
+    {
+        if(InputUtility.GetDownActionSwitch)
+        {
+            _currentPlayerMode = _currentPlayerMode++ % 2;
+            GameManager.Instance.PlayerModeChange((PlayerMode)_currentPlayerMode);
         }
     }
 

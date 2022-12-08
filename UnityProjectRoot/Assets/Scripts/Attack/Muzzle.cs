@@ -32,14 +32,14 @@ public class Muzzle : MonoBehaviour
 
     public void OnAttack()
     {
-        _effect.enabled = true;
+        _effect.SendEvent("OnPlay");
         _collider.enabled = true;
         _time = 0;
     }
 
     public void StopAttack()
     {
-        _effect.enabled = false;
+        _effect.SendEvent("StopPlay");
         _collider.enabled = false;
     }
 }
