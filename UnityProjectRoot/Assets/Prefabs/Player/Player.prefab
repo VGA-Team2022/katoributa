@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hp:
-    value: 1
+    value: 10
   _damageSpeed: 2.5
   _damage: 1
   _breaker: {fileID: 2415930464601102371}
@@ -257,7 +257,7 @@ MonoBehaviour:
   _senkouTime:
     value: 60
   _onPowerUpSpeed: 2
-  _godMode: 0
+  _godMode: 1
 --- !u!114 &2415930464601102371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,10 +336,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _groundDrag: 0
   _airDrag: 0
-  _playerCentor: {x: 0, y: -0.5, z: 0}
-  _groundLayers: []
-  _landingSoundIds: 
-  _groundCollisionSize: {x: 0.9, y: 0.1, z: 0.9}
+  _playerCentor: {x: 0, y: 0, z: 0}
+  _groundLayers:
+  - serializedVersion: 2
+    m_Bits: 8
+  - serializedVersion: 2
+    m_Bits: 1024
+  _landingSoundIds: 0200000002000000
+  _groundCollisionSize: {x: 0.9, y: 0.4, z: 0.9}
   _multiplierGravity: 1
 --- !u!114 &-1679053436153605562
 MonoBehaviour:

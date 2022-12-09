@@ -162,6 +162,7 @@ GameObject:
   - component: {fileID: 6837438250595050692}
   - component: {fileID: 6837438250595050699}
   - component: {fileID: 2002859879}
+  - component: {fileID: 8398043504450043391}
   m_Layer: 0
   m_Name: CM PlayerCamera
   m_TagString: Untagged
@@ -246,3 +247,15 @@ MonoBehaviour:
     m_FrequencyGain: 1
     m_Duration: 1
     m_NoiseOffsets: {x: 0, y: 0, z: 0}
+--- !u!114 &8398043504450043391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6837438250595050698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cb6643a7b3c75e4b8d3c8c0c2227319, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -124,7 +124,6 @@ public class GameManager
             case GameState.InGame:
                 break;
             case GameState.GameFinish:
-                OnGameOverEvent?.Invoke();
                 break;
         }
 
@@ -173,6 +172,7 @@ public class GameManager
     public void OnGameOver()
     {
         OnGameOverEvent?.Invoke();
+        GameStateChange(GameState.GameFinish);
         _gameOverPanel?.gameObject.SetActive(true);
         Debug.Log("OnGameOver");
     }
