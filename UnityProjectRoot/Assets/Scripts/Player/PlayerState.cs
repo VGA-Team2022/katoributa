@@ -56,6 +56,7 @@ public class PlayerState : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.GameState == GameState.GameFinish) return;
         PlayerStateMethod();
         ControlDrag();
         PlayerPowerUpControll();

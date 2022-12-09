@@ -47,7 +47,8 @@ public class Muzzle : MonoBehaviour
 
     private void Update()
     {
-        if(_reloadTimer <= _reloadTime)
+        if (GameManager.Instance.GameState == GameState.GameFinish) return;
+        if (_reloadTimer <= _reloadTime)
         {
             _reloadTimer += Time.deltaTime;
             return;

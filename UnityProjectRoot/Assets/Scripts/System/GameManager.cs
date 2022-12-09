@@ -19,6 +19,7 @@ public class GameManager
     public IReadOnlyReactiveProperty<float> GameTime => _gameTime;
     public IReadOnlyReactiveProperty<int> Score => _score;
     public IReadOnlyReactiveProperty<int> Quota => _quota;
+    public GameState GameState => _gameState;
 
     #endregion
 
@@ -27,6 +28,7 @@ public class GameManager
     FloatReactiveProperty _gameTime = new FloatReactiveProperty();
     IntReactiveProperty _score = new IntReactiveProperty();
     IntReactiveProperty _quota = new IntReactiveProperty();
+    GameState _gameState;
 
     Image _gameOverPanel;
     Image _gameClearPanel;
@@ -106,6 +108,30 @@ public class GameManager
 
         Debug.Log($"モードを切り替えた {mode}");
     }
+
+    public void GameStateChange(GameState mode)
+    {
+        if (_gameState == mode)
+        {
+            Debug.LogError("GameStateが一緒です");
+            return;
+        }
+
+        switch (mode)
+        {
+            case GameState.GameReady:
+                break;
+            case GameState.InGame:
+                break;
+            case GameState.GameFinish:
+                OnGameOverEvent?.Invoke();
+                break;
+        }
+
+        _gameState = mode;
+        Debug.Log($"モードを切り替えた {mode}");
+    }
+
 
     /// <summary>
     /// スコアを加算する
@@ -204,4 +230,11 @@ public enum PlayerMode
     Normal = 0,
     //メラメラモード
     PowerUp = 1,
+}
+
+public enum GameState
+{ 
+    GameReady = 0,
+    InGame = 1,
+    GameFinish = 2,
 }
