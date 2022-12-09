@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -52,6 +53,8 @@ public class PlayerMove : MonoBehaviour
     [Space(5)]
     [SerializeField]
     SkinnedMeshRenderer _skinnedMesh;
+
+    [SerializeField] VisualEffect _effect;
 
     bool _isPowerUp;
 
@@ -131,8 +134,9 @@ public class PlayerMove : MonoBehaviour
         _currentSpeed = _merameraPlayerSpeed;
         _currentMaximizeSpeed = _merameraPlayerMaximizeSpeed;
         _isPowerUp = true;
+        _effect.SendEvent("OnPlay");
 
-        if(_skinnedMesh && _merameraMaterial)
+        if (_skinnedMesh && _merameraMaterial)
             _skinnedMesh.material = _merameraMaterial;
     }
 
@@ -141,6 +145,7 @@ public class PlayerMove : MonoBehaviour
         _currentSpeed = _playerSpeed;
         _currentMaximizeSpeed = _maximizePlayerSpeed;
         _isPowerUp = false;
+        _effect.SendEvent("StopPlay");
 
         if (_skinnedMesh && _normalMaterial)
             _skinnedMesh.material = _normalMaterial;
