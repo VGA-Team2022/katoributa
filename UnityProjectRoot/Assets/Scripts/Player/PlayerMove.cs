@@ -65,6 +65,7 @@ public class PlayerMove : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (GameManager.Instance.GameState == GameState.GameFinish) return;
         PlayerMoveMethod();
     }
 
