@@ -58,7 +58,7 @@ Material:
     - _Noise_Scale: 30
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _disssolveamount: -0.97
+    - _disssolveamount: 0.1
     - _gage: 10
     - _linelemgth: 0.01
     - _linelength: 0.01
