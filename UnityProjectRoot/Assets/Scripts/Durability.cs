@@ -41,6 +41,10 @@ public class Durability : MonoBehaviour
 
     private void Start()
     {
+        if(_rayPos == null)
+        {
+            Debug.LogWarning("RaycastPosオブジェクトをPlayer直下に配置してインスペクターからアサインして下さい");
+        }
         _playerState = GetComponent<PlayerState>();
         _rb = GetComponent<Rigidbody>();
     }
