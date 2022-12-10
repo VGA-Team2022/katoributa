@@ -2,44 +2,70 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using UnityEngine.VFX;
 
 public class Muzzle : MonoBehaviour
 {
-    [SerializeField] VisualEffect _effect;
-    BoxCollider _collider;
-    float _time;
-    float _effectTime = 1.0f;
+    [Header("ê›íË")]
+    [SerializeField] Bullet _bullet;
+    [SerializeField] Transform _muzzuleTransform;
+    [Space(5)]
+    [SerializeField, Range(0.5f,1.5f)] float _reloadTime = 0.5f;
+    [Header("ÉåÉeÉBÉNÉãUI")]
+    [SerializeField] Image _reticle;
 
-    void Start()
+    float _reloadTimer;
+
+    const int _limit = 20;
+
+    ObjectPool<Bullet> _pool = new ObjectPool<Bullet> ();
+
+    private void Awake()
     {
-        _collider = _effect.GetComponent<BoxCollider>();
+        if(!_muzzuleTransform)
+        {
+            _muzzuleTransform = this.transform;
+        }
+    }
+
+    private void Start()
+    {
+        var pos = _muzzuleTransform.position;
+        pos.z += 100;
+
+        if (_reticle)
+        {
+            _reticle.transform.position = Camera.main.WorldToScreenPoint(pos);
+        }
+
+        var root = new GameObject("BulletRoot").transform;
+
+        _pool.SetBaseObj(_bullet, root);
+        _pool.SetCapacity(_limit);
     }
 
     private void Update()
     {
-        _time += Time.deltaTime;
-        if (InputUtility.GetDownFire)
+        if (GameManager.Instance.GameState == GameState.GameFinish) return;
+        if (_reloadTimer <= _reloadTime)
         {
-            OnAttack();
+            _reloadTimer += Time.deltaTime;
+            return;
         }
-        
-        if(_time >= _effectTime)
+
+        if(InputUtility.GetDownFire)
         {
-            StopAttack();
+            Fire();
         }
     }
 
-    public void OnAttack()
+    void Fire()
     {
-        _effect.enabled = true;
-        _collider.enabled = true;
-        _time = 0;
-    }
+        var bullet = _pool.Instantiate();
+        bullet.transform.position = _muzzuleTransform.position;
+        bullet.transform.rotation = _muzzuleTransform.rotation;
 
-    public void StopAttack()
-    {
-        _effect.enabled = false;
-        _collider.enabled = false;
+        _reloadTimer = 0;
     }
 }
