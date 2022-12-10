@@ -11,7 +11,6 @@ public class Bullet : MonoBehaviour, IObjectPool
     [SerializeField] float _lifeTime = 100f;
     [SerializeField] int _damageValue = 1;
     [SerializeField, Range(1f, 2f)] float _scale = 1f;
-    [SerializeField] LayerMask _enemyLayer;
 
     Vector3 _localScale;
     float _lifeTimer = 0;
@@ -21,6 +20,7 @@ public class Bullet : MonoBehaviour, IObjectPool
     VisualEffect _effect;
     bool _isActive = false;
 
+    const int _enemyLayerValue = 7;
     const float _scaleDuration = 1f;
 
     public bool IsActive => _isActive;
@@ -54,7 +54,7 @@ public class Bullet : MonoBehaviour, IObjectPool
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == _enemyLayer)
+        if (other.gameObject.layer == _enemyLayerValue)
         {
             var e = other.GetComponent<MosquitoHealth>();
             e.TakeDamage(_damageValue);
