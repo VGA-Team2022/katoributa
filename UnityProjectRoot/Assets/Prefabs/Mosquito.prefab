@@ -199,7 +199,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1433378960131556922
 MonoBehaviour:
@@ -248,6 +248,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _3DPositioning: 1
   _loop: 1
-  _volume: 1
+  _volume: 0
   _cueSheet: 1
   _debugLog: 1
