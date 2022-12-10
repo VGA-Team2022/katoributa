@@ -6,12 +6,12 @@ using UniRx;
 public class PlayerPresenter : MonoBehaviour
 {
     [Header("設定")]
-    [SerializeField, Tooltip("線香のテキストを設定")] MVPText _senkouText;
+    [SerializeField, Tooltip("線香を設定")] MVPMosquitCoil _senkouCoil;
     [SerializeField, Tooltip("HPのテキストを設定")] MVPText _hpText;
 
     private void Start()
     {
-        if(_senkouText)
+        if(_senkouCoil)
         {
             var senkou = GameObject.FindGameObjectWithTag("Player").GetComponent<SenkouHealth>();
 
@@ -21,12 +21,12 @@ public class PlayerPresenter : MonoBehaviour
                 return;
             }
 
+            var value = 0.1f;
+
             senkou.Health.Subscribe(x =>
             {
-                var m = (int)(x / 60);
-                var s = (int)(x - (60 * m));
-
-                _senkouText.SetText($"線香の残り時間：[{m:00}:{s:00}]");
+                value -= 0.001f;
+                _senkouCoil.SetValue(value);
             }).AddTo(this);
         }
         else

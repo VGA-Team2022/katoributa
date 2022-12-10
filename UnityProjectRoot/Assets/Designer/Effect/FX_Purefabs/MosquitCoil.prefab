@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1257512493755046763}
   - component: {fileID: 3933722453149380513}
   m_Layer: 0
-  m_Name: UiMD_mosquitcoil
+  m_Name: MosquitCoil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
