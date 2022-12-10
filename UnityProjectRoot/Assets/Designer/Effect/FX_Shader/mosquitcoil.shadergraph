@@ -470,6 +470,9 @@
     "m_ActiveTargets": [
         {
             "m_Id": "3da89228eb804f1e82b995e65620ab12"
+        },
+        {
+            "m_Id": "4daebd7054ad408283f7aa2348509dbb"
         }
     ]
 }
@@ -768,10 +771,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -927.9999389648438,
-            "y": 1054.0,
+            "x": -1172.0001220703125,
+            "y": 965.5999755859375,
             "width": 207.99993896484376,
-            "height": 302.0
+            "height": 301.5999755859375
         }
     },
     "m_Slots": [
@@ -1126,10 +1129,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1233.0,
-            "y": 1140.0,
-            "width": 163.0,
-            "height": 34.0
+            "x": -1676.0,
+            "y": 1129.5999755859375,
+            "width": 163.199951171875,
+            "height": 33.5999755859375
         }
     },
     "m_Slots": [
@@ -1245,10 +1248,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 880.0,
-            "y": 626.0000610351563,
-            "width": 208.0,
-            "height": 326.0
+            "x": 834.4000244140625,
+            "y": 748.7999267578125,
+            "width": 207.9998779296875,
+            "height": 325.60009765625
         }
     },
     "m_Slots": [
@@ -1422,6 +1425,14 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.VFXTarget",
+    "m_ObjectId": "4daebd7054ad408283f7aa2348509dbb",
+    "m_Lit": false,
+    "m_AlphaTest": false
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "4ecdc2e98c9d4ddc83e0cd4a22c50342",
     "m_Id": 3,
@@ -1564,10 +1575,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1468.0,
-            "y": 976.0,
-            "width": 208.0,
-            "height": 312.9998779296875
+            "x": -1615.2001953125,
+            "y": 829.5999755859375,
+            "width": 208.0001220703125,
+            "height": 311.2000732421875
         }
     },
     "m_Slots": [
@@ -2009,10 +2020,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1199.0,
-            "y": 984.9999389648438,
-            "width": 120.0,
-            "height": 149.00006103515626
+            "x": -968.0,
+            "y": 652.0,
+            "width": 119.20001220703125,
+            "height": 148.79998779296876
         }
     },
     "m_Slots": [
