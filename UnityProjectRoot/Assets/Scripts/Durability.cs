@@ -19,9 +19,11 @@ public class Durability : MonoBehaviour
     [SerializeField] Breaker _breaker;
     [SerializeField] Fracture _fracture;
     [Tooltip("衝撃")] float _impulse = 0;
+    [Tooltip("無敵時間")] float _invisibleTime = 1f;
+    [Tooltip("無敵フラグ")] bool _isInvisible;
 
     [Header("落下時の挙動")]
-    [SerializeField, Tooltip("Raycastの位置")] Transform _rayTransform;
+    [SerializeField, Tooltip("Raycastの位置")] Transform _rayPos;
     [SerializeField, Tooltip("どの位の高さでダメージを受けるか")] float _damageDistance = 100f;
     [Tooltip("Rayの距離")] float _rayRange = 0.5f;
     [Tooltip("空中にいるかどうかのフラグ")] bool _isFall;
@@ -52,12 +54,12 @@ public class Durability : MonoBehaviour
 
     private void CheckHeight()
     {
-        Debug.DrawLine(_rayTransform.position, this.transform.position + Vector3.down * _rayRange, Color.blue);
+        Debug.DrawLine(_rayPos.position, this.transform.position + Vector3.down * _rayRange, Color.blue);
 
         if (_isFall)
         {
             _fallenPosition = Mathf.Max(_fallenPosition, transform.position.y);
-            if (Physics.Linecast(_rayTransform.position, this.transform.position + Vector3.down * _rayRange, LayerMask.GetMask("Ground")))
+            if (Physics.Linecast(_rayPos.position, this.transform.position + Vector3.down * _rayRange, LayerMask.GetMask("Ground")))
             {
                 _fallenDistance = _fallenPosition - transform.position.y;
                 if (_fallenDistance >= _damageDistance)
@@ -84,12 +86,17 @@ public class Durability : MonoBehaviour
     /// </summary>
     private void CheckVelocity()
     {
-        Debug.DrawLine(_rayTransform.position, this.transform.position + Vector3.right * _rayRange, Color.blue);
-        Debug.DrawLine(_rayTransform.position, this.transform.position + Vector3.left * _rayRange, Color.blue);
-        Debug.DrawLine(_rayTransform.position, this.transform.position + Vector3.forward * _rayRange, Color.blue);
-        Debug.DrawLine(_rayTransform.position, this.transform.position + Vector3.back * _rayRange, Color.blue);
+        if(_isInvisible == true)
+        {
+            return;
+        }
 
-        if (Physics.Linecast(_rayTransform.position, this.transform.position + Vector3.right * _rayRange, LayerMask.GetMask("Ground")))
+        Debug.DrawLine(_rayPos.position, _rayPos.position + Vector3.right * _rayRange, Color.blue);
+        Debug.DrawLine(_rayPos.position, _rayPos.position + Vector3.left * _rayRange, Color.blue);
+        Debug.DrawLine(_rayPos.position, _rayPos.position + Vector3.forward * _rayRange, Color.blue);
+        Debug.DrawLine(_rayPos.position, _rayPos.position + Vector3.back * _rayRange, Color.blue);
+
+        if (Physics.Linecast(_rayPos.position, _rayPos.position + Vector3.right * _rayRange, LayerMask.GetMask("Ground")))
         {
             _impulse = _rb.velocity.magnitude / 5f;
 
@@ -98,6 +105,8 @@ public class Durability : MonoBehaviour
                 Debug.Log("豚がぶつかった");
 
                 TakeDamage(_damage);
+                StartCoroutine(Invisible());
+
                 if (_hp.Value <= 0)
                 {
                     OnDead();
@@ -105,7 +114,7 @@ public class Durability : MonoBehaviour
             }
         }
 
-        if (Physics.Linecast(_rayTransform.position, this.transform.position + Vector3.left * _rayRange, LayerMask.GetMask("Ground")))
+        if (Physics.Linecast(_rayPos.position, _rayPos.position + Vector3.left * _rayRange, LayerMask.GetMask("Ground")))
         {
             _impulse = _rb.velocity.magnitude / 5f;
 
@@ -114,6 +123,8 @@ public class Durability : MonoBehaviour
                 Debug.Log("豚がぶつかった");
 
                 TakeDamage(_damage);
+                StartCoroutine(Invisible());
+
                 if (_hp.Value <= 0)
                 {
                     OnDead();
@@ -121,7 +132,7 @@ public class Durability : MonoBehaviour
             }
         }
 
-        if (Physics.Linecast(_rayTransform.position, this.transform.position + Vector3.forward * _rayRange, LayerMask.GetMask("Ground")))
+        if (Physics.Linecast(_rayPos.position, _rayPos.position + Vector3.forward * _rayRange, LayerMask.GetMask("Ground")))
         {
             _impulse = _rb.velocity.magnitude / 5f;
 
@@ -130,6 +141,8 @@ public class Durability : MonoBehaviour
                 Debug.Log("豚がぶつかった");
 
                 TakeDamage(_damage);
+                StartCoroutine(Invisible());
+
                 if (_hp.Value <= 0)
                 {
                     OnDead();
@@ -137,7 +150,7 @@ public class Durability : MonoBehaviour
             }
         }
 
-        if (Physics.Linecast(_rayTransform.position, this.transform.position + Vector3.back * _rayRange, LayerMask.GetMask("Ground")))
+        if (Physics.Linecast(_rayPos.position, _rayPos.position + Vector3.back * _rayRange, LayerMask.GetMask("Ground")))
         {
             _impulse = _rb.velocity.magnitude / 5f;
 
@@ -146,6 +159,8 @@ public class Durability : MonoBehaviour
                 Debug.Log("豚がぶつかった");
 
                 TakeDamage(_damage);
+                StartCoroutine(Invisible());
+
                 if (_hp.Value <= 0)
                 {
                     OnDead();
@@ -166,26 +181,21 @@ public class Durability : MonoBehaviour
         Debug.Log($"ダメージを受けた : HP = {_hp} : Damage = {damage}");
     }
 
-    /// <summary>
-    /// 何かにぶつかった時
-    /// </summary>
-    /// <param name="collision"></param>
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.gameObject.layer != 10)
-    //    {
-    //        CheckVelocity(collision);
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("クッションに衝突");
-    //    }
-    //}
-
     void OnDead()
     {
         Debug.Log("死んだ");
         _breaker.Break(_fracture, Vector3.zero);
         GameManager.Instance.OnGameOver();
+    }
+
+    /// <summary>
+    /// 無敵時間に使うコルーチン関数
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator Invisible()
+    {
+        _isInvisible = true;
+        yield return new WaitForSeconds(_invisibleTime);
+        _isInvisible = false;
     }
 }
