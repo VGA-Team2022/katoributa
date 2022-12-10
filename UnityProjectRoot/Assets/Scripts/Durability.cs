@@ -19,7 +19,7 @@ public class Durability : MonoBehaviour
     [SerializeField] Breaker _breaker;
     [SerializeField] Fracture _fracture;
     [Tooltip("ÕŒ‚")] float _impulse = 0;
-    [Tooltip("–³“GŠÔ")] float _invisibleTime = 1f;
+    [SerializeField ,Tooltip("–³“GŠÔ")] float _invisibleTime = 1f;
     [Tooltip("–³“Gƒtƒ‰ƒO")] bool _isInvisible;
 
     [Header("—‰º‚Ì‹““®")]
