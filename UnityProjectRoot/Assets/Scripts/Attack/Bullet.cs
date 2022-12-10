@@ -54,7 +54,7 @@ public class Bullet : MonoBehaviour, IObjectPool
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == _enemyLayer)
+        if (other.gameObject .layer == _enemyLayer)
         {
             var e = other.GetComponent<MosquitoHealth>();
             e.TakeDamage(_damageValue);
