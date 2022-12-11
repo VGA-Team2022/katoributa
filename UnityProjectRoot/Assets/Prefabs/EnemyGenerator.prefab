@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4369398153503939307}
-  - component: {fileID: 4369398153503939306}
-  - component: {fileID: 990204353}
+  - component: {fileID: 4690818974511321753}
+  - component: {fileID: 7944450182320654359}
   m_Layer: 0
   m_Name: EnemyGenerator
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4369398153503939306
+--- !u!114 &4690818974511321753
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,30 +42,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 4369398153503939301}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d0317c156e073a4ba440b1481e0b57b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemy: {fileID: 8834018290156486189, guid: 6dbcd87ff51acaa488cf31358b976b0b, type: 3}
-  _wayPointsLimit: 4
-  _limit: 10
---- !u!114 &990204353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4369398153503939301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68e5b48d72903724488d158019c568d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 573685920e3f41549b68cce689eb90af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   LocalNodes:
-  - {x: 5, y: 0, z: 5}
-  - {x: 5, y: 0, z: -5}
-  - {x: -5, y: 0, z: 5}
-  - {x: -5, y: 0, z: -5}
-  - {x: 5, y: 5, z: 5}
-  - {x: 5, y: 5, z: -5}
-  - {x: -5, y: 5, z: 5}
-  - {x: -5, y: 5, z: -5}
+  - {x: 0, y: 0, z: 0}
+  - {x: 4.50009, y: 3.00006, z: 12.00024}
+  - {x: -6.00012, y: 2.50005, z: 9.500191}
+  - {x: -5.50011, y: 7.00014, z: 1.00002}
+  - {x: 13.00026, y: 1.50003, z: 0}
+  - {x: -1.50003, y: 2.50005, z: -8.00016}
+  - {x: 6.00012, y: 2.50005, z: -13.500271}
+--- !u!114 &7944450182320654359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4369398153503939301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18034e025998d7b49b21832365e1bb7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemy: {fileID: 903365947348302732, guid: 6dbcd87ff51acaa488cf31358b976b0b, type: 3}
+  _wayPointsLimit: 4
+  _limit: 10
