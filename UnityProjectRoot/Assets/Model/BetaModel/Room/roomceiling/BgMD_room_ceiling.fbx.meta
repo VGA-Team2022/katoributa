@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: e7d6727188445374d984f2ae5023c70f
+guid: 700a24e22cafd1e4cad206e781771ab4
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BgMat_room_ceiling
+    second: {fileID: 2100000, guid: 2f78a56b8fb724548bc3e5aa6a416a73, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
