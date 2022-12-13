@@ -126,14 +126,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91f529aa944b914449d62b8c40f188fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acfFile: StreamingAssets 11-17/katoributa.acf
+  acfFile: StreamingAssets 12-12/katoributa.acf
   cueSheets:
   - name: BGM
-    acbFile: StreamingAssets 11-17/BGM.acb
-    awbFile: StreamingAssets 11-17/BGM.awb
+    acbFile: StreamingAssets 12-12/BGM.acb
+    awbFile: StreamingAssets 12-12/BGM.awb
     loaderStatus: 0
   - name: SE
-    acbFile: StreamingAssets 11-17/SE.acb
+    acbFile: StreamingAssets 12-12/SE.acb
+    awbFile: 
+    loaderStatus: 0
+  - name: ME
+    acbFile: StreamingAssets 12-12/ME.acb
     awbFile: 
     loaderStatus: 0
   dspBusSetting: 
