@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BgMD_room_Tokowakitest43
-  m_Shader: {fileID: 4800000, guid: c0af22027268cca4196bc372497c7be1, type: 3}
+  m_Name: BgMD_yard_Asagaotest23
+  m_Shader: {fileID: 4800000, guid: 97c58139ebc29394daa883e3c29913f8, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -21,19 +21,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: f58089eeefac3654bb096e7b1b8c0276, type: 3}
+        m_Texture: {fileID: 2800000, guid: f2861a6b7626b3b4e8a40842ab7a55d5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _NormalMap:
-        m_Texture: {fileID: 0}
+    - _CutMap:
+        m_Texture: {fileID: 2800000, guid: f5a15275c59c18a428f4161234c7047e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats:
-    - _Metallic: 0
-    - _Smoothness: 0
-    - _UseAddColorLevel: 0
+    m_Floats: []
     m_Colors:
-    - _AddColor: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
