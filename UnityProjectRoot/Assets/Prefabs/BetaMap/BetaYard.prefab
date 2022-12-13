@@ -38,6 +38,7 @@ Transform:
   - {fileID: 8981702249623263920}
   - {fileID: 255387804205282758}
   - {fileID: 1526277753619838869}
+  - {fileID: 2356481273100169165}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -92,6 +93,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c28a8d927c3a7ce4b9b310a464682274, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 29efac00d2e42ce4bbd657c471bad90d, type: 2}
     - target: {fileID: 919132149155446097, guid: c28a8d927c3a7ce4b9b310a464682274, type: 3}
       propertyPath: m_Name
       value: BgMD_yard_flower
@@ -116,7 +121,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2a26b2be210eb4640a4fb91899a6c777, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.91
+      value: 19.500391
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2a26b2be210eb4640a4fb91899a6c777, type: 3}
       propertyPath: m_LocalPosition.y
@@ -124,7 +129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2a26b2be210eb4640a4fb91899a6c777, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -26.50053
+      value: -7.50049
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2a26b2be210eb4640a4fb91899a6c777, type: 3}
       propertyPath: m_LocalRotation.w
@@ -154,6 +159,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 2a26b2be210eb4640a4fb91899a6c777, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b87f7a9d21cd2e84ab49fe0899e11022, type: 2}
     - target: {fileID: 919132149155446097, guid: 2a26b2be210eb4640a4fb91899a6c777, type: 3}
       propertyPath: m_Name
       value: BgMD_yard_Asagao
@@ -216,6 +225,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 2d8c037c0e3831c4c924b5c8dd4954a6, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 094bfbd2307e3f145acf57fb5690f4d4, type: 2}
     - target: {fileID: 919132149155446097, guid: 2d8c037c0e3831c4c924b5c8dd4954a6, type: 3}
       propertyPath: m_Name
       value: BgMD_yard_glass
@@ -344,6 +357,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a626ac9b735cb904faa5e0aa8a00f41e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 922a382b9eddfa74c8182da25f42bf73, type: 2}
     - target: {fileID: 919132149155446097, guid: a626ac9b735cb904faa5e0aa8a00f41e, type: 3}
       propertyPath: m_Name
       value: BgMD_yard_pine (1)
@@ -406,6 +423,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: b1d216b2d3eb64949afc50e0cb8f3ed8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 476a2ff9fa119f94f9a3c457be48904d, type: 2}
     - target: {fileID: 919132149155446097, guid: b1d216b2d3eb64949afc50e0cb8f3ed8, type: 3}
       propertyPath: m_Name
       value: BgMD_yard_Tyukei
@@ -416,6 +437,72 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b1d216b2d3eb64949afc50e0cb8f3ed8, type: 3}
   m_PrefabInstance: {fileID: 2529899259795414146}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2826393899856267302
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7225245241918710532}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 2d8c037c0e3831c4c924b5c8dd4954a6, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2d8c037c0e3831c4c924b5c8dd4954a6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -36.00072
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2d8c037c0e3831c4c924b5c8dd4954a6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2d8c037c0e3831c4c924b5c8dd4954a6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -51.001022
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2d8c037c0e3831c4c924b5c8dd4954a6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.20086232
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2d8c037c0e3831c4c924b5c8dd4954a6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2d8c037c0e3831c4c924b5c8dd4954a6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.97961944
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2d8c037c0e3831c4c924b5c8dd4954a6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2d8c037c0e3831c4c924b5c8dd4954a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2d8c037c0e3831c4c924b5c8dd4954a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 203.175
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2d8c037c0e3831c4c924b5c8dd4954a6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 2d8c037c0e3831c4c924b5c8dd4954a6, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 094bfbd2307e3f145acf57fb5690f4d4, type: 2}
+    - target: {fileID: 919132149155446097, guid: 2d8c037c0e3831c4c924b5c8dd4954a6, type: 3}
+      propertyPath: m_Name
+      value: BgMD_yard_glass (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2d8c037c0e3831c4c924b5c8dd4954a6, type: 3}
+--- !u!4 &2356481273100169165 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2d8c037c0e3831c4c924b5c8dd4954a6, type: 3}
+  m_PrefabInstance: {fileID: 2826393899856267302}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4173839525809286609
 PrefabInstance:
@@ -484,6 +571,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a626ac9b735cb904faa5e0aa8a00f41e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 050a9ae5cf38327458c910c19f732ec2, type: 2}
     - target: {fileID: 919132149155446097, guid: a626ac9b735cb904faa5e0aa8a00f41e, type: 3}
       propertyPath: m_Name
       value: BgMD_yard_pine
@@ -546,6 +637,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: b79e02328a6400243ad452fe38918612, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4b6d1725d08102149bc2e3111aafc52f, type: 2}
     - target: {fileID: 919132149155446097, guid: b79e02328a6400243ad452fe38918612, type: 3}
       propertyPath: m_Name
       value: BgMD_yard_bush
@@ -608,6 +703,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a3f226f0934574c43a9af283c1d926d4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3f165f1c7110c7f4ca893a675dbdfd80, type: 2}
     - target: {fileID: 919132149155446097, guid: a3f226f0934574c43a9af283c1d926d4, type: 3}
       propertyPath: m_Name
       value: BgMD_yard_mountain
@@ -670,6 +769,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 9367ceaa8fe8e5548a1a556f40b238b8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 91d55052e2d92a74e87fa90b7862bca1, type: 2}
     - target: {fileID: 919132149155446097, guid: 9367ceaa8fe8e5548a1a556f40b238b8, type: 3}
       propertyPath: m_Name
       value: BgMD_yard_pole
