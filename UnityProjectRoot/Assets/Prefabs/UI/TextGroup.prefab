@@ -443,7 +443,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u5012\u3057\u305F\u6570 [000 \u5339]"
+  m_text: "\u5F97\u70B9 [00000 \u70B9]"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 19d1feb9a36704a439a369adedc58bf5, type: 2}
   m_sharedMaterial: {fileID: -312209006456595782, guid: 19d1feb9a36704a439a369adedc58bf5, type: 2}
@@ -788,5 +788,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35fe2bdd67d93144b9a08a1ba4c2f857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _senkouText: {fileID: 8644113026214024621}
+  _senkouCoil: {fileID: 0}
   _hpText: {fileID: 7722543327396575958}

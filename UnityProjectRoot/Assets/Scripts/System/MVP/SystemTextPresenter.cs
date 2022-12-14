@@ -24,7 +24,7 @@ public class SystemTextPresenter : MonoBehaviour
         {
             GameManager.Instance.Score.Subscribe(x =>
             {
-                _countText.SetText($"“|‚µ‚½” [{x:000} •C]");
+                _countText.SetText($"“¾“_ [{x:00000} “_]");
             }).AddTo(this);
         }
     }
