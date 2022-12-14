@@ -19,7 +19,7 @@ public class Durability : MonoBehaviour
 
     [Tooltip("1フレーム前のVelocity")] Vector3 _prevVelocity;
     [Tooltip("現在のVelocity")] Vector3 _velocity;
-    [Tooltip("1フレーム前のposition")] Vector3 _prevPos;
+    [Tooltip("衝突したかどうかのフラグ")] bool _isCollision = false;
 
     [Header("ダメージ･破壊時の処理")]
     [SerializeField, Tooltip("ダメージ")] int _damage = 1;
@@ -36,7 +36,6 @@ public class Durability : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _prevPos = transform.position;
     }
 
     private void Update()
@@ -49,24 +48,35 @@ public class Durability : MonoBehaviour
     /// </summary>
     private void CheckVelocity()
     {
-        if (Mathf.Approximately(Time.deltaTime, 0))
+        var x = ((int)_prevVelocity.x);
+        var y = ((int)_prevVelocity.y);
+        var z = ((int)_prevVelocity.z);
+
+        _velocity = _rb.velocity;
+
+        if (_isCollision)
         {
-            return;
+            Vector3 xz = new Vector3(x, 0, z);
+            var xzMag = Mathf.Abs((int)xz.magnitude);
+
+            Debug.Log($"{y}, {xzMag}");
+            if(xzMag > _damageSpeed || Mathf.Abs(y) > _damageHeight)
+            {
+                TakeDamage(_damage);
+            }
+
+            _isCollision = false;
         }
 
-        var position = transform.position;
-        _velocity = (position - _prevPos) / Time.deltaTime;
         _prevVelocity = _velocity;
         //Debug.Log($"velocity = {_velocity}");
-        _prevPos = position;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            var y = _prevVelocity.y;
-            Debug.Log(y);
+            _isCollision = true;
         }
     }
 
