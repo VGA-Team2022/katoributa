@@ -167,6 +167,9 @@ public class GameManager
         //パネルの参照
         _gameClearPanel = attachment.GameClearPanel;
         _gameOverPanel = attachment.GameOverPanel;
+
+        //遷移の初期化
+        GameStateChange(GameState.GameReady);
     }
 
     public void OnGameOver()
