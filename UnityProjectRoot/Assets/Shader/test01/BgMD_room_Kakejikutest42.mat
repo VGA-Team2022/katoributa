@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BgMD_room_tatami (2)test99
+  m_Name: BgMD_room_Kakejikutest42
   m_Shader: {fileID: 4800000, guid: c0af22027268cca4196bc372497c7be1, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -21,7 +21,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 102b60cefe9f1714ca13b17a2076fa35, type: 3}
+        m_Texture: {fileID: 2800000, guid: 40dbb8de28e722f4bbdb9a419d29d9cf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:

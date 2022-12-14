@@ -21,7 +21,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 858653b78833b9749bbe4f2e6090d137, type: 3}
+        m_Texture: {fileID: 2800000, guid: abd1897bf3fe2dd4884a7c2892c2bf7e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
@@ -32,6 +32,8 @@ Material:
     m_Floats:
     - _Metallic: 0
     - _Smoothness: 0
+    - _UseAddColorLevel: 0
     m_Colors:
+    - _AddColor: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

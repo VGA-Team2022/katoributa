@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 93ad8ea84487e2a4880a3f2f30e07142
+guid: 4f6144c82ae430240a6afcc7e91e3206
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,58 +7,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: BgMat_room_dentou
-    second: {fileID: 2100000, guid: 573dc2b340cb1394096a7d693b11741d, type: 2}
+      name: BgMat_room_glass
+    second: {fileID: 2100000, guid: 24e379d067563004a90c53cfb05558ed, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: BgMat_room_dentou_em1
-    second: {fileID: 2100000, guid: aea541294ce252a4c9a53931e23ccaad, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: BgMat_room_engawa
-    second: {fileID: 2100000, guid: 03a4fde1e5618474da9debbfd045bb4a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: BgMat_room_hasira
-    second: {fileID: 2100000, guid: c6614f58b33101640a91378ee3f411ea, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: BgMat_room_kamoi_raru
-    second: {fileID: 2100000, guid: bdee16dc50e74924fbf55c38e2a55e14, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: BgMat_room_mawaributi
-    second: {fileID: 2100000, guid: bf84ca67259904444abc93593bf3a322, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: BgMat_room_nagesi
-    second: {fileID: 2100000, guid: bbd71508004601a40874b61b160acb92, type: 2}
+      name: BgMat_room_kami
+    second: {fileID: 2100000, guid: 315a140cb0d0bf34bb6811aa57aaae9d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: BgMat_room_syouzi
     second: {fileID: 2100000, guid: 69e07dbe3aa38074da6b6e5eb7f4de03, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: BgMat_room_tatami
-    second: {fileID: 2100000, guid: 7b889acb2ed105541b671e4a7711ec98, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: BgMat_room_turiduka
-    second: {fileID: 2100000, guid: f46b2da0161d2ca4282777cee3e222bb, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: lambert1
-    second: {fileID: 2100000, guid: 24e379d067563004a90c53cfb05558ed, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -87,7 +47,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 10
@@ -143,7 +103,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 10
+    globalScale: 0.099999994
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
