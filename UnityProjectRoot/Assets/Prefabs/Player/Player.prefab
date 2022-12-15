@@ -253,13 +253,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hp:
     value: 1
-  _damageSpeed: 0.5
+  _damageSpeed: 7.5
+  _damageHeight: 10
   _damage: 1
   _breaker: {fileID: 2415930464601102371}
   _fracture: {fileID: 766799408}
-  _invisibleTime: 1
-  _rayPos: {fileID: 2476844529611090342}
-  _damageDistance: 2
   _godMode: 0
 --- !u!114 &3873197416987307822
 MonoBehaviour:
@@ -323,7 +321,7 @@ MonoBehaviour:
     - 0
     - 0
   _cueName: 
-  _cueSheet: 
+  _cueSheet: SE
 --- !u!114 &7406203875170181949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,8 +396,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92725adf9ecbe0e4ca605c2ff1b62281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerJumpSpeed: 10
-  _merameraJumpSpeed: 8
+  _playerJumpSpeed: 10.3
+  _merameraJumpSpeed: 14
   _jumpSoundId: 1
 --- !u!95 &2351448190718401452
 Animator:
