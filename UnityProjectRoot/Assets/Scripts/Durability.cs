@@ -61,13 +61,16 @@ public class Durability : MonoBehaviour
         var diffXZ = prevXZVelocity - currentXZVelocity;
         var diffY = _velocity.y - y;
 
-        if (diffXZ > Mathf.Pow(_damageSpeed, 2) || (diffY > _damageHeight && y < 0))
+        if(diffXZ > Mathf.Pow(_damageSpeed, 2))
+        {
+            TakeDamage(_damage);
+        }
+        else if (diffY > _damageHeight && y < 0)
         {
             RaycastHit hit;
             if (Physics.Raycast(this.transform.position + Vector3.up * 0.01f, Vector3.down, out hit, 0.15f, LayerMask.GetMask("Ground")))
             {
                 TakeDamage(_damage);
-                Debug.Log($"{diffXZ}, {diffY}");
             }
         }
 
