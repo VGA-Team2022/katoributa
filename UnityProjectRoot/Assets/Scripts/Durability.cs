@@ -19,7 +19,6 @@ public class Durability : MonoBehaviour
 
     [Tooltip("1フレーム前のVelocity")] Vector3 _prevVelocity;
     [Tooltip("現在のVelocity")] Vector3 _velocity;
-    [Tooltip("衝突したかどうかのフラグ")] bool _isCollision = false;
 
     [Header("ダメージ･破壊時の処理")]
     [SerializeField, Tooltip("ダメージ")] int _damage = 1;
@@ -48,36 +47,31 @@ public class Durability : MonoBehaviour
     /// </summary>
     private void CheckVelocity()
     {
-        var x = ((int)_prevVelocity.x);
-        var y = ((int)_prevVelocity.y);
-        var z = ((int)_prevVelocity.z);
+        var x = _prevVelocity.x;
+        var y = _prevVelocity.y;
+        var z = _prevVelocity.z;
 
         _velocity = _rb.velocity;
 
-        if (_isCollision)
-        {
-            Vector3 xz = new Vector3(x, 0, z);
-            var xzMag = Mathf.Abs((int)xz.magnitude);
+        Vector3 prevXZ = new Vector3(x, 0, z);
+        Vector3 currentXZ = new Vector3(_velocity.x, 0, _velocity.z);
+        var currentXZVelocity = currentXZ.sqrMagnitude;
+        var prevXZVelocity = prevXZ.sqrMagnitude;
 
-            Debug.Log($"{y}, {xzMag}");
-            if(xzMag > _damageSpeed || Mathf.Abs(y) > _damageHeight)
+        var diffXZ = prevXZVelocity - currentXZVelocity;
+        var diffY = _velocity.y - y;
+
+        if (diffXZ > Mathf.Pow(_damageSpeed, 2) || (diffY > _damageHeight && y < 0))
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(this.transform.position + Vector3.up * 0.01f, Vector3.down, out hit, 0.15f, LayerMask.GetMask("Ground")))
             {
                 TakeDamage(_damage);
+                Debug.Log($"{diffXZ}, {diffY}");
             }
-
-            _isCollision = false;
         }
 
         _prevVelocity = _velocity;
-        //Debug.Log($"velocity = {_velocity}");
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            _isCollision = true;
-        }
     }
 
     /// <summary>
