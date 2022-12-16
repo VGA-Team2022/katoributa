@@ -84,8 +84,15 @@ public class Durability : MonoBehaviour
     public void TakeDamage(int damage)
     {
         if (!_godMode)
+        {
             _hp.Value -= damage;
 
+            if(_hp.Value < 1)
+            {
+                OnDead();
+            }
+        }
+            
         Debug.Log($"ƒ_ƒ[ƒW‚ðŽó‚¯‚½ : HP = {_hp} : Damage = {damage}");
     }
 
