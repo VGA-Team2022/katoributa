@@ -6,27 +6,27 @@ using UniRx;
 public class PlayerPresenter : MonoBehaviour
 {
     [Header("設定")]
-    [SerializeField, Tooltip("線香を設定")] MVPMosquitCoil _senkouCoil;
+    [SerializeField, Tooltip("線香のテキストを設定")] MVPText _senkouText;
     [SerializeField, Tooltip("HPのテキストを設定")] MVPText _hpText;
 
     private void Start()
     {
-        if(_senkouCoil)
+        if (_senkouText)
         {
             var senkou = GameObject.FindGameObjectWithTag("Player").GetComponent<SenkouHealth>();
 
-            if(!senkou)
+            if (!senkou)
             {
                 Debug.LogError("SenkouHealthが見つかりませんでした");
                 return;
             }
 
-            var value = 0.1f;
-
             senkou.Health.Subscribe(x =>
             {
-                value -= 0.001f;
-                _senkouCoil.SetValue(value);
+                var m = (int)(x / 60);
+                var s = (int)(x - (60 * m));
+
+                _senkouText.SetText($"タイム：[{m:00}:{s:00}]");
             }).AddTo(this);
         }
         else
@@ -34,7 +34,7 @@ public class PlayerPresenter : MonoBehaviour
             Debug.LogError("SenkouTextが設定されていません");
         }
 
-        if(_hpText)
+        if (_hpText)
         {
             var hp = GameObject.FindGameObjectWithTag("Player").GetComponent<Durability>();
 
@@ -46,7 +46,7 @@ public class PlayerPresenter : MonoBehaviour
 
             hp.HP.Subscribe(x =>
             {
-                _hpText.SetText($"蚊取り豚の耐久力:{x:00}");
+                _hpText.SetText($"ライフ × {x}");
             }).AddTo(this);
         }
         else

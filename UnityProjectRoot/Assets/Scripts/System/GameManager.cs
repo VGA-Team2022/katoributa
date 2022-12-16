@@ -18,7 +18,6 @@ public class GameManager
 
     public IReadOnlyReactiveProperty<float> GameTime => _gameTime;
     public IReadOnlyReactiveProperty<int> Score => _score;
-    public IReadOnlyReactiveProperty<int> Quota => _quota;
     public GameState GameState => _gameState;
 
     #endregion
@@ -27,7 +26,6 @@ public class GameManager
 
     FloatReactiveProperty _gameTime = new FloatReactiveProperty();
     IntReactiveProperty _score = new IntReactiveProperty();
-    IntReactiveProperty _quota = new IntReactiveProperty();
     GameState _gameState;
 
     Image _gameOverPanel;
@@ -84,9 +82,9 @@ public class GameManager
     /// </summary>
     public event Action OnGameOverEvent;
     /// <summary>
-    /// ゲームクリア時のイベント
+    /// ゲーム終了時のイベント
     /// </summary>
-    public event Action OnGameClearEvent;
+    public event Action OnGameEndEvent;
 
     #endregion
 
@@ -145,11 +143,6 @@ public class GameManager
 
         Debug.Log($"与えられた値:{score} 　現在のスコア:{_score.Value}");
         _score.Value += score;
-
-        if(_score.Value >= _quota.Value)
-        {
-            OnGameClear();
-        }
     }
 
     /// <summary>
@@ -158,17 +151,12 @@ public class GameManager
     /// <param name="attachment"></param>
     public void OnSetup(GameManagerAttachment attachment)
     {
-        //初期化
         _score.Value = 0;
         _gameTime.Value = 0;
 
-        //倒すノルマを設定
-        _quota.Value = attachment.Quota;
-        //パネルの参照
         _gameClearPanel = attachment.GameClearPanel;
         _gameOverPanel = attachment.GameOverPanel;
 
-        //遷移の初期化
         GameStateChange(GameState.GameReady);
     }
 
@@ -180,9 +168,9 @@ public class GameManager
         Debug.Log("OnGameOver");
     }
 
-    void OnGameClear()
+    public void OnGameEnd()
     {
-        OnGameClearEvent?.Invoke();
+        OnGameEndEvent?.Invoke();
         _gameClearPanel?.gameObject.SetActive(true);
         Debug.Log("OnGameClear");
     }
@@ -194,10 +182,8 @@ public class GameManager
     {
         _gameTime.Value += Time.deltaTime;
 
-        //ポーズの処理部分
         if(InputUtility.GetDownPause)
         {
-            //ポーズ中
             if(_isPause)
             {
                 OnResume?.Invoke();
@@ -209,7 +195,6 @@ public class GameManager
                 Debug.Log("ポーズ開始");
             }
 
-            //逆にする
             _isPause = !_isPause;
         }
     }

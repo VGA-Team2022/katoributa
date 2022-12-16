@@ -546,7 +546,7 @@ GameObject:
   - component: {fileID: 3404361409688305996}
   - component: {fileID: 4843827665403759761}
   m_Layer: 5
-  m_Name: GameClearPanel
+  m_Name: GameEndPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -690,7 +690,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u30AF\u30EA\u30A2"
+  m_text: "\u7D42\u4E86"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 19d1feb9a36704a439a369adedc58bf5, type: 2}
   m_sharedMaterial: {fileID: -312209006456595782, guid: 19d1feb9a36704a439a369adedc58bf5, type: 2}
