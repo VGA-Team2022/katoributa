@@ -2,8 +2,6 @@ Shader "TK/Material/PBRShader"
 {
     Properties
     {
-        // Specular vs Metallic workflow
-        _WorkflowMode("WorkflowMode", Float) = 1.0
 
         [MainTexture] _BaseMap("Albedo", 2D) = "white" { }
         [MainColor] _BaseColor("Color", Color) = (1, 1, 1, 1)
@@ -73,20 +71,17 @@ Shader "TK/Material/PBRShader"
     {
         Tags{ "RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline" "UniversalMaterialType" = "Lit" "IgnoreProjector" = "True" "ShaderModel" = "4.5"}
         LOD 300
-
+        //Surface
         Pass
         {
             Name "ForwardLit"
             Tags{ "LightMode" = "UniversalForward"}
-
             Blend[_SrcBlend][_DstBlend]
             ZWrite[_ZWrite]
             Cull[_Cull]
-
             HLSLPROGRAM
             #pragma exclude_renderers gles gles3 glcore
             #pragma target 4.5
-
             #pragma shader_feature_local _NORMALMAP
             #pragma shader_feature_local _PARALLAXMAP
             #pragma shader_feature_local _RECEIVE_SHADOWS_OFF
@@ -101,7 +96,6 @@ Shader "TK/Material/PBRShader"
             #pragma shader_feature_local_fragment _SPECULARHIGHLIGHTS_OFF
             #pragma shader_feature_local_fragment _ENVIRONMENTREFLECTIONS_OFF
             #pragma shader_feature_local_fragment _SPECULAR_SETUP
-
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
             #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
             #pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
@@ -113,7 +107,6 @@ Shader "TK/Material/PBRShader"
             #pragma multi_compile_fragment _ _LIGHT_LAYERS
             #pragma multi_compile_fragment _ _LIGHT_COOKIES
             #pragma multi_compile _ _CLUSTERED_RENDERING
-
             #pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
             #pragma multi_compile _ SHADOWS_SHADOWMASK
             #pragma multi_compile _ DIRLIGHTMAP_COMBINED
@@ -121,106 +114,38 @@ Shader "TK/Material/PBRShader"
             #pragma multi_compile _ DYNAMICLIGHTMAP_ON
             #pragma multi_compile_fog
             #pragma multi_compile_fragment _ DEBUG_DISPLAY
-
             #pragma multi_compile_instancing
             #pragma instancing_options renderinglayer
             #pragma multi_compile _ DOTS_INSTANCING_ON
 
-            #pragma vertex LitPassVertex
-            #pragma fragment LitPassFragment
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceInput.hlsl"
+            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/ParallaxMapping.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DBuffer.hlsl"
 
-            # include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
-            # include "Packages/com.unity.render-pipelines.universal/Shaders/LitForwardPass.hlsl"
-            ENDHLSL
-        }
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 
-        Pass
-        {
-            Name "ShadowCaster"
-            Tags{ "LightMode" = "ShadowCaster"}
+#if defined(_DETAIL_MULX2) || defined(_DETAIL_SCALED)
+#define _DETAIL
+#endif
 
-            ZWrite On
-            ZTest LEqual
-            ColorMask 0
-            Cull[_Cull]
+#if defined(_PARALLAXMAP) && !defined(SHADER_API_GLES)
+#define REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR
+#endif
 
-            HLSLPROGRAM
-            #pragma exclude_renderers gles gles3 glcore
-            #pragma target 4.5
-            #pragma shader_feature_local_fragment _ALPHATEST_ON
-            #pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+#if (defined(_NORMALMAP) || (defined(_PARALLAXMAP) && !defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR))) || defined(_DETAIL)
+#define REQUIRES_WORLD_SPACE_TANGENT_INTERPOLATOR
+#endif
 
-            #pragma multi_compile_instancing
-            #pragma multi_compile _ DOTS_INSTANCING_ON
-
-            #pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW
-
-            #pragma vertex ShadowPassVertex
-            #pragma fragment ShadowPassFragment
-
-            # include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
-            # include "Packages/com.unity.render-pipelines.universal/Shaders/ShadowCasterPass.hlsl"
-            ENDHLSL
-        }
-
-        Pass
-        {
-            Name "GBuffer"
-            Tags{ "LightMode" = "UniversalGBuffer"}
-
-            ZWrite[_ZWrite]
-            ZTest LEqual
-            Cull[_Cull]
-
-            HLSLPROGRAM
-            #pragma exclude_renderers gles gles3 glcore
-            #pragma target 4.5
-
-
-            #pragma shader_feature_local _NORMALMAP
-            #pragma shader_feature_local_fragment _ALPHATEST_ON
-            #pragma shader_feature_local_fragment _EMISSION
-            #pragma shader_feature_local_fragment _METALLICSPECGLOSSMAP
-            #pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-            #pragma shader_feature_local_fragment _OCCLUSIONMAP
-            #pragma shader_feature_local _PARALLAXMAP
-            #pragma shader_feature_local _ _DETAIL_MULX2 _DETAIL_SCALED
-
-            #pragma shader_feature_local_fragment _SPECULARHIGHLIGHTS_OFF
-            #pragma shader_feature_local_fragment _ENVIRONMENTREFLECTIONS_OFF
-            #pragma shader_feature_local_fragment _SPECULAR_SETUP
-            #pragma shader_feature_local _RECEIVE_SHADOWS_OFF
-
-            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
-            #pragma multi_compile_fragment _ _REFLECTION_PROBE_BLENDING
-            #pragma multi_compile_fragment _ _REFLECTION_PROBE_BOX_PROJECTION
-            #pragma multi_compile_fragment _ _SHADOWS_SOFT
-            #pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
-            #pragma multi_compile_fragment _ _LIGHT_LAYERS
-            #pragma multi_compile_fragment _ _RENDER_PASS_ENABLED
-
-            #pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
-            #pragma multi_compile _ SHADOWS_SHADOWMASK
-            #pragma multi_compile _ DIRLIGHTMAP_COMBINED
-            #pragma multi_compile _ LIGHTMAP_ON
-            #pragma multi_compile _ DYNAMICLIGHTMAP_ON
-            #pragma multi_compile_fragment _ _GBUFFER_NORMALS_OCT
-
-            #pragma multi_compile_instancing
-            #pragma instancing_options renderinglayer
-            #pragma multi_compile _ DOTS_INSTANCING_ON
-
-            #pragma vertex LitGBufferPassVertex
-            #pragma fragment LitGBufferPassFragment
-            # include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-            # include "Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl"
-            # include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceInput.hlsl"
-            # include "Packages/com.unity.render-pipelines.core/ShaderLibrary/ParallaxMapping.hlsl"
-            # include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DBuffer.hlsl"
-
-            #if defined(_DETAIL_MULX2) || defined(_DETAIL_SCALED)
-            #define _DETAIL
-            #endif
+        TEXTURE2D(_ParallaxMap);        SAMPLER(sampler_ParallaxMap);
+        TEXTURE2D(_OcclusionMap);       SAMPLER(sampler_OcclusionMap);
+        TEXTURE2D(_DetailMask);         SAMPLER(sampler_DetailMask);
+        TEXTURE2D(_DetailAlbedoMap);    SAMPLER(sampler_DetailAlbedoMap);
+        TEXTURE2D(_DetailNormalMap);    SAMPLER(sampler_DetailNormalMap);
+        TEXTURE2D(_MetallicGlossMap);   SAMPLER(sampler_MetallicGlossMap);
+        TEXTURE2D(_SpecGlossMap);       SAMPLER(sampler_SpecGlossMap);
+        TEXTURE2D(_ClearCoatMap);       SAMPLER(sampler_ClearCoatMap);
 
             CBUFFER_START(UnityPerMaterial)
             float4 _BaseMap_ST;
@@ -241,74 +166,80 @@ Shader "TK/Material/PBRShader"
             half _Surface;
             CBUFFER_END
 
-# ifdef UNITY_DOTS_INSTANCING_ENABLED
-            UNITY_DOTS_INSTANCING_START(MaterialPropertyMetadata)
-            UNITY_DOTS_INSTANCED_PROP(float4, _BaseColor)
-            UNITY_DOTS_INSTANCED_PROP(float4, _SpecColor)
-            UNITY_DOTS_INSTANCED_PROP(float4, _EmissionColor)
-            UNITY_DOTS_INSTANCED_PROP(float, _Cutoff)
-            UNITY_DOTS_INSTANCED_PROP(float, _Smoothness)
-            UNITY_DOTS_INSTANCED_PROP(float, _Metallic)
-            UNITY_DOTS_INSTANCED_PROP(float, _BumpScale)
-            UNITY_DOTS_INSTANCED_PROP(float, _Parallax)
-            UNITY_DOTS_INSTANCED_PROP(float, _OcclusionStrength)
-            UNITY_DOTS_INSTANCED_PROP(float, _ClearCoatMask)
-            UNITY_DOTS_INSTANCED_PROP(float, _ClearCoatSmoothness)
-            UNITY_DOTS_INSTANCED_PROP(float, _DetailAlbedoMapScale)
-            UNITY_DOTS_INSTANCED_PROP(float, _DetailNormalMapScale)
-            UNITY_DOTS_INSTANCED_PROP(float, _Surface)
-            UNITY_DOTS_INSTANCING_END(MaterialPropertyMetadata)
-
-            #define _BaseColor              UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float4 , Metadata_BaseColor)
-            #define _SpecColor              UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float4 , Metadata_SpecColor)
-            #define _EmissionColor          UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float4 , Metadata_EmissionColor)
-            #define _Cutoff                 UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_Cutoff)
-            #define _Smoothness             UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_Smoothness)
-            #define _Metallic               UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_Metallic)
-            #define _BumpScale              UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_BumpScale)
-            #define _Parallax               UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_Parallax)
-            #define _OcclusionStrength      UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_OcclusionStrength)
-            #define _ClearCoatMask          UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_ClearCoatMask)
-            #define _ClearCoatSmoothness    UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_ClearCoatSmoothness)
-            #define _DetailAlbedoMapScale   UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_DetailAlbedoMapScale)
-            #define _DetailNormalMapScale   UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_DetailNormalMapScale)
-            #define _Surface                UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_Surface)
-#endif
-
-            TEXTURE2D(_ParallaxMap); SAMPLER(sampler_ParallaxMap);
-            TEXTURE2D(_OcclusionMap); SAMPLER(sampler_OcclusionMap);
-            TEXTURE2D(_DetailMask); SAMPLER(sampler_DetailMask);
-            TEXTURE2D(_DetailAlbedoMap); SAMPLER(sampler_DetailAlbedoMap);
-            TEXTURE2D(_DetailNormalMap); SAMPLER(sampler_DetailNormalMap);
-            TEXTURE2D(_MetallicGlossMap); SAMPLER(sampler_MetallicGlossMap);
-            TEXTURE2D(_SpecGlossMap); SAMPLER(sampler_SpecGlossMap);
-            TEXTURE2D(_ClearCoatMap); SAMPLER(sampler_ClearCoatMap);
-
-# ifdef _SPECULAR_SETUP
-            #define SAMPLE_METALLICSPECULAR(uv) SAMPLE_TEXTURE2D(_SpecGlossMap, sampler_SpecGlossMap, uv)
+#ifdef _SPECULAR_SETUP
+#define SAMPLE_METALLICSPECULAR(uv) SAMPLE_TEXTURE2D(_SpecGlossMap, sampler_SpecGlossMap, uv)
 #else
-            #define SAMPLE_METALLICSPECULAR(uv) SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv)
+#define SAMPLE_METALLICSPECULAR(uv) SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv)
 #endif
+
+            struct Attributes
+            {
+                float4 positionOS   : POSITION;
+                float3 normalOS     : NORMAL;
+                float4 tangentOS    : TANGENT;
+                float2 texcoord     : TEXCOORD0;
+                float2 staticLightmapUV   : TEXCOORD1;
+                float2 dynamicLightmapUV  : TEXCOORD2;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
+            };
+
+            struct Varyings
+            {
+                float2 uv                       : TEXCOORD0;
+
+#if defined(REQUIRES_WORLD_SPACE_POS_INTERPOLATOR)
+                float3 positionWS               : TEXCOORD1;
+#endif
+
+                float3 normalWS                 : TEXCOORD2;
+#if defined(REQUIRES_WORLD_SPACE_TANGENT_INTERPOLATOR)
+                half4 tangentWS                : TEXCOORD3;    
+#endif
+                float3 viewDirWS                : TEXCOORD4;
+
+#ifdef _ADDITIONAL_LIGHTS_VERTEX
+                half4 fogFactorAndVertexLight   : TEXCOORD5; 
+#else
+                half  fogFactor                 : TEXCOORD5;
+#endif
+
+#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
+                float4 shadowCoord              : TEXCOORD6;
+#endif
+
+#if defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR)
+                half3 viewDirTS                : TEXCOORD7;
+#endif
+
+                DECLARE_LIGHTMAP_OR_SH(staticLightmapUV, vertexSH, 8);
+#ifdef DYNAMICLIGHTMAP_ON
+                float2  dynamicLightmapUV : TEXCOORD9; 
+#endif
+
+                float4 positionCS               : SV_POSITION;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
+                UNITY_VERTEX_OUTPUT_STEREO
+            };
 
             half4 SampleMetallicSpecGloss(float2 uv, half albedoAlpha)
             {
                 half4 specGloss;
 
-# ifdef _METALLICSPECGLOSSMAP
+#ifdef _METALLICSPECGLOSSMAP
                 specGloss = half4(SAMPLE_METALLICSPECULAR(uv));
-# ifdef _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+#ifdef _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
                 specGloss.a = albedoAlpha * _Smoothness;
 #else
                 specGloss.a *= _Smoothness;
 #endif
-#else 
+#else
 #if _SPECULAR_SETUP
                 specGloss.rgb = _SpecColor.rgb;
 #else
                 specGloss.rgb = _Metallic.rrr;
 #endif
 
-# ifdef _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+#ifdef _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
                 specGloss.a = albedoAlpha * _Smoothness;
 #else
                 specGloss.a = _Smoothness;
@@ -320,10 +251,9 @@ Shader "TK/Material/PBRShader"
 
             half SampleOcclusion(float2 uv)
             {
-# ifdef _OCCLUSIONMAP
-                // TODO: Controls things like these by exposing SHADER_QUALITY levels (low, medium, high)
+#ifdef _OCCLUSIONMAP
 #if defined(SHADER_API_GLES)
-            return SAMPLE_TEXTURE2D(_OcclusionMap, sampler_OcclusionMap, uv).g;
+                return SAMPLE_TEXTURE2D(_OcclusionMap, sampler_OcclusionMap, uv).g;
 #else
                 half occ = SAMPLE_TEXTURE2D(_OcclusionMap, sampler_OcclusionMap, uv).g;
                 return LerpWhiteTo(occ, _OcclusionStrength);
@@ -333,10 +263,6 @@ Shader "TK/Material/PBRShader"
 #endif
             }
 
-
-            // Returns clear coat parameters
-            // .x/.r == mask
-            // .y/.g == smoothness
             half2 SampleClearCoat(float2 uv)
             {
 #if defined(_CLEARCOAT) || defined(_CLEARCOATMAP)
@@ -349,7 +275,7 @@ Shader "TK/Material/PBRShader"
                 return clearCoatMaskSmoothness;
 #else
                 return half2(0.0, 1.0);
-#endif  T
+#endif  
             }
 
             void ApplyPerPixelDisplacement(half3 viewDirTS, inout float2 uv)
@@ -361,7 +287,6 @@ Shader "TK/Material/PBRShader"
 
             half3 ScaleDetailAlbedo(half3 detailAlbedo, half scale)
             {
-                
                 return half(2.0) * detailAlbedo * scale - scale + half(1.0);
             }
 
@@ -370,7 +295,6 @@ Shader "TK/Material/PBRShader"
 #if defined(_DETAIL)
                 half3 detailAlbedo = SAMPLE_TEXTURE2D(_DetailAlbedoMap, sampler_DetailAlbedoMap, detailUv).rgb;
 
-    
 #if defined(_DETAIL_SCALED)
                 detailAlbedo = ScaleDetailAlbedo(detailAlbedo, _DetailAlbedoMapScale);
 #else
@@ -382,7 +306,6 @@ Shader "TK/Material/PBRShader"
                 return albedo;
 #endif
             }
-
             half3 ApplyDetailNormal(float2 detailUv, half3 normalTS, half detailMask)
             {
 #if defined(_DETAIL)
@@ -392,10 +315,9 @@ Shader "TK/Material/PBRShader"
                 half3 detailNormalTS = UnpackNormalScale(SAMPLE_TEXTURE2D(_DetailNormalMap, sampler_DetailNormalMap, detailUv), _DetailNormalMapScale);
 #endif
 
-    
                 detailNormalTS = normalize(detailNormalTS);
 
-                return lerp(normalTS, BlendNormalRNM(normalTS, detailNormalTS), detailMask); // todo: detailMask should lerp the angle of the quaternion rotation, not the normals
+                return lerp(normalTS, BlendNormalRNM(normalTS, detailNormalTS), detailMask);
 #else
                 return normalTS;
 #endif
@@ -424,7 +346,7 @@ Shader "TK/Material/PBRShader"
 
 #if defined(_CLEARCOAT) || defined(_CLEARCOATMAP)
                 half2 clearCoat = SampleClearCoat(uv);
-                outSurfaceData.clearCoatMask       = clearCoat.r;
+                outSurfaceData.clearCoatMask = clearCoat.r;
                 outSurfaceData.clearCoatSmoothness = clearCoat.g;
 #else
                 outSurfaceData.clearCoatMask = half(0.0);
@@ -439,66 +361,6 @@ Shader "TK/Material/PBRShader"
 #endif
             }
 
-            # include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-
-            // GLES2 has limited amount of interpolators
-#if defined(_PARALLAXMAP) && !defined(SHADER_API_GLES)
-            #define REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR
-#endif
-
-#if (defined(_NORMALMAP) || (defined(_PARALLAXMAP) && !defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR))) || defined(_DETAIL)
-            #define REQUIRES_WORLD_SPACE_TANGENT_INTERPOLATOR
-#endif
-
-            struct Attributes
-            {
-                float4 positionOS   : POSITION;
-                float3 normalOS     : NORMAL;
-                float4 tangentOS    : TANGENT;
-                float2 texcoord     : TEXCOORD0;
-                float2 staticLightmapUV   : TEXCOORD1;
-                float2 dynamicLightmapUV  : TEXCOORD2;
-                UNITY_VERTEX_INPUT_INSTANCE_ID
-            };
-
-            struct Varyings
-            {
-                float2 uv                       : TEXCOORD0;
-
-#if defined(REQUIRES_WORLD_SPACE_POS_INTERPOLATOR)
-                float3 positionWS               : TEXCOORD1;
-#endif
-
-                float3 normalWS                 : TEXCOORD2;
-#if defined(REQUIRES_WORLD_SPACE_TANGENT_INTERPOLATOR)
-                half4 tangentWS                : TEXCOORD3;    // xyz: tangent, w: sign
-#endif
-                float3 viewDirWS                : TEXCOORD4;
-
-#ifdef _ADDITIONAL_LIGHTS_VERTEX
-                half4 fogFactorAndVertexLight   : TEXCOORD5; // x: fogFactor, yzw: vertex light
-#else
-                half fogFactor                 : TEXCOORD5;
-#endif
-
-#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
-                float4 shadowCoord              : TEXCOORD6;
-#endif
-
-#if defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR)
-                half3 viewDirTS                : TEXCOORD7;
-#endif
-
-                DECLARE_LIGHTMAP_OR_SH(staticLightmapUV, vertexSH, 8);
-#ifdef DYNAMICLIGHTMAP_ON
-                float2 dynamicLightmapUV : TEXCOORD9; // Dynamic lightmap UVs
-#endif
-
-                float4 positionCS               : SV_POSITION;
-                UNITY_VERTEX_INPUT_INSTANCE_ID
-                UNITY_VERTEX_OUTPUT_STEREO
-            };
-
             void InitializeInputData(Varyings input, half3 normalTS, out InputData inputData)
             {
                 inputData = (InputData)0;
@@ -509,7 +371,7 @@ Shader "TK/Material/PBRShader"
 
                 half3 viewDirWS = GetWorldSpaceNormalizeViewDir(input.positionWS);
 #if defined(_NORMALMAP) || defined(_DETAIL)
-                float sgn = input.tangentWS.w;      
+                float sgn = input.tangentWS.w;      // should be either +1 or -1
                 float3 bitangent = sgn * cross(input.normalWS.xyz, input.tangentWS.xyz);
                 half3x3 tangentToWorld = half3x3(input.tangentWS.xyz, bitangent.xyz, input.normalWS.xyz);
 
@@ -557,298 +419,108 @@ Shader "TK/Material/PBRShader"
                 inputData.vertexSH = input.vertexSH;
 #endif
 #endif
-}
+            }
 
-Varyings LitPassVertex(Attributes input)
-{
-    Varyings output = (Varyings)0;
+            Varyings LitPassVertex(Attributes input)
+            {
+                Varyings output = (Varyings)0;
 
-    UNITY_SETUP_INSTANCE_ID(input);
-    UNITY_TRANSFER_INSTANCE_ID(input, output);
-    UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
+                UNITY_SETUP_INSTANCE_ID(input);
+                UNITY_TRANSFER_INSTANCE_ID(input, output);
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
 
-    VertexPositionInputs vertexInput = GetVertexPositionInputs(input.positionOS.xyz);
+                VertexPositionInputs vertexInput = GetVertexPositionInputs(input.positionOS.xyz);
 
-    VertexNormalInputs normalInput = GetVertexNormalInputs(input.normalOS, input.tangentOS);
+                VertexNormalInputs normalInput = GetVertexNormalInputs(input.normalOS, input.tangentOS);
 
-    half3 vertexLight = VertexLighting(vertexInput.positionWS, normalInput.normalWS);
+                half3 vertexLight = VertexLighting(vertexInput.positionWS, normalInput.normalWS);
 
-    half fogFactor = 0;
+                half fogFactor = 0;
 #if !defined(_FOG_FRAGMENT)
-    fogFactor = ComputeFogFactor(vertexInput.positionCS.z);
+                fogFactor = ComputeFogFactor(vertexInput.positionCS.z);
 #endif
 
-    output.uv = TRANSFORM_TEX(input.texcoord, _BaseMap);
+                output.uv = TRANSFORM_TEX(input.texcoord, _BaseMap);
 
-    output.normalWS = normalInput.normalWS;
+                output.normalWS = normalInput.normalWS;
 #if defined(REQUIRES_WORLD_SPACE_TANGENT_INTERPOLATOR) || defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR)
-    real sign = input.tangentOS.w * GetOddNegativeScale();
-    half4 tangentWS = half4(normalInput.tangentWS.xyz, sign);
+                real sign = input.tangentOS.w * GetOddNegativeScale();
+                half4 tangentWS = half4(normalInput.tangentWS.xyz, sign);
 #endif
 #if defined(REQUIRES_WORLD_SPACE_TANGENT_INTERPOLATOR)
-    output.tangentWS = tangentWS;
+                output.tangentWS = tangentWS;
 #endif
 
 #if defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR)
-    half3 viewDirWS = GetWorldSpaceNormalizeViewDir(vertexInput.positionWS);
-    half3 viewDirTS = GetViewDirectionTangentSpace(tangentWS, output.normalWS, viewDirWS);
-    output.viewDirTS = viewDirTS;
+                half3 viewDirWS = GetWorldSpaceNormalizeViewDir(vertexInput.positionWS);
+                half3 viewDirTS = GetViewDirectionTangentSpace(tangentWS, output.normalWS, viewDirWS);
+                output.viewDirTS = viewDirTS;
 #endif
 
-    OUTPUT_LIGHTMAP_UV(input.staticLightmapUV, unity_LightmapST, output.staticLightmapUV);
+                OUTPUT_LIGHTMAP_UV(input.staticLightmapUV, unity_LightmapST, output.staticLightmapUV);
 #ifdef DYNAMICLIGHTMAP_ON
-    output.dynamicLightmapUV = input.dynamicLightmapUV.xy * unity_DynamicLightmapST.xy + unity_DynamicLightmapST.zw;
+                output.dynamicLightmapUV = input.dynamicLightmapUV.xy * unity_DynamicLightmapST.xy + unity_DynamicLightmapST.zw;
 #endif
-    OUTPUT_SH(output.normalWS.xyz, output.vertexSH);
+                OUTPUT_SH(output.normalWS.xyz, output.vertexSH);
 #ifdef _ADDITIONAL_LIGHTS_VERTEX
-    output.fogFactorAndVertexLight = half4(fogFactor, vertexLight);
+                output.fogFactorAndVertexLight = half4(fogFactor, vertexLight);
 #else
-    output.fogFactor = fogFactor;
+                output.fogFactor = fogFactor;
 #endif
 
 #if defined(REQUIRES_WORLD_SPACE_POS_INTERPOLATOR)
-    output.positionWS = vertexInput.positionWS;
+                output.positionWS = vertexInput.positionWS;
 #endif
 
 #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
-    output.shadowCoord = GetShadowCoord(vertexInput);
+                output.shadowCoord = GetShadowCoord(vertexInput);
 #endif
 
-    output.positionCS = vertexInput.positionCS;
+                output.positionCS = vertexInput.positionCS;
 
-    return output;
-}
+                return output;
+            }
 
-// Used in Standard (Physically Based) shader
-half4 LitPassFragment(Varyings input) : SV_Target
-{
-    UNITY_SETUP_INSTANCE_ID(input);
-    UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
+            half4 LitPassFragment(Varyings input) : SV_Target
+            {
+                UNITY_SETUP_INSTANCE_ID(input);
+                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
 
 #if defined(_PARALLAXMAP)
 #if defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR)
-    half3 viewDirTS = input.viewDirTS;
+                half3 viewDirTS = input.viewDirTS;
 #else
-    half3 viewDirWS = GetWorldSpaceNormalizeViewDir(input.positionWS);
-    half3 viewDirTS = GetViewDirectionTangentSpace(input.tangentWS, input.normalWS, viewDirWS);
+                half3 viewDirWS = GetWorldSpaceNormalizeViewDir(input.positionWS);
+                half3 viewDirTS = GetViewDirectionTangentSpace(input.tangentWS, input.normalWS, viewDirWS);
 #endif
-    ApplyPerPixelDisplacement(viewDirTS, input.uv);
+                ApplyPerPixelDisplacement(viewDirTS, input.uv);
 #endif
 
-    SurfaceData surfaceData;
-    InitializeStandardLitSurfaceData(input.uv, surfaceData);
+                SurfaceData surfaceData;
+                InitializeStandardLitSurfaceData(input.uv, surfaceData);
 
-    InputData inputData;
-    InitializeInputData(input, surfaceData.normalTS, inputData);
-    SETUP_DEBUG_TEXTURE_DATA(inputData, input.uv, _BaseMap);
+                InputData inputData;
+                InitializeInputData(input, surfaceData.normalTS, inputData);
+                SETUP_DEBUG_TEXTURE_DATA(inputData, input.uv, _BaseMap);
 
 #ifdef _DBUFFER
-    ApplyDecalToSurfaceData(input.positionCS, surfaceData, inputData);
+                ApplyDecalToSurfaceData(input.positionCS, surfaceData, inputData);
 #endif
 
-    half4 color = UniversalFragmentPBR(inputData, surfaceData);
+                half4 color = UniversalFragmentPBR(inputData, surfaceData);
 
-    color.rgb = MixFog(color.rgb, inputData.fogCoord);
-    color.a = OutputAlpha(color.a, _Surface);
+                color.rgb = MixFog(color.rgb, inputData.fogCoord);
+                color.a = OutputAlpha(color.a, _Surface);
 
-    return color;
-}
+                return color;
+            }
 
-
-ENDHLSL
-        }
-
-        Pass
-        {
-            Name "DepthOnly"
-            Tags{ "LightMode" = "DepthOnly"}
-
-            ZWrite On
-            ColorMask 0
-            Cull[_Cull]
-
-            HLSLPROGRAM
-#pragma exclude_renderers gles gles3 glcore
-#pragma target 4.5
-
-#pragma vertex DepthOnlyVertex
-#pragma fragment DepthOnlyFragment
-
-            // -------------------------------------
-            // Material Keywords
-#pragma shader_feature_local_fragment _ALPHATEST_ON
-#pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-
-            //--------------------------------------
-            // GPU Instancing
-#pragma multi_compile_instancing
-#pragma multi_compile _ DOTS_INSTANCING_ON
-
-# include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
-# include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
-            ENDHLSL
-        }
-
-        // This pass is used when drawing to a _CameraNormalsTexture texture
-        Pass
-        {
-            Name "DepthNormals"
-            Tags{ "LightMode" = "DepthNormals"}
-
-            ZWrite On
-            Cull[_Cull]
-
-            HLSLPROGRAM
-#pragma exclude_renderers gles gles3 glcore
-#pragma target 4.5
-
-#pragma vertex DepthNormalsVertex
-#pragma fragment DepthNormalsFragment
-
-            // -------------------------------------
-            // Material Keywords
-#pragma shader_feature_local _NORMALMAP
-#pragma shader_feature_local _PARALLAXMAP
-#pragma shader_feature_local _ _DETAIL_MULX2 _DETAIL_SCALED
-#pragma shader_feature_local_fragment _ALPHATEST_ON
-#pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-
-            //--------------------------------------
-            // GPU Instancing
-#pragma multi_compile_instancing
-#pragma multi_compile _ DOTS_INSTANCING_ON
-
-# include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
-# include "Packages/com.unity.render-pipelines.universal/Shaders/LitDepthNormalsPass.hlsl"
-            ENDHLSL
-        }
-
-        // This pass it not used during regular rendering, only for lightmap baking.
-        Pass
-        {
-            Name "Meta"
-            Tags{ "LightMode" = "Meta"}
-
-            Cull Off
-
-            HLSLPROGRAM
-#pragma exclude_renderers gles gles3 glcore
-#pragma target 4.5
-
-#pragma vertex UniversalVertexMeta
-#pragma fragment UniversalFragmentMetaLit
-
-#pragma shader_feature EDITOR_VISUALIZATION
-#pragma shader_feature_local_fragment _SPECULAR_SETUP
-#pragma shader_feature_local_fragment _EMISSION
-#pragma shader_feature_local_fragment _METALLICSPECGLOSSMAP
-#pragma shader_feature_local_fragment _ALPHATEST_ON
-#pragma shader_feature_local_fragment _ _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-#pragma shader_feature_local _ _DETAIL_MULX2 _DETAIL_SCALED
-
-#pragma shader_feature_local_fragment _SPECGLOSSMAP
-
-# include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
-# include "Packages/com.unity.render-pipelines.universal/Shaders/LitMetaPass.hlsl"
+            #pragma vertex LitPassVertex
+            #pragma fragment LitPassFragment
 
             ENDHLSL
         }
-
-        Pass
-        {
-            Name "Universal2D"
-            Tags{ "LightMode" = "Universal2D" }
-
-            Blend[_SrcBlend][_DstBlend]
-            ZWrite[_ZWrite]
-            Cull[_Cull]
-
-            HLSLPROGRAM
-#pragma exclude_renderers gles gles3 glcore
-#pragma target 4.5
-
-#pragma vertex vert
-#pragma fragment frag
-#pragma shader_feature_local_fragment _ALPHATEST_ON
-#pragma shader_feature_local_fragment _ALPHAPREMULTIPLY_ON
-
-# include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
-# include "Packages/com.unity.render-pipelines.universal/Shaders/Utils/Universal2D.hlsl"
-            ENDHLSL
-        }
-    }
-
-    SubShader
-    {
-        Tags{ "RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline" "UniversalMaterialType" = "Lit" "IgnoreProjector" = "True" "ShaderModel" = "2.0"}
-        LOD 300
-
-        Pass
-        {
-            Name "ForwardLit"
-            Tags{ "LightMode" = "UniversalForward"}
-
-            Blend[_SrcBlend][_DstBlend]
-            ZWrite[_ZWrite]
-            Cull[_Cull]
-
-            HLSLPROGRAM
-#pragma only_renderers gles gles3 glcore d3d11
-#pragma target 2.0
-
-            //--------------------------------------
-            // GPU Instancing
-#pragma multi_compile_instancing
-#pragma instancing_options renderinglayer
-
-            // -------------------------------------
-            // Material Keywords
-#pragma shader_feature_local _NORMALMAP
-#pragma shader_feature_local _PARALLAXMAP
-#pragma shader_feature_local _RECEIVE_SHADOWS_OFF
-#pragma shader_feature_local _ _DETAIL_MULX2 _DETAIL_SCALED
-#pragma shader_feature_local_fragment _SURFACE_TYPE_TRANSPARENT
-#pragma shader_feature_local_fragment _ALPHATEST_ON
-#pragma shader_feature_local_fragment _ALPHAPREMULTIPLY_ON
-#pragma shader_feature_local_fragment _EMISSION
-#pragma shader_feature_local_fragment _METALLICSPECGLOSSMAP
-#pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-#pragma shader_feature_local_fragment _OCCLUSIONMAP
-#pragma shader_feature_local_fragment _SPECULARHIGHLIGHTS_OFF
-#pragma shader_feature_local_fragment _ENVIRONMENTREFLECTIONS_OFF
-#pragma shader_feature_local_fragment _SPECULAR_SETUP
-
-            // -------------------------------------
-            // Universal Pipeline keywords
-#pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
-#pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
-#pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
-#pragma multi_compile_fragment _ _SHADOWS_SOFT
-#pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
-#pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
-#pragma multi_compile_fragment _ _REFLECTION_PROBE_BLENDING
-#pragma multi_compile_fragment _ _REFLECTION_PROBE_BOX_PROJECTION
-#pragma multi_compile_fragment _ _LIGHT_LAYERS
-#pragma multi_compile_fragment _ _LIGHT_COOKIES
-#pragma multi_compile _ _CLUSTERED_RENDERING
-
-            // -------------------------------------
-            // Unity defined keywords
-#pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
-#pragma multi_compile _ SHADOWS_SHADOWMASK
-#pragma multi_compile _ DIRLIGHTMAP_COMBINED
-#pragma multi_compile _ LIGHTMAP_ON
-#pragma multi_compile_fog
-#pragma multi_compile_fragment _ DEBUG_DISPLAY
-
-#pragma vertex LitPassVertex
-#pragma fragment LitPassFragment
-
-# include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
-# include "Packages/com.unity.render-pipelines.universal/Shaders/LitForwardPass.hlsl"
-            ENDHLSL
-        }
-
+        //ShadowCaster
         Pass
         {
             Name "ShadowCaster"
@@ -860,32 +532,24 @@ ENDHLSL
             Cull[_Cull]
 
             HLSLPROGRAM
-#pragma only_renderers gles gles3 glcore d3d11
-#pragma target 2.0
+            #pragma exclude_renderers gles gles3 glcore
+            #pragma target 4.5
+            #pragma shader_feature_local_fragment _ALPHATEST_ON
+            #pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
-            //--------------------------------------
-            // GPU Instancing
-#pragma multi_compile_instancing
+            #pragma multi_compile_instancing
+            #pragma multi_compile _ DOTS_INSTANCING_ON
 
-            // -------------------------------------
-            // Material Keywords
-#pragma shader_feature_local_fragment _ALPHATEST_ON
-#pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+            #pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW
 
-            // -------------------------------------
-            // Universal Pipeline keywords
+            #pragma vertex ShadowPassVertex
+            #pragma fragment ShadowPassFragment
 
-            // This is used during shadow map generation to differentiate between directional and punctual light shadows, as they use different formulas to apply Normal Bias
-#pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW
-
-#pragma vertex ShadowPassVertex
-#pragma fragment ShadowPassFragment
-
-# include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
-# include "Packages/com.unity.render-pipelines.universal/Shaders/ShadowCasterPass.hlsl"
+            # include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
+            # include "Packages/com.unity.render-pipelines.universal/Shaders/ShadowCasterPass.hlsl"
             ENDHLSL
         }
-
+        //DepthNormal DepthOnly
         Pass
         {
             Name "DepthOnly"
@@ -896,12 +560,8 @@ ENDHLSL
             Cull[_Cull]
 
             HLSLPROGRAM
-#pragma only_renderers gles gles3 glcore d3d11
-#pragma target 2.0
-
-            //--------------------------------------
-            // GPU Instancing
-#pragma multi_compile_instancing
+#pragma exclude_renderers gles gles3 glcore
+#pragma target 4.5
 
 #pragma vertex DepthOnlyVertex
 #pragma fragment DepthOnlyFragment
@@ -911,12 +571,16 @@ ENDHLSL
 #pragma shader_feature_local_fragment _ALPHATEST_ON
 #pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
+            //--------------------------------------
+            // GPU Instancing
+#pragma multi_compile_instancing
+#pragma multi_compile _ DOTS_INSTANCING_ON
+
 # include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
 # include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
             ENDHLSL
         }
-
-        // This pass is used when drawing to a _CameraNormalsTexture texture
+        //DepthNormal 
         Pass
         {
             Name "DepthNormals"
@@ -926,8 +590,8 @@ ENDHLSL
             Cull[_Cull]
 
             HLSLPROGRAM
-#pragma only_renderers gles gles3 glcore d3d11
-#pragma target 2.0
+#pragma exclude_renderers gles gles3 glcore
+#pragma target 4.5
 
 #pragma vertex DepthNormalsVertex
 #pragma fragment DepthNormalsFragment
@@ -943,13 +607,13 @@ ENDHLSL
             //--------------------------------------
             // GPU Instancing
 #pragma multi_compile_instancing
+#pragma multi_compile _ DOTS_INSTANCING_ON
 
 # include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
 # include "Packages/com.unity.render-pipelines.universal/Shaders/LitDepthNormalsPass.hlsl"
             ENDHLSL
         }
-
-        // This pass it not used during regular rendering, only for lightmap baking.
+        //MetaLight
         Pass
         {
             Name "Meta"
@@ -958,51 +622,26 @@ ENDHLSL
             Cull Off
 
             HLSLPROGRAM
-#pragma only_renderers gles gles3 glcore d3d11
-#pragma target 2.0
+            #pragma exclude_renderers gles gles3 glcore
+            #pragma target 4.5
 
-#pragma vertex UniversalVertexMeta
-#pragma fragment UniversalFragmentMetaLit
+            #pragma vertex UniversalVertexMeta
+            #pragma fragment UniversalFragmentMetaLit
 
-#pragma shader_feature EDITOR_VISUALIZATION
-#pragma shader_feature_local_fragment _SPECULAR_SETUP
-#pragma shader_feature_local_fragment _EMISSION
-#pragma shader_feature_local_fragment _METALLICSPECGLOSSMAP
-#pragma shader_feature_local_fragment _ALPHATEST_ON
-#pragma shader_feature_local_fragment _ _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-#pragma shader_feature_local _ _DETAIL_MULX2 _DETAIL_SCALED
+            #pragma shader_feature EDITOR_VISUALIZATION
+            #pragma shader_feature_local_fragment _SPECULAR_SETUP
+            #pragma shader_feature_local_fragment _EMISSION
+            #pragma shader_feature_local_fragment _METALLICSPECGLOSSMAP
+            #pragma shader_feature_local_fragment _ALPHATEST_ON
+            #pragma shader_feature_local_fragment _ _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+            #pragma shader_feature_local _ _DETAIL_MULX2 _DETAIL_SCALED
 
-#pragma shader_feature_local_fragment _SPECGLOSSMAP
+            #pragma shader_feature_local_fragment _SPECGLOSSMAP
 
-# include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
-# include "Packages/com.unity.render-pipelines.universal/Shaders/LitMetaPass.hlsl"
+            # include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
+            # include "Packages/com.unity.render-pipelines.universal/Shaders/LitMetaPass.hlsl"
 
-            ENDHLSL
-        }
-        Pass
-        {
-            Name "Universal2D"
-            Tags{ "LightMode" = "Universal2D" }
-
-            Blend[_SrcBlend][_DstBlend]
-            ZWrite[_ZWrite]
-            Cull[_Cull]
-
-            HLSLPROGRAM
-#pragma only_renderers gles gles3 glcore d3d11
-#pragma target 2.0
-
-#pragma vertex vert
-#pragma fragment frag
-#pragma shader_feature_local_fragment _ALPHATEST_ON
-#pragma shader_feature_local_fragment _ALPHAPREMULTIPLY_ON
-
-# include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
-# include "Packages/com.unity.render-pipelines.universal/Shaders/Utils/Universal2D.hlsl"
             ENDHLSL
         }
     }
-
-    FallBack "Hidden/Universal Render Pipeline/FallbackError"
-    CustomEditor "UnityEditor.Rendering.Universal.ShaderGUI.LitShader"
 }
