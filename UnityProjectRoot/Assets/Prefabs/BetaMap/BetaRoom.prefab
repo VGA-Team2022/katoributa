@@ -160,8 +160,8 @@ MonoBehaviour:
     - 0
     - 0
     - 0
-  _cueName: BGM_fan
-  _cueSheet: BGM
+  _cueName: SE_fan
+  _cueSheet: SE
 --- !u!1 &863480448300120116
 GameObject:
   m_ObjectHideFlags: 0
