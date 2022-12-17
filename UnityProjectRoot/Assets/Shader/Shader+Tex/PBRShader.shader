@@ -510,6 +510,7 @@ Shader "TK/Material/PBRShader"
                 half4 color = UniversalFragmentPBR(inputData, surfaceData);
 
                 color.rgb = MixFog(color.rgb, inputData.fogCoord);
+                color.rgb *= _BaseColor * 3;
                 color.a = OutputAlpha(color.a, _Surface);
 
                 return color;
