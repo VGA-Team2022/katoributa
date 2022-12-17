@@ -40,7 +40,7 @@ public class SenkouHealth : MonoBehaviour
 
         if(_senkouTime.Value <= 0)
         {
-            GameManager.Instance.OnGameOver();
+            GameManager.Instance.OnGameEnd();
         }
     }
 

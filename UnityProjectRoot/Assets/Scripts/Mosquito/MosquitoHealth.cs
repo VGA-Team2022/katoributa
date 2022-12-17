@@ -12,6 +12,8 @@ public class MosquitoHealth : MonoBehaviour
     [SerializeField, Tooltip("蚊の体力")] int _health = 3;
     [Header("落下速度")]
     [SerializeField] float _fallingSpeed = 5f;
+    [Header("追加するスコア")]
+    [SerializeField, Min(0)] int _score = 100;
 
     VisualEffect _model;
     Transform _thisTransform;
@@ -55,7 +57,7 @@ public class MosquitoHealth : MonoBehaviour
             _landingPosition = PositionCalculation();
             SetProperty("Turbulence Intensity", 0);
             SetProperty("Turbulence Drag", 0);
-            GameManager.Instance.AddScore(1);
+            GameManager.Instance.AddScore(_score);
         }
     }
 
@@ -69,8 +71,6 @@ public class MosquitoHealth : MonoBehaviour
 
     public bool Falling()
     {
-        //ここで落下の処理
-
         if(Vector3.Distance(_thisTransform.position, _landingPosition) < _destroyDistance)
         {
             return false;
