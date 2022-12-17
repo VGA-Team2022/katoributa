@@ -28,6 +28,7 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.GameState == GameState.GameFinish) return;
         CameraState();
         MoveCameraMethod();
         UpdateCursorLock();
@@ -62,13 +63,13 @@ public class CameraController : MonoBehaviour
     /// </summary>
     public void UpdateCursorLock()
     {
-        if (_cursorLock)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-        else if (!_cursorLock)
-        {
-            Cursor.lockState = CursorLockMode.None;
-        }
+        //if (_cursorLock)
+        //{
+        //    Cursor.lockState = CursorLockMode.Locked;
+        //}
+        //else if (!_cursorLock)
+        //{
+        //    Cursor.lockState = CursorLockMode.None;
+        //}
     }
 }

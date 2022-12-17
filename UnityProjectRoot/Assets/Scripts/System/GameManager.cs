@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UniRx;
+using UnityEngine.UI;
 
 /// <summary>
 /// ゲームの管理クラス
@@ -17,7 +18,7 @@ public class GameManager
 
     public IReadOnlyReactiveProperty<float> GameTime => _gameTime;
     public IReadOnlyReactiveProperty<int> Score => _score;
-    public IReadOnlyReactiveProperty<int> Quota => _quota;
+    public GameState GameState => _gameState;
 
     #endregion
 
@@ -25,7 +26,10 @@ public class GameManager
 
     FloatReactiveProperty _gameTime = new FloatReactiveProperty();
     IntReactiveProperty _score = new IntReactiveProperty();
-    IntReactiveProperty _quota = new IntReactiveProperty();
+    GameState _gameState;
+
+    Image _gameOverPanel;
+    Image _gameClearPanel;
 
     bool _isPause;
     #endregion
@@ -73,6 +77,15 @@ public class GameManager
     /// </summary>
     public event Action OnPowerDownEvent;
 
+    /// <summary>
+    /// ゲームオーバー時のイベント
+    /// </summary>
+    public event Action OnGameOverEvent;
+    /// <summary>
+    /// ゲーム終了時のイベント
+    /// </summary>
+    public event Action OnGameEndEvent;
+
     #endregion
 
     /// <summary>
@@ -93,6 +106,29 @@ public class GameManager
 
         Debug.Log($"モードを切り替えた {mode}");
     }
+
+    public void GameStateChange(GameState mode)
+    {
+        if (_gameState == mode)
+        {
+            Debug.LogError("GameStateが一緒です");
+            return;
+        }
+
+        switch (mode)
+        {
+            case GameState.GameReady:
+                break;
+            case GameState.InGame:
+                break;
+            case GameState.GameFinish:
+                break;
+        }
+
+        _gameState = mode;
+        Debug.Log($"モードを切り替えた {mode}");
+    }
+
 
     /// <summary>
     /// スコアを加算する
@@ -115,8 +151,28 @@ public class GameManager
     /// <param name="attachment"></param>
     public void OnSetup(GameManagerAttachment attachment)
     {
-        //倒すノルマを設定
-        _quota.Value = attachment.Quota;
+        _score.Value = 0;
+        _gameTime.Value = 0;
+
+        _gameClearPanel = attachment.GameClearPanel;
+        _gameOverPanel = attachment.GameOverPanel;
+
+        GameStateChange(GameState.GameReady);
+    }
+
+    public void OnGameOver()
+    {
+        OnGameOverEvent?.Invoke();
+        GameStateChange(GameState.GameFinish);
+        _gameOverPanel?.gameObject.SetActive(true);
+        Debug.Log("OnGameOver");
+    }
+
+    public void OnGameEnd()
+    {
+        OnGameEndEvent?.Invoke();
+        _gameClearPanel?.gameObject.SetActive(true);
+        Debug.Log("OnGameClear");
     }
 
     /// <summary>
@@ -126,10 +182,8 @@ public class GameManager
     {
         _gameTime.Value += Time.deltaTime;
 
-        //ポーズの処理部分
         if(InputUtility.GetDownPause)
         {
-            //ポーズ中
             if(_isPause)
             {
                 OnResume?.Invoke();
@@ -141,7 +195,6 @@ public class GameManager
                 Debug.Log("ポーズ開始");
             }
 
-            //逆にする
             _isPause = !_isPause;
         }
     }
@@ -165,4 +218,11 @@ public enum PlayerMode
     Normal = 0,
     //メラメラモード
     PowerUp = 1,
+}
+
+public enum GameState
+{ 
+    GameReady = 0,
+    InGame = 1,
+    GameFinish = 2,
 }

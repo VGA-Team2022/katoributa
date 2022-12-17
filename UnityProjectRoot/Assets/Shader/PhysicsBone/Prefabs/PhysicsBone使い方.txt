@@ -1,0 +1,4 @@
+Rootに入っているBurstJobsDynamicBoneで根本（Root）と末端（End）を設定できます。
+Materialは違う材質を作成したい場合はproject内で作成できます。
+ぶつかるものが判定をとれなかった場合、
+BurstJobsDynamicBoneColliderを対象オブジェクトに適応すると作成できます。

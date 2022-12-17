@@ -126,17 +126,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91f529aa944b914449d62b8c40f188fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acfFile: StreamingAssets 11-17/katoributa.acf
+  acfFile: StreamingAssets/katoributa.acf
   cueSheets:
   - name: BGM
-    acbFile: StreamingAssets 11-17/BGM.acb
-    awbFile: StreamingAssets 11-17/BGM.awb
+    acbFile: StreamingAssets/BGM.acb
+    awbFile: StreamingAssets/BGM.awb
     loaderStatus: 0
   - name: SE
-    acbFile: StreamingAssets 11-17/SE.acb
+    acbFile: StreamingAssets/SE.acb
     awbFile: 
     loaderStatus: 0
-  dspBusSetting: 
+  - name: ME
+    acbFile: StreamingAssets/ME.acb
+    awbFile: 
+    loaderStatus: 0
+  dspBusSetting: DspBusSetting_0
   dontDestroyOnLoad: 0
   dontRemoveExistsCueSheet: 0
 --- !u!1 &1034167970723846009

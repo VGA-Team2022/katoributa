@@ -10,11 +10,15 @@ public class Item : MonoBehaviour
     [SerializeField] SenkouHealth _senko;
     [SerializeField] SoundPlayer _soundPlayer;
     [SerializeField] string _soundName = "SE_item get mono";
+    bool _pauseSwich = false;
     private void Start()
     {
         _collider = gameObject.GetComponent<Collider>();
         _renderer = gameObject.GetComponent<Renderer>();
         _senko = GameObject.FindGameObjectWithTag("Player").GetComponent<SenkouHealth>();
+
+        GameManager.Instance.OnPause += Pause;
+        GameManager.Instance.OnResume += Resume;
     }
     private void Update()
     {
@@ -23,8 +27,10 @@ public class Item : MonoBehaviour
             _collider.enabled = true;
             _renderer.enabled = true;
         }
-        _timer += Time.deltaTime;
-
+        if(!_pauseSwich)
+        {
+            _timer += Time.deltaTime;
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -45,5 +51,13 @@ public class Item : MonoBehaviour
                 Debug.Log("‚³‚í‚Á‚½");
             } 
         } 
+    }
+    void Pause() 
+    {
+        _pauseSwich = true;
+    }
+    void Resume()
+    {
+        _pauseSwich = false;
     }
 }
