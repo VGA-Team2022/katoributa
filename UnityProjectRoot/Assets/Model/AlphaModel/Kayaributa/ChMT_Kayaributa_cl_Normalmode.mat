@@ -58,6 +58,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 40cb83f1e5316044a9be962c3d95c758, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NormalTex:
+        m_Texture: {fileID: 2800000, guid: 40cb83f1e5316044a9be962c3d95c758, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -108,6 +112,7 @@ Material:
     - _Smoothness: 0.249
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _SpecularLevel: 5
     - _SrcBlend: 1
     - _Surface: 0
     - _UseAddColorLevel: 0
