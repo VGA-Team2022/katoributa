@@ -49,7 +49,7 @@ Shader "TK/Material/PBRShader"
         [ToggleUI] _AlphaClip("__clip", Float) = 0.0
         [HideInInspector] _SrcBlend("__src", Float) = 1.0
         [HideInInspector] _DstBlend("__dst", Float) = 0.0
-        [HideInInspector] _ZWrite("__zw", Float) = 1.0
+         _ZWrite("__zw", Float) = 1.0
 
         [ToggleUI] _ReceiveShadows("Receive Shadows", Float) = 1.0
         // Editmode props
