@@ -252,9 +252,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hp:
-    value: 1
-  _damageSpeed: 7.5
-  _damageHeight: 10
+    value: 5
+  _damageSpeed: 9
+  _damageHeight: 11
   _damage: 1
   _breaker: {fileID: 2415930464601102371}
   _fracture: {fileID: 766799408}
@@ -274,7 +274,7 @@ MonoBehaviour:
   _senkouTime:
     value: 60
   _onPowerUpSpeed: 2
-  _godMode: 1
+  _godMode: 0
 --- !u!114 &2415930464601102371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,7 +359,7 @@ MonoBehaviour:
     m_Bits: 8
   - serializedVersion: 2
     m_Bits: 1024
-  _landingSoundIds: 0200000002000000
+  _landingSoundIds: 110000000f000000
   _groundCollisionSize: {x: 0.9, y: 0.4, z: 0.9}
   _multiplierGravity: 1
 --- !u!114 &-1679053436153605562
@@ -379,7 +379,7 @@ MonoBehaviour:
   _maximizePlayerSpeed: 5
   _merameraPlayerSpeed: 30
   _merameraPlayerMaximizeSpeed: 10
-  _walkSoundId: 2
+  _walkSoundId: 3
   _normalMaterial: {fileID: 2100000, guid: b31ec49fd2a6fc946806c2428e1bd767, type: 2}
   _merameraMaterial: {fileID: 2100000, guid: 498d28d478aa9e04baacd8ab0ce74567, type: 2}
   _skinnedMesh: {fileID: 1957903507866538374}
@@ -398,7 +398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerJumpSpeed: 10.3
   _merameraJumpSpeed: 14
-  _jumpSoundId: 1
+  _jumpSoundId: 7
 --- !u!95 &2351448190718401452
 Animator:
   serializedVersion: 4

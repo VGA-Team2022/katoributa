@@ -116,9 +116,6 @@
         },
         {
             "m_Id": "7b93cf0308da427586ed56afc1b160f9"
-        },
-        {
-            "m_Id": "60a36e15f7a54756bef0b878c0f9dfab"
         }
     ],
     "m_GroupDatas": [],
@@ -499,21 +496,6 @@
         "z": 0.0,
         "w": 0.0
     },
-    "m_Labels": []
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
-    "m_ObjectId": "0ef3d4f9a45d43938a765c5a9118c49c",
-    "m_Id": 1,
-    "m_DisplayName": "Scale",
-    "m_SlotType": 0,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "Scale",
-    "m_StageCapability": 3,
-    "m_Value": 10.0,
-    "m_DefaultValue": 10.0,
     "m_Labels": []
 }
 
@@ -1129,10 +1111,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1676.0,
-            "y": 1129.5999755859375,
-            "width": 163.199951171875,
-            "height": 33.5999755859375
+            "x": -1558.39990234375,
+            "y": 1009.5999145507813,
+            "width": 162.4000244140625,
+            "height": 33.59991455078125
         }
     },
     "m_Slots": [
@@ -1575,10 +1557,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1615.2001953125,
-            "y": 829.5999755859375,
-            "width": 208.0001220703125,
-            "height": 311.2000732421875
+            "x": -1679.199951171875,
+            "y": 577.5999145507813,
+            "width": 208.0,
+            "height": 311.20001220703127
         }
     },
     "m_Slots": [
@@ -1749,46 +1731,6 @@
     },
     "m_Labels": [],
     "m_Channel": 0
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.GradientNoiseNode",
-    "m_ObjectId": "60a36e15f7a54756bef0b878c0f9dfab",
-    "m_Group": {
-        "m_Id": ""
-    },
-    "m_Name": "Gradient Noise",
-    "m_DrawState": {
-        "m_Expanded": true,
-        "m_Position": {
-            "serializedVersion": "2",
-            "x": -117.99996948242188,
-            "y": 20.00001335144043,
-            "width": 207.99996948242188,
-            "height": 302.0000305175781
-        }
-    },
-    "m_Slots": [
-        {
-            "m_Id": "8d7c3d7f70834f38881085d3218e17fe"
-        },
-        {
-            "m_Id": "0ef3d4f9a45d43938a765c5a9118c49c"
-        },
-        {
-            "m_Id": "a1ecef6ed12a46ffa43de32c9f336a88"
-        }
-    ],
-    "synonyms": [
-        "perlin noise"
-    ],
-    "m_Precision": 0,
-    "m_PreviewExpanded": true,
-    "m_PreviewMode": 0,
-    "m_CustomColors": {
-        "m_SerializableColors": []
-    }
 }
 
 {
@@ -2020,10 +1962,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -968.0,
-            "y": 652.0,
-            "width": 119.20001220703125,
-            "height": 148.79998779296876
+            "x": -1343.2000732421875,
+            "y": 665.5999145507813,
+            "width": 119.2001953125,
+            "height": 148.800048828125
         }
     },
     "m_Slots": [
@@ -2315,28 +2257,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.UVMaterialSlot",
-    "m_ObjectId": "8d7c3d7f70834f38881085d3218e17fe",
-    "m_Id": 0,
-    "m_DisplayName": "UV",
-    "m_SlotType": 0,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "UV",
-    "m_StageCapability": 3,
-    "m_Value": {
-        "x": 0.0,
-        "y": 0.0
-    },
-    "m_DefaultValue": {
-        "x": 0.0,
-        "y": 0.0
-    },
-    "m_Labels": [],
-    "m_Channel": 0
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.BlockNode",
     "m_ObjectId": "8de1160c56b4458196f4d66b30cd3ba4",
     "m_Group": {
@@ -2596,21 +2516,6 @@
     },
     "m_Labels": [],
     "m_Space": 0
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
-    "m_ObjectId": "a1ecef6ed12a46ffa43de32c9f336a88",
-    "m_Id": 2,
-    "m_DisplayName": "Out",
-    "m_SlotType": 1,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "Out",
-    "m_StageCapability": 3,
-    "m_Value": 0.0,
-    "m_DefaultValue": 0.0,
-    "m_Labels": []
 }
 
 {
