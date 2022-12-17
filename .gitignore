@@ -9,8 +9,6 @@
 /UnityProjectRoot/[Bb]uilds/
 /UnityProjectRoot/[Ll]ogs/
 /UnityProjectRoot/[Mm]emoryCaptures/
-*
-!/UnityArtProject/[Aa]ssets/Master/
 /UnityArtProject/[Pp]rojectSettings/
 /UnityArtProject/[Pp]ackages/
 /UnityArtProject/[Ll]ibrary/
@@ -21,7 +19,9 @@
 /UnityArtProject/[Ll]ogs/
 /UnityArtProject/[Mm]emoryCaptures/
 /UnityArtProject/[Uu]serSettings/
-
+#
+*
+!/UnityArtProject/[Aa]ssets/[Mm]aster/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 # /UnityProjectRoot/[Aa]ssets/**/*.meta
