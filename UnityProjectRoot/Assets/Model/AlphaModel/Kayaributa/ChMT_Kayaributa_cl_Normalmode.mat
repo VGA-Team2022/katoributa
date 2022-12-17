@@ -8,17 +8,16 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ChMT_Kayaributa_cl_Normalmode
-  m_Shader: {fileID: 4800000, guid: c0af22027268cca4196bc372497c7be1, type: 3}
-  m_ValidKeywords:
+  m_Shader: {fileID: 4800000, guid: 92b18c11a33f9c045bc0431e39426e61, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords:
   - _METALLICSPECGLOSSMAP
   - _NORMALMAP
-  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap:
-    RenderType: Opaque
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -94,6 +93,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _Distance: 5
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
@@ -102,6 +102,7 @@ Material:
     - _Metallic: 0.367
     - _OcclusionStrength: 1
     - _Parallax: 0.005
+    - _PerRange: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smoothness: 0.249

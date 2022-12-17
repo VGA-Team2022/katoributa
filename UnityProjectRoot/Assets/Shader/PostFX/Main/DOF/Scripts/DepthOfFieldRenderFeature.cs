@@ -26,7 +26,6 @@ namespace TK.Rendering.PostFX
 
                 settings.shader = Shader.Find("TK/PostFX/DepthOfField");
             }
-            settings.shader = Shader.Find("TK/PostFX/DepthOfField");
             _pass = new DepthOfFieldPass(settings.renderPassEvent, settings.shader);
         }
 
