@@ -2,6 +2,7 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
+/UnityProjectRoot/[Aa]ssets/Model/Master/
 /UnityProjectRoot/[Ll]ibrary/
 /UnityProjectRoot/[Tt]emp/
 /UnityProjectRoot/[Oo]bj/
