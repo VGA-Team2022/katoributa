@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -167,8 +168,28 @@ public  class ShaderEditorTools : Editor
     //}
     #endregion
 }
-namespace TK.ShaderEditorWindow
+namespace TK.ShaderEditor.ShaderEditorWindow
 {
+
+    /// <summary>
+    /// Directory クラスに関する汎用関数を管理するクラス
+    /// </summary>
+    public static class DirectoryUtils
+    {
+        /// <summary>
+        /// 指定したパスにディレクトリが存在しない場合
+        /// すべてのディレクトリとサブディレクトリを作成します
+        /// </summary>
+        public static DirectoryInfo SafeCreateDirectory(string path)
+        {
+            if (Directory.Exists(path))
+            {
+                return null;
+            }
+            return Directory.CreateDirectory(path);
+        }
+    }
+
     public class ShaderEditorWindow : EditorWindow
     {
         private Shader _baseShader;
@@ -180,8 +201,7 @@ namespace TK.ShaderEditorWindow
         private string _text;
 
 
-        private string lab = "ShaderPassName(Assets/より下層のディレクトリ名を指定してください)";
-        private string log = "";
+        private string lab = "ShaderPassName{指定のない場合はMasterの中のMaterialにできます。}(Assets/より下層のディレクトリ名を指定してください)";
         private string current = "";
 
 
@@ -233,9 +253,11 @@ namespace TK.ShaderEditorWindow
                 }
                 if (current == "")
                 {
-                    _text = "No Dir selected　ディレクトリを指定してください";
-                    return;
+                    _text = "No Dir selected";
+                    current = "Master/Material";
                 }
+
+                DirectoryUtils.SafeCreateDirectory($"Assets/{current}");
 
                 SelectAll(current);
 
@@ -257,9 +279,13 @@ namespace TK.ShaderEditorWindow
                 }
                 if (current == "")
                 {
-                    _text = "No Dir selected　ディレクトリを指定してください";
-                    return;
+                    _text = "No Dir selected";
+
+                    current = "Master/Material";
+                    
                 }
+
+                DirectoryUtils.SafeCreateDirectory($"Assets/{current}");
                 _selection = Selection.gameObjects;
                 if (_selection.Length > 0)
                 {
@@ -310,6 +336,8 @@ namespace TK.ShaderEditorWindow
             Transform[] parentAndChildren = parent.GetComponentsInChildren<Transform>();
             return parentAndChildren;
         }
+
+        [System.Obsolete]
         public static void ChangeShaders(Transform[] targetGameObject, Shader setShader, Shader oldShader,
          int Id, string pass)
         {
@@ -331,32 +359,35 @@ namespace TK.ShaderEditorWindow
                             Material setmaterial = new Material(setShader);
                             Texture texture = null;
                             Texture texture2 = null;
-                            if (materials[i].GetTexture(0) is Texture)
-                            {
-                                texture = materials[i].GetTexture(0);
-                            }
-                            if (materials[i].GetTexture(1) is Texture)
-                            {
-                                texture2 = materials[i].GetTexture(1);
-                            }
-                            if (texture != null && setmaterial.GetTexture(0) is Texture)
+                            texture = materials[i].GetTexture("_BaseMap");
+                            texture2 = materials[i].GetTexture("_BumpMap");
+                            if (texture != null)
                             {
 
-                                setmaterial.SetTexture(0, texture);
+                                setmaterial.SetTexture("_BaseMap", texture);
                             }
-                            if (texture2 != null && setmaterial.GetTexture(1) is Texture)
+                            if (texture2 != null)
                             {
-                                setmaterial.SetTexture(1, texture2);
+                                setmaterial.SetTexture("_BumpMap", texture2);
                             }
-                            materials[i] = setmaterial;
+                            //materials[i] = setmaterial;
                             AssetDatabase.CreateAsset(setmaterial,
                                     $"Assets/{pass}/{t.name}test{Id}{i}.mat");
-
-                            t.GetComponent<MeshRenderer>().sharedMaterials = materials;
+                            materials[i] = setmaterial;//(Material)Resources.Load($"{t.name}test{Id}{i}");
+                           
                             _counter++;
                         }
 
                     }
+                    t.GetComponent<MeshRenderer>().sharedMaterials = materials;
+                    //foreach (var item in materials)
+                    //{
+                    //    Destroy(item);
+                    //}
+                    string[] path = EditorApplication.currentScene.Split(char.Parse("/"));
+                    path[path.Length - 1] = path[path.Length - 1];
+                    EditorApplication.SaveScene(string.Join("/", path), true);
+                    Debug.Log("Saved Scene");
                 }
             }
         }
