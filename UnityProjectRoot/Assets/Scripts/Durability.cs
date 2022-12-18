@@ -30,6 +30,7 @@ public class Durability : MonoBehaviour
 
     Rigidbody _rb;
     SphereCollider _sCol;
+    ShakeCamera _sc;
 
     public IReactiveProperty<int> HP => _hp;
 
@@ -37,6 +38,7 @@ public class Durability : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _sCol = GetComponent<SphereCollider>();
+        _sc = FindObjectOfType<ShakeCamera>();
     }
 
     private void Update()
@@ -89,6 +91,8 @@ public class Durability : MonoBehaviour
                 OnDead();
             }
         }
+
+        _sc?.ShakeMethod();
             
         Debug.Log($"É_ÉÅÅ[ÉWÇéÛÇØÇΩ : HP = {_hp} : Damage = {damage}");
     }

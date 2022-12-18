@@ -76,8 +76,8 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       m_AttackTime: 0
-      m_SustainTime: 0.2
-      m_DecayTime: 0.7
+      m_SustainTime: 0.1
+      m_DecayTime: 0.3
       m_ScaleWithImpact: 1
       m_HoldForever: 0
     m_ImpactRadius: 100
@@ -98,4 +98,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d4ebc42c2ce8f848aced2365c20e69d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shakeGain: 5
+  _shakeGain: 10
