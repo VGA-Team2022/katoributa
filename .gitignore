@@ -29,6 +29,8 @@
 
 /UnityArtProject/[Aa]ssets/UniversalRenderPipelineGlobalSettings.asset
 
+/UnityArtProject/[Aa]ssets/*.meta
+
 /UnityArtProject/[Aa]ssets/Shader/
 /UnityArtProject/[Aa]ssets/StreamingAssets/
 /UnityArtProject/[Aa]ssets/TextMesh Pro/
