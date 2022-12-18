@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: 157a1d2419066c8499e791a1fc05178d
+guid: 388b2bf275ad4d54582a87204d9ac87e
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BgMat_plant1
+    second: {fileID: 2100000, guid: 9adc2d712a960ad48890faa0352135c5, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
