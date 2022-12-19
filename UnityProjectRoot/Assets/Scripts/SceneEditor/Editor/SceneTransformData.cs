@@ -12,6 +12,7 @@ namespace TK.SceneEditorTool
         {
             //public GameObject _object;
             public string _objectName;
+            public string _pass;
             public Vector3 _position;
             public Quaternion _rotation;
             public Vector3 _scale;

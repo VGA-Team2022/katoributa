@@ -93,6 +93,15 @@ namespace TK.SceneEditorTool
                 SceneTransformData.SceneObjData sceneObj = new SceneTransformData.SceneObjData();
                 if (item is GameObject)              
                 sceneObj._objectName = item.name;
+                if (item.gameObject.transform.parent != null)
+                {
+
+                    sceneObj._pass = item.transform.parent.gameObject.name;
+                }
+                else
+                {
+                    sceneObj._pass = "";
+                }
                 sceneObj._position = item.transform.position;
                 sceneObj._rotation = item.transform.rotation;
                 sceneObj._scale = item.transform.localScale;
@@ -160,6 +169,7 @@ namespace TK.SceneEditorTool
                 LodeSceneTransform(_transformDatas);
 
                 _text = "complete lode";
+                Debug.Log("ÉçÅ[ÉhäÆóπ");
             }
             EditorGUILayout.LabelField(_text, _style);
             EditorGUILayout.EndVertical();
@@ -172,11 +182,20 @@ namespace TK.SceneEditorTool
             {
                 foreach (var data in source.sceneData)
                 {
-                    if (item.name == data._objectName)
+                    if (data._pass == "" && item.name == data._objectName)
                     {
                         item.transform.position = data._position;
                         item.transform.rotation = data._rotation;
                         item.transform.localScale = data._scale;
+                    }
+                    else
+                    {
+                        if (item.name == data._objectName && item.transform.parent.gameObject.name == data._pass)
+                        {
+                            item.transform.position = data._position;
+                            item.transform.rotation = data._rotation;
+                            item.transform.localScale = data._scale;
+                        }
                     }
                 }
             }
