@@ -76,7 +76,7 @@ public class Durability : MonoBehaviour
 
         if ((diffY > _damageHeight && y < 0) || diffXZ > Mathf.Pow(_damageSpeed, 2))
         {
-            if (Physics.OverlapSphere(transform.position + _sCol.center, _sCol.radius * 1.3f, LayerMask.GetMask("Cushion")).Length < 1)
+            if (Physics.OverlapSphere(transform.position + _sCol.center, _sCol.radius * 1.5f, LayerMask.GetMask("Cushion")).Length < 1)
             {
                 TakeDamage(_damage);
             }
@@ -125,7 +125,7 @@ public class Durability : MonoBehaviour
         {
             _soundPlayer.PlaySound(_metalSEID);
         }
-        else if (collision.gameObject.CompareTag("Default"))
+        else
         {
             _soundPlayer.PlaySound(_woodSEID);
         }
