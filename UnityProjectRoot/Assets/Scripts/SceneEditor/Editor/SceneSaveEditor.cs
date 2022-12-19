@@ -65,7 +65,7 @@ namespace TK.SceneEditorTool
             {
                 if (current == "")
                 {
-                    _text = "No Dir selected";
+                    _text = "No name";
                     return;
                 }
 
