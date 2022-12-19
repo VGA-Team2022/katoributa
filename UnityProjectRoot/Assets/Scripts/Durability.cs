@@ -29,12 +29,16 @@ public class Durability : MonoBehaviour
     [SerializeField] bool _godMode;
 
     Rigidbody _rb;
+    SphereCollider _sCol;
+    ShakeCamera _sc;
 
     public IReactiveProperty<int> HP => _hp;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _sCol = GetComponent<SphereCollider>();
+        _sc = FindObjectOfType<ShakeCamera>();
     }
 
     private void Update()
@@ -61,14 +65,9 @@ public class Durability : MonoBehaviour
         var diffXZ = prevXZVelocity - currentXZVelocity;
         var diffY = _velocity.y - y;
 
-        if(diffXZ > Mathf.Pow(_damageSpeed, 2))
+        if ((diffY > _damageHeight && y < 0) || diffXZ > Mathf.Pow(_damageSpeed, 2))
         {
-            TakeDamage(_damage);
-        }
-        else if (diffY > _damageHeight && y < 0)
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(this.transform.position + Vector3.up * 0.01f, Vector3.down, out hit, 0.15f, LayerMask.GetMask("Ground")))
+            if(Physics.OverlapSphere(transform.position + _sCol.center, _sCol.radius * 1.3f, LayerMask.GetMask("Cushion")).Length < 1)
             {
                 TakeDamage(_damage);
             }
@@ -92,6 +91,8 @@ public class Durability : MonoBehaviour
                 OnDead();
             }
         }
+
+        _sc?.ShakeMethod();
             
         Debug.Log($"ƒ_ƒ[ƒW‚ðŽó‚¯‚½ : HP = {_hp} : Damage = {damage}");
     }
