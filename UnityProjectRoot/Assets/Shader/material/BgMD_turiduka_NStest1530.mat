@@ -48,7 +48,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - Color_19D51CEC: {r: 0.5, g: 0.5, b: 0.5, a: 0}
+    - Color_19D51CEC: {r: 0, g: 0, b: 0, a: 0}
     - Color_B93C0C30: {r: 1, g: 1, b: 1, a: 0}
     - Vector3_FBB16930: {r: -0.5, g: 0.7, b: 0.5, a: 0}
   m_BuildTextureStacks: []
