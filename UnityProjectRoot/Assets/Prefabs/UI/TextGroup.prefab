@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u868A\u53D6\u308A\u8C5A\u306E\u8010\u4E45\u529B\uFF1A00"
+  m_text: "\u30E9\u30A4\u30D5 \xD7 0"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 19d1feb9a36704a439a369adedc58bf5, type: 2}
   m_sharedMaterial: {fileID: -312209006456595782, guid: 19d1feb9a36704a439a369adedc58bf5, type: 2}
@@ -443,7 +443,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u5012\u3057\u305F\u6570 [000 \u5339]"
+  m_text: "\u6483\u7834 [00000 \u70B9]"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 19d1feb9a36704a439a369adedc58bf5, type: 2}
   m_sharedMaterial: {fileID: -312209006456595782, guid: 19d1feb9a36704a439a369adedc58bf5, type: 2}
@@ -591,7 +591,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u6B8B\u308A\u6642\u9593 [00 : 00]"
+  m_text: "\u30BF\u30A4\u30E0 [00 : 00]"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 19d1feb9a36704a439a369adedc58bf5, type: 2}
   m_sharedMaterial: {fileID: -312209006456595782, guid: 19d1feb9a36704a439a369adedc58bf5, type: 2}

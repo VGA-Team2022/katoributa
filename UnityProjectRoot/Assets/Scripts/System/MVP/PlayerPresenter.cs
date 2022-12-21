@@ -11,11 +11,11 @@ public class PlayerPresenter : MonoBehaviour
 
     private void Start()
     {
-        if(_senkouText)
+        if (_senkouText)
         {
             var senkou = GameObject.FindGameObjectWithTag("Player").GetComponent<SenkouHealth>();
 
-            if(!senkou)
+            if (!senkou)
             {
                 Debug.LogError("SenkouHealthが見つかりませんでした");
                 return;
@@ -26,7 +26,7 @@ public class PlayerPresenter : MonoBehaviour
                 var m = (int)(x / 60);
                 var s = (int)(x - (60 * m));
 
-                _senkouText.SetText($"線香の残り時間：[{m:00}:{s:00}]");
+                _senkouText.SetText($"タイム：[{m:00}:{s:00}]");
             }).AddTo(this);
         }
         else
@@ -34,7 +34,7 @@ public class PlayerPresenter : MonoBehaviour
             Debug.LogError("SenkouTextが設定されていません");
         }
 
-        if(_hpText)
+        if (_hpText)
         {
             var hp = GameObject.FindGameObjectWithTag("Player").GetComponent<Durability>();
 
@@ -46,7 +46,7 @@ public class PlayerPresenter : MonoBehaviour
 
             hp.HP.Subscribe(x =>
             {
-                _hpText.SetText($"蚊取り豚の耐久力:{x:00}");
+                _hpText.SetText($"ライフ × {x}");
             }).AddTo(this);
         }
         else

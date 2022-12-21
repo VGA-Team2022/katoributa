@@ -28,6 +28,7 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.GameState == GameState.GameFinish) return;
         CameraState();
         MoveCameraMethod();
         UpdateCursorLock();

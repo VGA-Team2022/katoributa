@@ -13,55 +13,88 @@ public class Durability : MonoBehaviour
     [Header("耐久力")]
     [SerializeField, Tooltip("耐久力")] IntReactiveProperty _hp = new IntReactiveProperty(5);
 
-    [Header("速度に応じてダメージを受ける処理")]
-    [SerializeField, Tooltip("ダメージを受ける速度の下限")] float _damageSpeed = 5f;
+    [Header("ダメージ処理")]
+    [SerializeField, Tooltip("どの位の速度からダメージを受けるか")] float _damageSpeed = 5f;
+    [SerializeField, Tooltip("どの位の高さからダメージを受けるか")] float _damageHeight = 5f;
+
+    [Tooltip("1フレーム前のVelocity")] Vector3 _prevVelocity;
+    [Tooltip("現在のVelocity")] Vector3 _velocity;
+
+    [Header("ダメージ･破壊時の処理")]
     [SerializeField, Tooltip("ダメージ")] int _damage = 1;
     [SerializeField] Breaker _breaker;
     [SerializeField] Fracture _fracture;
+
     [Header("無敵フラグ")]
     [SerializeField] bool _godMode;
 
+    Rigidbody _rb;
+    SphereCollider _sCol;
+    ShakeCamera _sc;
+
     public IReactiveProperty<int> HP => _hp;
 
-    private void CheckVelocity(Collision collision)
+    private void Start()
     {
-        // 衝撃を5で割る（計算を楽にするため）
-        float impulse = collision.impulse.magnitude / 5f;
+        _rb = GetComponent<Rigidbody>();
+        _sCol = GetComponent<SphereCollider>();
+        _sc = FindObjectOfType<ShakeCamera>();
+    }
 
-        Debug.Log(impulse);
-
-        if(impulse > _damageSpeed)
-        {
-            TakeDamage(_damage);
-            if(_hp.Value <= 0)
-            {
-                OnDead();
-            }
-        }
+    private void Update()
+    {
+        CheckVelocity();
     }
 
     /// <summary>
-    /// ダメージを受ける処理（落下距離によって）
+    /// 衝突ダメージ処理
+    /// </summary>
+    private void CheckVelocity()
+    {
+        var x = _prevVelocity.x;
+        var y = _prevVelocity.y;
+        var z = _prevVelocity.z;
+
+        _velocity = _rb.velocity;
+
+        Vector3 prevXZ = new Vector3(x, 0, z);
+        Vector3 currentXZ = new Vector3(_velocity.x, 0, _velocity.z);
+        var currentXZVelocity = currentXZ.sqrMagnitude;
+        var prevXZVelocity = prevXZ.sqrMagnitude;
+
+        var diffXZ = prevXZVelocity - currentXZVelocity;
+        var diffY = _velocity.y - y;
+
+        if ((diffY > _damageHeight && y < 0) || diffXZ > Mathf.Pow(_damageSpeed, 2))
+        {
+            if(Physics.OverlapSphere(transform.position + _sCol.center, _sCol.radius * 1.3f, LayerMask.GetMask("Cushion")).Length < 1)
+            {
+                TakeDamage(_damage);
+            }
+        }
+
+        _prevVelocity = _velocity;
+    }
+
+    /// <summary>
+    /// ダメージを受ける処理
     /// </summary>
     /// <param name="damage">受けるダメージ</param>
     public void TakeDamage(int damage)
     {
-        if(!_godMode)
+        if (!_godMode)
+        {
             _hp.Value -= damage;
 
-        Debug.Log($"ダメージを受けた : HP = {_hp} : Damage = {damage}");
-    }
+            if(_hp.Value < 1)
+            {
+                OnDead();
+            }
+        }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.layer != 10)
-        {
-            CheckVelocity(collision);
-        }
-        else
-        {
-            Debug.Log("クッションに衝突");
-        }
+        _sc?.ShakeMethod();
+            
+        Debug.Log($"ダメージを受けた : HP = {_hp} : Damage = {damage}");
     }
 
     void OnDead()

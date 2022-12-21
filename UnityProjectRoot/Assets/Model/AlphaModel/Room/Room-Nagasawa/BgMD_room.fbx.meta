@@ -43,7 +43,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: BgMat_room_syouzi
-    second: {fileID: 2100000, guid: 5fd1db3c35adb4b4395b0758d9083490, type: 2}
+    second: {fileID: 2100000, guid: 69e07dbe3aa38074da6b6e5eb7f4de03, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -58,7 +58,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: lambert1
-    second: {fileID: 2100000, guid: b48631678961b2e45a1d3e934d66354e, type: 2}
+    second: {fileID: 2100000, guid: 24e379d067563004a90c53cfb05558ed, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -87,7 +87,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 10
