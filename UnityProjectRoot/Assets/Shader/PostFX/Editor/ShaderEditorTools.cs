@@ -6,6 +6,7 @@ using System.IO;
 using UnityEditor;
 #endif
 
+#if UNITY_EDITOR
 public  class ShaderEditorTools : Editor
 {
     #region OldFunction
@@ -393,3 +394,4 @@ namespace TK.ShaderEditor.ShaderEditorWindow
         }
     }
 }
+#endif

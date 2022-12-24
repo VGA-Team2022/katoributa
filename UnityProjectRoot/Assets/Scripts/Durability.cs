@@ -25,17 +25,26 @@ public class Durability : MonoBehaviour
     [SerializeField] Breaker _breaker;
     [SerializeField] Fracture _fracture;
 
+    [Header("ƒTƒEƒ“ƒh")]
+    [SerializeField, Tooltip("ôÚG")] int _tatamiSEID;
+    [SerializeField, Tooltip("–ØŞÚG")] int _woodSEID;
+    [SerializeField, Tooltip("ƒNƒbƒVƒ‡ƒ“ÚG")] int _cushionSEID;
+    [SerializeField, Tooltip("“SÚG")] int _metalSEID;
+    [SerializeField, Tooltip("‰ó‚ê‚é")] int _breakSEID;
+
     [Header("–³“Gƒtƒ‰ƒO")]
     [SerializeField] bool _godMode;
 
     Rigidbody _rb;
     SphereCollider _sCol;
     ShakeCamera _sc;
+    SoundPlayer _soundPlayer;
 
     public IReactiveProperty<int> HP => _hp;
 
     private void Start()
     {
+        _soundPlayer = GetComponent<SoundPlayer>();
         _rb = GetComponent<Rigidbody>();
         _sCol = GetComponent<SphereCollider>();
         _sc = FindObjectOfType<ShakeCamera>();
@@ -67,7 +76,7 @@ public class Durability : MonoBehaviour
 
         if ((diffY > _damageHeight && y < 0) || diffXZ > Mathf.Pow(_damageSpeed, 2))
         {
-            if(Physics.OverlapSphere(transform.position + _sCol.center, _sCol.radius * 1.3f, LayerMask.GetMask("Cushion")).Length < 1)
+            if (Physics.OverlapSphere(transform.position + _sCol.center, _sCol.radius * 1.5f, LayerMask.GetMask("Cushion")).Length < 1)
             {
                 TakeDamage(_damage);
             }
@@ -86,20 +95,46 @@ public class Durability : MonoBehaviour
         {
             _hp.Value -= damage;
 
-            if(_hp.Value < 1)
+            if (_hp.Value < 1)
             {
                 OnDead();
             }
         }
 
         _sc?.ShakeMethod();
-            
+
         Debug.Log($"ƒ_ƒ[ƒW‚ğó‚¯‚½ : HP = {_hp} : Damage = {damage}");
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //ÚG‚ÌSE‚ğ–Â‚ç‚·
+        if (collision.gameObject.CompareTag("Tatami"))
+        {
+            _soundPlayer.PlaySound(_tatamiSEID);
+        }
+        else if (collision.gameObject.CompareTag("Wood"))
+        {
+            _soundPlayer.PlaySound(_woodSEID);
+        }
+        else if (collision.gameObject.CompareTag("Cushion"))
+        {
+            _soundPlayer.PlaySound(_cushionSEID);
+        }
+        else if (collision.gameObject.CompareTag("Metal"))
+        {
+            _soundPlayer.PlaySound(_metalSEID);
+        }
+        else
+        {
+            _soundPlayer.PlaySound(_woodSEID);
+        }
     }
 
     void OnDead()
     {
         Debug.Log("€‚ñ‚¾");
+        _soundPlayer.PlaySound(_breakSEID);
         _breaker.Break(_fracture, Vector3.zero);
         GameManager.Instance.OnGameOver();
     }

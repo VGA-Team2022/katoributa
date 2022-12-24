@@ -8,20 +8,25 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ChMT_Kayaributa_cl_Normalmode
-  m_Shader: {fileID: 4800000, guid: 92b18c11a33f9c045bc0431e39426e61, type: 3}
-  m_ValidKeywords: []
-  m_InvalidKeywords:
-  - _METALLICSPECGLOSSMAP
-  - _NORMALMAP
+  m_Shader: {fileID: -6465566751694194690, guid: 6e68d73c076a2a24ba718698cb5e0d3e, type: 3}
+  m_ValidKeywords:
+  - _SURFACE_TYPE_TRANSPARENT
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
+  m_DoubleSidedGI: 1
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
+  disabledShaderPasses:
+  - DepthOnly
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_718BC30E:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: 6fad2f35a54ad4b43a1f9d8fd44dc59c, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -88,9 +93,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - Vector1_47EA0893: 0
+    - Vector1_57E451B7: 1.3
+    - Vector1_B6FFA8B: 0.682
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
+    - _CastShadows: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
@@ -98,8 +107,10 @@ Material:
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _Distance: 5
-    - _DstBlend: 0
+    - _DstBlend: 10
     - _EnvironmentReflections: 1
+    - _FadeIn: 5
+    - _FadeOut: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -107,18 +118,24 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _PerRange: 1
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smoothness: 0.249
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SpecularLevel: 5
-    - _SrcBlend: 1
-    - _Surface: 0
+    - _SpecularLevel: 1
+    - _SrcBlend: 5
+    - _Surface: 1
     - _UseAddColorLevel: 0
     - _WorkflowMode: 1
-    - _ZWrite: 1
+    - _ZTest: 4
+    - _ZWrite: 0
+    - _ZWriteControl: 0
     m_Colors:
+    - Color_19D51CEC: {r: 0.5, g: 0.5, b: 0.5, a: 0}
+    - Color_B93C0C30: {r: 1, g: 1, b: 1, a: 0}
+    - Vector3_FBB16930: {r: -0.5, g: 0.7, b: 0.5, a: 0}
     - _AddColor: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
