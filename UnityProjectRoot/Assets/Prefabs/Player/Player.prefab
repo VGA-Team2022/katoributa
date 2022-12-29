@@ -258,6 +258,11 @@ MonoBehaviour:
   _damage: 1
   _breaker: {fileID: 2415930464601102371}
   _fracture: {fileID: 766799408}
+  _tatamiSEID: 12
+  _woodSEID: 13
+  _cushionSEID: 11
+  _metalSEID: 14
+  _breakSEID: 10
   _godMode: 0
 --- !u!114 &3873197416987307822
 MonoBehaviour:
