@@ -398,7 +398,6 @@ GameObject:
   - component: {fileID: 568872764}
   - component: {fileID: 568872766}
   - component: {fileID: 568872765}
-  - component: {fileID: 568872767}
   m_Layer: 5
   m_Name: RawImage
   m_TagString: Untagged
@@ -461,20 +460,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 568872763}
   m_CullTransparentMesh: 1
---- !u!114 &568872767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 568872763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35fe2bdd67d93144b9a08a1ba4c2f857, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _senkouCoil: {fileID: 158970832}
-  _hpText: {fileID: 0}
 --- !u!1 &1438023701
 GameObject:
   m_ObjectHideFlags: 0
@@ -835,6 +820,7 @@ GameObject:
   - component: {fileID: 1855941648}
   - component: {fileID: 1855941647}
   - component: {fileID: 1855941646}
+  - component: {fileID: 1855941650}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -924,6 +910,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1855941650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855941645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ed58f64319b0ba42b3f5fb90fd48266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _comboText: {fileID: 0}
+  _scoreText: {fileID: 0}
+  _mosquitCoil: {fileID: 158970832}
+  _lifeIcon: {fileID: 0}
 --- !u!1001 &1910727215
 PrefabInstance:
   m_ObjectHideFlags: 0
