@@ -18,6 +18,7 @@ public class GameManager
 
     public IReadOnlyReactiveProperty<float> GameTime => _gameTime;
     public IReadOnlyReactiveProperty<int> Score => _score;
+    public Combo Combo => _combo;
     public GameState GameState => _gameState;
 
     #endregion
@@ -30,6 +31,8 @@ public class GameManager
 
     Image _gameOverPanel;
     Image _gameClearPanel;
+
+    Combo _combo;
 
     bool _isPause;
     #endregion
@@ -141,6 +144,8 @@ public class GameManager
             return;
         }
 
+        var mul = _combo.ReturnCurrentValue();
+        score = (int)(score * mul);
         Debug.Log($"与えられた値:{score} 　現在のスコア:{_score.Value}");
         _score.Value += score;
     }
@@ -153,6 +158,8 @@ public class GameManager
     {
         _score.Value = 0;
         _gameTime.Value = 0;
+
+        _combo = new Combo(attachment.ComboTime, attachment.MultiplicationLimit);
 
         _gameClearPanel = attachment.GameClearPanel;
         _gameOverPanel = attachment.GameOverPanel;
@@ -180,8 +187,6 @@ public class GameManager
     /// </summary>
     void OnUpdate()
     {
-        _gameTime.Value += Time.deltaTime;
-
         if(InputUtility.GetDownPause)
         {
             if(_isPause)
@@ -197,6 +202,9 @@ public class GameManager
 
             _isPause = !_isPause;
         }
+
+        _gameTime.Value += Time.deltaTime;
+        _combo.Run();
     }
 
     #region コールバック
@@ -225,4 +233,50 @@ public enum GameState
     GameReady = 0,
     InGame = 1,
     GameFinish = 2,
+}
+public class Combo
+{
+
+    float _timer;
+    float _limit;
+    float _comboTime;
+    float _currentValue;
+    IntReactiveProperty _count = new IntReactiveProperty();
+
+    const float _multiplicationValue = 0.1f;
+    public IReadOnlyReactiveProperty<int> ComboCount => _count;
+
+    public Combo(float time, float maxLimit)
+    {
+        _comboTime = time;
+        _limit = maxLimit;
+    }
+    public void Run()
+    {
+        if(_timer > _comboTime)
+        {
+            _currentValue = 0;
+            _count.Value = 0;
+            return;
+        }
+
+        _timer += Time.deltaTime;
+    }
+    public float ReturnCurrentValue()
+    {
+        _timer = 0;
+        _count.Value++;
+
+        if (_count.Value == 1)
+        {
+            _currentValue = _multiplicationValue;
+        }
+        else
+        {
+            _currentValue = Mathf.Min(_currentValue *= 2, _limit / 2);
+        }
+        Debug.Log($"現在の乗算値 {_currentValue + 1}");
+
+        return _currentValue + 1;
+    }
 }

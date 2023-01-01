@@ -8,11 +8,17 @@ public class GameManagerAttachment : MonoBehaviour
     #region 変数
     [SerializeField] Image _gameOverPanel;
     [SerializeField] Image _gameClearPanel;
+
+    [SerializeField] float _comboTime = 3f;
+    [SerializeField] float _multiplicationLimit = 2f;
+
     #endregion
 
     #region プロパティ
     public Image GameOverPanel => _gameOverPanel;
     public Image GameClearPanel => _gameClearPanel;
+    public float ComboTime => _comboTime;
+    public float MultiplicationLimit => _multiplicationLimit;
     #endregion
 
     #region デリゲート
