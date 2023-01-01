@@ -7,7 +7,7 @@ public class PlayerPresenter : MonoBehaviour
 {
     [Header("設定")]
     [SerializeField, Tooltip("線香のテキストを設定")] MVPText _senkouText;
-    [SerializeField, Tooltip("HPのテキストを設定")] MVPText _hpText;
+    [SerializeField, Tooltip("HPのMVPIconを設定")] MVPLifeIcon _lifeIcon;
 
     private void Start()
     {
@@ -34,7 +34,7 @@ public class PlayerPresenter : MonoBehaviour
             Debug.LogError("SenkouTextが設定されていません");
         }
 
-        if (_hpText)
+        if (_lifeIcon)
         {
             var hp = GameObject.FindGameObjectWithTag("Player").GetComponent<Durability>();
 
@@ -46,12 +46,12 @@ public class PlayerPresenter : MonoBehaviour
 
             hp.HP.Subscribe(x =>
             {
-                _hpText.SetText($"ライフ × {x}");
+                _lifeIcon.UpdateUI(x);
             }).AddTo(this);
         }
         else
         {
-            Debug.LogError("HpTextが設定されていません");
+            Debug.LogError("MVPIconが設定されていません");
         }
     }
 }
