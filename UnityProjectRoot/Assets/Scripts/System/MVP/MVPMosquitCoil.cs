@@ -5,17 +5,25 @@ using UnityEngine;
 public class MVPMosquitCoil : MonoBehaviour
 {
     Material _coilMaterial;
+    float _changeValue;
+    const float _sliderValue = 1.07f;
 
     private void Awake()
     {
         _coilMaterial = GetComponent<Renderer>().material;
     }
 
-    public void SetValue(float value)
+    public void OnStart(float time)
+    {
+        _changeValue = _sliderValue / time;
+    }
+
+    public void SetValue()
     {
         if(_coilMaterial)
         {
-            _coilMaterial.SetFloat("_disssolveamount", value);
+            var currentValue = _coilMaterial.GetFloat("_disssolveamount");
+            _coilMaterial.SetFloat("_disssolveamount", currentValue -= _changeValue * Time.deltaTime);
         }
     }
 }

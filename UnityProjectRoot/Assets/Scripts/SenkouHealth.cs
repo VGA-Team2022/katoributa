@@ -10,7 +10,7 @@ using UniRx;
 public class SenkouHealth : MonoBehaviour
 {
     [Header("蚊取り線香の残り時間")]
-    [SerializeField, Tooltip("蚊取り線香の残り時間")] FloatReactiveProperty _senkouTime = new FloatReactiveProperty(60f);
+    [SerializeField, Tooltip("蚊取り線香の残り時間")] FloatReactiveProperty _senkouTime = new FloatReactiveProperty(60);
     [SerializeField, Tooltip("メラメラモード時の線香の減る時間")] float _onPowerUpSpeed = 2f;
     [Tooltip("現在の減るスピード")] float _currentSpeed = 1f;
     [Tooltip("ポーズしているかどうか")] bool _isPaused;

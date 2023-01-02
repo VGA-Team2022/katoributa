@@ -25,6 +25,11 @@ public class InGameUIPresenter : MonoBehaviour
                 _scoreText.SetText($"{x:0000}");
             }).AddTo(this);
         }
+        else
+        {
+            Debug.LogError("ScoreText‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ");
+        }
+
         if (_comboText)
         {
             GameManager.Instance.Combo.ComboCount.Subscribe(x =>
@@ -32,6 +37,11 @@ public class InGameUIPresenter : MonoBehaviour
                 _comboText.SetText($"{x:00}");
             }).AddTo(this);
         }
+        else
+        {
+            Debug.LogError("ComboText‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ");
+        }
+
         if (_lifeIcon)
         {
             var hp = GameObject.FindGameObjectWithTag("Player").GetComponent<Durability>();
@@ -50,6 +60,21 @@ public class InGameUIPresenter : MonoBehaviour
         else
         {
             Debug.LogError("MVPIcon‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ");
+        }
+
+        if(_mosquitCoil)
+        {
+            var time = GameObject.FindGameObjectWithTag("Player").GetComponent<SenkouHealth>();
+            _mosquitCoil.OnStart(time.Health.Value);
+
+            time.Health.Subscribe(x =>
+            {
+                _mosquitCoil.SetValue();
+            }).AddTo(this);
+        }
+        else
+        {
+            Debug.LogError("MosquitCoil‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ");
         }
     }
 }

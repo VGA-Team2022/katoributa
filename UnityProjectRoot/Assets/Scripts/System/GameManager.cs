@@ -156,9 +156,9 @@ public class GameManager
     /// <param name="attachment"></param>
     public void OnSetup(GameManagerAttachment attachment)
     {
-        _score.Value = 0;
         _gameTime.Value = 0;
 
+        _score.Value = 0;
         _combo = new Combo(attachment.ComboTime, attachment.MultiplicationLimit);
 
         _gameClearPanel = attachment.GameClearPanel;
