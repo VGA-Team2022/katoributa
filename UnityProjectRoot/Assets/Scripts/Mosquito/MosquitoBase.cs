@@ -62,6 +62,7 @@ public class MosquitoBase : MonoBehaviour, IObjectPool
         _model.enabled = false;
         _isActive = false;
         _health.IsDead = true;
+        _move.SoundPlayer.StopSound();
         _health.OnDestroy?.Invoke();
     }
 

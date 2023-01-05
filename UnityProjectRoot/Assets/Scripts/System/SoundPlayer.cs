@@ -140,6 +140,11 @@ public class SoundPlayer : MonoBehaviour
         //}
     }
 
+    public void StopSound()
+    {
+        _source.Stop();
+    }
+
     /*MEMO
     サウンドさんから送られてくるデータによっては、変更する可能性あり
     (出来るだけ変えたく無いので、要話し合い)

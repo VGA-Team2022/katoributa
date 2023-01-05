@@ -14,6 +14,8 @@ public class MosquitoHealth : MonoBehaviour
     [SerializeField] float _fallingSpeed = 5f;
     [Header("追加するスコア")]
     [SerializeField, Min(0)] int _score = 100;
+    [SerializeField] SoundPlayer _sound;
+    [SerializeField] int _cueId = 9;
 
     VisualEffect _model;
     Transform _thisTransform;
@@ -93,6 +95,11 @@ public class MosquitoHealth : MonoBehaviour
 
     Vector3 PositionCalculation()
     {
+        if (_sound)
+        {
+            _sound.PlaySound(_cueId);
+        }
+
         RaycastHit info = default;
         var hit = Physics.Raycast(_thisTransform.position, Vector3.down, out info, _rayDistance);
         return hit ? info.point : _thisTransform.position;

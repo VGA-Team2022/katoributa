@@ -29,6 +29,8 @@ public class MosquitoMove : MonoBehaviour
     Transform _thisTransform;
     SoundPlayer _sound;
 
+    public SoundPlayer SoundPlayer => _sound;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -41,11 +43,6 @@ public class MosquitoMove : MonoBehaviour
         if (_rb)
         {
             _rb.useGravity = false;
-        }
-
-        if (_sound)
-        {
-            _sound.PlaySound(_cueId);
         }
     }
 
@@ -85,6 +82,11 @@ public class MosquitoMove : MonoBehaviour
         _currentMoveSpeed = Random.Range(_moveSpeed.x, _moveSpeed.y);
 
         _random = Random.Range(0, 10);
+
+        if (_sound)
+        {
+            _sound.PlaySound(_cueId);
+        }
     }
 
     /// <summary>
