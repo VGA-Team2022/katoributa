@@ -12,6 +12,7 @@ public class Durability : MonoBehaviour
 {
     [Header("耐久力")]
     [SerializeField, Tooltip("耐久力")] IntReactiveProperty _hp = new IntReactiveProperty(5);
+    [Tooltip("耐久力の最大値")] int _maxHp;
 
     [Header("ダメージ処理")]
     [SerializeField, Tooltip("どの位の速度からダメージを受けるか")] float _damageSpeed = 5f;
@@ -48,6 +49,9 @@ public class Durability : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _sCol = GetComponent<SphereCollider>();
         _sc = FindObjectOfType<ShakeCamera>();
+
+        _maxHp = _hp.Value;
+        Debug.Log($"耐久力の最大値は {_maxHp} です");
     }
 
     private void Update()
@@ -104,6 +108,22 @@ public class Durability : MonoBehaviour
         _sc?.ShakeMethod();
 
         Debug.Log($"ダメージを受けた : HP = {_hp} : Damage = {damage}");
+    }
+
+    /// <summary>
+    /// 耐久力の回復
+    /// </summary>
+    /// <param name="value">回復する値</param>
+    public void DuraHeal(int value)
+    {
+        if(_hp.Value >= _maxHp)
+        {
+            Debug.Log("耐久力は既に最大のため回復しなかった");
+            return;
+        }
+
+        _hp.Value += value;
+        Debug.Log($"耐久力が {value} 回復した");
     }
 
     private void OnCollisionEnter(Collision collision)
