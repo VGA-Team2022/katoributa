@@ -14,6 +14,10 @@ public class Muzzle : MonoBehaviour
     [SerializeField, Range(0.5f,1.5f)] float _reloadTime = 0.5f;
     [Header("ƒŒƒeƒBƒNƒ‹UI")]
     [SerializeField] Image _reticle;
+    [SerializeField] SoundPlayer _soundPlayer;
+    [SerializeField] int _shotSoundId;
+    [SerializeField] int _merameraShotSoundId;
+    bool _isPowerUp;
 
     float _reloadTimer;
 
@@ -62,6 +66,15 @@ public class Muzzle : MonoBehaviour
 
     void Fire()
     {
+        if(_isPowerUp)
+        {
+            _soundPlayer.PlaySound(_merameraShotSoundId);
+        }
+        else
+        {
+            _soundPlayer.PlaySound(_shotSoundId);
+        }
+       
         var bullet = _pool.Instantiate();
         bullet.transform.position = _muzzuleTransform.position;
         bullet.transform.rotation = _muzzuleTransform.rotation;
