@@ -8,12 +8,18 @@ public class GameManagerAttachment : MonoBehaviour
     #region 変数
     [SerializeField] float _comboTime = 3f;
     [SerializeField] float _multiplicationLimit = 2f;
+    [SerializeField] float _countTime = 3f;
+    [SerializeField] Image _countDownImage;
+    [SerializeField] Sprite[] _countSprites;
 
     #endregion
 
     #region プロパティ
     public float ComboTime => _comboTime;
     public float MultiplicationLimit => _multiplicationLimit;
+    public float CountTime => _countTime;
+    public Image CountImage => _countDownImage;
+    public Sprite[] CountSprites => _countSprites;
     #endregion
 
     #region デリゲート
@@ -21,7 +27,7 @@ public class GameManagerAttachment : MonoBehaviour
     MonoEvent _updateEvent;
     #endregion
 
-    private void Awake()
+    private void Start()
     {
         GameManager.Instance.SetupUpdateCallback(this);
         GameManager.Instance.OnSetup(this);

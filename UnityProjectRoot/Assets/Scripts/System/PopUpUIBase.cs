@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-[RequireComponent(typeof(SceneChanger))]
+[RequireComponent(typeof(Fade))]
 public class PopUpUIBase : MonoBehaviour
 {
     [SerializeField] float _animSpeed = 0.1f;
@@ -13,13 +13,13 @@ public class PopUpUIBase : MonoBehaviour
     [SerializeField] string _nextScene;
 
     RectTransform _transform;
-    SceneChanger _changer;
+    Fade _fade;
 
     private void Awake()
     {
         _transform = GetComponent<RectTransform>();
         _transform.localScale = Vector3.zero;
-        _changer = GetComponent<SceneChanger>();
+        _fade = GetComponent<Fade>();
         OnAwake();
     }
     protected virtual void OnAwake() { }
@@ -34,6 +34,6 @@ public class PopUpUIBase : MonoBehaviour
     }
     void ChangeScene() 
     {
-        _changer.ChangeScene(_nextScene);
+        _fade.OnFadeIn(_nextScene);
     }
 }
