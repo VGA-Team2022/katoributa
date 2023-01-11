@@ -29,9 +29,6 @@ public class GameManager
     IntReactiveProperty _score = new IntReactiveProperty();
     GameState _gameState;
 
-    Image _gameOverPanel;
-    Image _gameClearPanel;
-
     Combo _combo;
 
     bool _isPause;
@@ -161,9 +158,6 @@ public class GameManager
         _score.Value = 0;
         _combo = new Combo(attachment.ComboTime, attachment.MultiplicationLimit);
 
-        _gameClearPanel = attachment.GameClearPanel;
-        _gameOverPanel = attachment.GameOverPanel;
-
         GameStateChange(GameState.GameReady);
     }
 
@@ -171,14 +165,12 @@ public class GameManager
     {
         OnGameOverEvent?.Invoke();
         GameStateChange(GameState.GameFinish);
-        _gameOverPanel?.gameObject.SetActive(true);
         Debug.Log("OnGameOver");
     }
 
     public void OnGameEnd()
     {
         OnGameEndEvent?.Invoke();
-        _gameClearPanel?.gameObject.SetActive(true);
         Debug.Log("OnGameClear");
     }
 
