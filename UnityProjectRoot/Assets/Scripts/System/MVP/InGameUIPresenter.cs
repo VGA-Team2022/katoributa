@@ -69,7 +69,7 @@ public class InGameUIPresenter : MonoBehaviour
 
             time.Health.Subscribe(x =>
             {
-                _mosquitCoil.SetValue();
+                _mosquitCoil.SetValue(x);
             }).AddTo(this);
         }
         else

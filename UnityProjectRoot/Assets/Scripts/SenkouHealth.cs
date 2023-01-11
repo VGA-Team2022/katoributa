@@ -18,8 +18,14 @@ public class SenkouHealth : MonoBehaviour
     [Header("–³“Gƒtƒ‰ƒO")]
     [SerializeField] bool _godMode;
 
+    float _maxSenkouTime;
+
     public IReactiveProperty<float> Health => _senkouTime;
 
+    private void Awake()
+    {
+        _maxSenkouTime = _senkouTime.Value;
+    }
     private void Update()
     {
         ReduceHealth();
@@ -87,6 +93,7 @@ public class SenkouHealth : MonoBehaviour
     public void GetHeal(float value)
     {
         _senkouTime.Value += value;
+        _senkouTime.Value = Mathf.Min(_senkouTime.Value, _maxSenkouTime);
         Debug.Log(value + "‰ñ•œ‚µ‚½");
     }
 }
