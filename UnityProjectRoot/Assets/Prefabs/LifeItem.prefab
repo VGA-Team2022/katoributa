@@ -29,7 +29,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6608175290784775180}
-  m_LocalRotation: {x: -0, y: 0.23523362, z: -0, w: 0.97193885}
+  m_LocalRotation: {x: 0, y: 0.2352354, z: 0, w: 0.97193843}
   m_LocalPosition: {x: 3.98, y: 2.452, z: 0.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -113,9 +113,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _heal: 1
-  _respawnTime: 60
+  _respawnTime: 10000000
   _life: {fileID: 0}
-  _soundPlayer: {fileID: 0}
+  _soundPlayer: {fileID: 8431287175954334235}
   _soundName: SE_item get mono
 --- !u!114 &5892346876486882584
 MonoBehaviour:
@@ -149,7 +149,7 @@ MonoBehaviour:
     - 0
     - 0
   _cueName: 
-  _cueSheet: 
+  _cueSheet: SE
 --- !u!114 &8431287175954334235
 MonoBehaviour:
   m_ObjectHideFlags: 0

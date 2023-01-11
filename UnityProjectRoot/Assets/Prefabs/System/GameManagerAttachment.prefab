@@ -44,4 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ea29e487b7f5574db4ed9a32cf7b42a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameTime: 300
+  _comboTime: 3
+  _multiplicationLimit: 2
+  _countDownImage: {fileID: 0}
+  _countSprites:
+  - {fileID: 21300000, guid: 4074d4586c11c4f4bb13ca077b6f22aa, type: 3}
+  - {fileID: 21300000, guid: 1a69e21ea1c08c44d8401fd6683f633d, type: 3}
+  - {fileID: 21300000, guid: 1d3168c377cdef14aa548896073a1bd3, type: 3}
+  - {fileID: 21300000, guid: 71bc6df29337dc64eac076a38e6bc0f9, type: 3}
