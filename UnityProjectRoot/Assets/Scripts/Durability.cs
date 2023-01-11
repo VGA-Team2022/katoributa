@@ -35,6 +35,7 @@ public class Durability : MonoBehaviour
 
     [Header("無敵フラグ")]
     [SerializeField] bool _godMode;
+    [Tooltip("ポーズフラグ")] bool _isPaused = false;
 
     Rigidbody _rb;
     SphereCollider _sCol;
@@ -64,6 +65,10 @@ public class Durability : MonoBehaviour
     /// </summary>
     private void CheckVelocity()
     {
+        if (_isPaused)
+        {
+            return;
+        }
         var x = _prevVelocity.x;
         var y = _prevVelocity.y;
         var z = _prevVelocity.z;
@@ -95,7 +100,7 @@ public class Durability : MonoBehaviour
     /// <param name="damage">受けるダメージ</param>
     public void TakeDamage(int damage)
     {
-        if (!_godMode)
+        if (!_godMode || !_isPaused)
         {
             _hp.Value -= damage;
 
@@ -116,7 +121,11 @@ public class Durability : MonoBehaviour
     /// <param name="value">回復する値</param>
     public void DuraHeal(int value)
     {
-        if(_hp.Value >= _maxHp)
+        if (_isPaused)
+        {
+            return;
+        }
+        if (_hp.Value >= _maxHp)
         {
             Debug.Log("耐久力は既に最大のため回復しなかった");
             return;
@@ -128,6 +137,11 @@ public class Durability : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (_isPaused)
+        {
+            return;
+        }
+
         //接触時のSEを鳴らす
         if (collision.gameObject.CompareTag("Tatami"))
         {
@@ -157,5 +171,27 @@ public class Durability : MonoBehaviour
         _soundPlayer.PlaySound(_breakSEID);
         _breaker.Break(_fracture, Vector3.zero);
         GameManager.Instance.OnGameOver();
+    }
+
+    void Pause()
+    {
+        _isPaused = true;
+    }
+
+    void Resume()
+    {
+        _isPaused = false;
+    }
+
+    private void OnEnable()
+    {
+        GameManager.Instance.OnPause += Pause;
+        GameManager.Instance.OnResume += Resume;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.OnPause -= Pause;
+        GameManager.Instance.OnResume -= Resume;
     }
 }
