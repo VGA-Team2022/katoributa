@@ -794,7 +794,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6387793333512999552, guid: 32f7bf42b5f64d347a9636d9a3f03fd6, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6387793333512999552, guid: 32f7bf42b5f64d347a9636d9a3f03fd6, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1854,8 +1854,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1329860585}
   - {fileID: 294749184}
+  - {fileID: 1329860585}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2622,7 +2622,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 654053010469613443, guid: 61a29a9c846951f47914309e938530c8, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 654053010469613443, guid: 61a29a9c846951f47914309e938530c8, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2707,6 +2707,26 @@ PrefabInstance:
     - target: {fileID: 2356048962826559378, guid: 61a29a9c846951f47914309e938530c8, type: 3}
       propertyPath: _nextScene
       value: GameOverScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 3660375671868822439, guid: 61a29a9c846951f47914309e938530c8, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3660375671868822439, guid: 61a29a9c846951f47914309e938530c8, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3660375671868822439, guid: 61a29a9c846951f47914309e938530c8, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3660375671868822439, guid: 61a29a9c846951f47914309e938530c8, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8048513821213341311, guid: 61a29a9c846951f47914309e938530c8, type: 3}
+      propertyPath: _fadeSpeed
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61a29a9c846951f47914309e938530c8, type: 3}
