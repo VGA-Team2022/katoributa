@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 using TMPro;
 
 public class ScoreBoardBuilder : MonoBehaviour
@@ -46,10 +47,21 @@ public class ScoreBoardBuilder : MonoBehaviour
     int _score = 0;
 
 
+    [SerializeField, Tooltip("ダンス映像を流すプレイヤー")]
+    VideoPlayer _vPlayer = null;
+
+    [SerializeField, Tooltip("普通のダンス映像")]
+    VideoClip _normalDance = null;
+
+    [SerializeField, Tooltip("メラメラ時のダンス映像")]
+    VideoClip _meraDance = null;
+
+
     // Start is called before the first frame update
     void Start()
     {
         _animator = GetComponent<Animator>();
+        _vPlayer = GetComponentInChildren<VideoPlayer>();
 
         _score = GameManager.Instance.Score.Value;
 
@@ -62,6 +74,16 @@ public class ScoreBoardBuilder : MonoBehaviour
         Array.ForEach(_burnEndIllust, bei => bei.SetActive(false));
         if (_score >= _scoreBorderGood)
         {
+            //どちらの映像を流すか分岐
+            if(UnityEngine.Random.value > 0.8f)
+            {
+                _vPlayer.clip = _meraDance;
+            }
+            else
+            {
+                _vPlayer.clip = _normalDance;
+            }
+
             Array.ForEach(_danceMovie, dm => dm.SetActive(true));
             _animator.Play(_animNameOnGood);
         }

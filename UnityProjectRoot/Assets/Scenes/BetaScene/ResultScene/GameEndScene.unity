@@ -1948,6 +1948,9 @@ MonoBehaviour:
   _animNameOnBad: OnBad
   _scoreBorderGood: 3000
   _scoreBorderNormal: 500
+  _vPlayer: {fileID: 1688593304352131983}
+  _normalDance: {fileID: 32900000, guid: 13ac75c07c1085c4399fa05b3e11485c, type: 3}
+  _meraDance: {fileID: 32900000, guid: 25ab124390d9d64428fb8b33a53b9bb1, type: 3}
 --- !u!114 &4693347021646434665
 MonoBehaviour:
   m_ObjectHideFlags: 0
