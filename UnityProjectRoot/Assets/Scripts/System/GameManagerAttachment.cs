@@ -8,7 +8,6 @@ public class GameManagerAttachment : MonoBehaviour
     #region 変数
     [SerializeField] float _comboTime = 3f;
     [SerializeField] float _multiplicationLimit = 2f;
-    [SerializeField] float _countTime = 3f;
     [SerializeField] Image _countDownImage;
     [SerializeField] Sprite[] _countSprites;
 
@@ -17,7 +16,6 @@ public class GameManagerAttachment : MonoBehaviour
     #region プロパティ
     public float ComboTime => _comboTime;
     public float MultiplicationLimit => _multiplicationLimit;
-    public float CountTime => _countTime;
     public Image CountImage => _countDownImage;
     public Sprite[] CountSprites => _countSprites;
     #endregion

@@ -158,7 +158,7 @@ public class GameManager
 
         _score.Value = 0;
         _combo = new Combo(attachment.ComboTime, attachment.MultiplicationLimit);
-        _countDown = new CountDown(attachment.CountTime, attachment.CountSprites, attachment.CountImage);
+        _countDown = new CountDown(attachment.CountSprites, attachment.CountImage);
 
         GameStateChange(GameState.GameReady);
   
@@ -301,9 +301,9 @@ public class CountDown
     readonly Sprite[] _sprites;
     readonly Image _image;
 
-    public CountDown(float count, Sprite[] sprites, Image image)
+    public CountDown(Sprite[] sprites, Image image)
     {
-        _count = count;
+        _count = sprites.Length + 0.5f;
         _index = (int)_count - 1;
         _sprites = sprites;
         _image = image;

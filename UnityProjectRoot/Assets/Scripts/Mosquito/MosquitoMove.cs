@@ -101,4 +101,24 @@ public class MosquitoMove : MonoBehaviour
             MoveNext();
         }
     }
+    void Pause()
+    {
+        _sound.PauseSound(true);
+        _rb.isKinematic = true;
+    }
+    void Resume()
+    {
+        _sound.PauseSound(false);
+        _rb.isKinematic = false;
+    }
+    private void OnEnable()
+    {
+        GameManager.Instance.OnPause += Pause;
+        GameManager.Instance.OnResume += Resume;
+    }
+    private void OnDisable()
+    {
+        GameManager.Instance.OnPause -= Pause;
+        GameManager.Instance.OnResume -= Resume;
+    }
 }
