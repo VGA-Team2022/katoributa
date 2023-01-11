@@ -18,12 +18,10 @@ public class MVPMosquitCoil : MonoBehaviour
         _changeValue = _sliderValue / time;
     }
 
-    public void SetValue()
+    public void SetValue(float value)
     {
         if(_coilMaterial)
-        {
-            var currentValue = _coilMaterial.GetFloat("_disssolveamount");
-            _coilMaterial.SetFloat("_disssolveamount", currentValue -= _changeValue * Time.deltaTime);
-        }
+            //var currentValue = _coilMaterial.GetFloat("_disssolveamount");
+            _coilMaterial.SetFloat("_disssolveamount", (_changeValue * value) - 0.97f);
     }
 }
