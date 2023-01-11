@@ -23,42 +23,57 @@ public class ScoreBoardBuilder : MonoBehaviour
     GameObject[] _burnEndIllust = null;
 
 
+    /// <summary>アニメーター</summary>
+    Animator _animator = null;
+
+    [SerializeField, Tooltip("アニメーション名 : 良評価")]
+    string _animNameOnGood = "OnGood";
+
+    [SerializeField, Tooltip("アニメーション名 : 普通評価")]
+    string _animNameOnNormal = "OnNormal";
+
+    [SerializeField, Tooltip("アニメーション名 : 悪評価")]
+    string _animNameOnBad = "OnBad";
+
+
     [SerializeField, Tooltip("スコア評価基準値 良")]
     int _scoreBorderGood = 3000;
 
     [SerializeField, Tooltip("スコア評価基準値 普通")]
     int _scoreBorderNormal = 500;
 
+    /// <summary>取得スコア</summary>
+    int _score = 0;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        int score = GameManager.Instance.Score.Value;
+        _animator = GetComponent<Animator>();
 
-        if (_scoreText) _scoreText.text = score.ToString();
+        _score = GameManager.Instance.Score.Value;
+
+        if (_scoreText) _scoreText.text = _score.ToString();
         //if(_rankingText) _rankingText.text = GameManager.Instance.Score.Value.ToString();
 
         //スコアによって画像表示を切り替え
         Array.ForEach(_danceMovie, dm => dm.SetActive(false));
         Array.ForEach(_playerIllust, pi => pi.SetActive(false));
         Array.ForEach(_burnEndIllust, bei => bei.SetActive(false));
-        if (score >= _scoreBorderGood)
+        if (_score >= _scoreBorderGood)
         {
             Array.ForEach(_danceMovie, dm => dm.SetActive(true));
+            _animator.Play(_animNameOnGood);
         }
-        else if(score >= _scoreBorderNormal)
+        else if (_score >= _scoreBorderNormal)
         {
             Array.ForEach(_playerIllust, pi => pi.SetActive(true));
+            _animator.Play(_animNameOnNormal);
         }
         else
         {
             Array.ForEach(_burnEndIllust, bei => bei.SetActive(true));
+            _animator.Play(_animNameOnBad);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
