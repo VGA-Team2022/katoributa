@@ -19,6 +19,8 @@ public class MosquitoBase : MonoBehaviour, IObjectPool
     public MosquitoMove Move => _move;
     public MosquitoHealth Health => _health;
 
+    bool _isPause;
+
     private void Awake()
     {
         _move = GetComponent<MosquitoMove>();
@@ -30,6 +32,8 @@ public class MosquitoBase : MonoBehaviour, IObjectPool
 
     private void Update()
     {
+        if (_isPause) return;
+
         if(_health.IsDead)
         {
             var fall = _health.Falling();
@@ -73,5 +77,23 @@ public class MosquitoBase : MonoBehaviour, IObjectPool
         _model.enabled = false;
         _isActive = false;
         _health.IsDead = true;
+    }
+    void Pause()
+    {
+        _isPause = true;
+    }
+    void Resume()
+    {
+        _isPause = false;
+    }
+    private void OnEnable()
+    {
+        GameManager.Instance.OnPause += Pause;
+        GameManager.Instance.OnResume += Resume;
+    }
+    private void OnDisable()
+    {
+        GameManager.Instance.OnPause -= Pause;
+        GameManager.Instance.OnResume -= Resume;
     }
 }

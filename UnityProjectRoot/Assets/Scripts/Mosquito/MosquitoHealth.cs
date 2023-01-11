@@ -113,4 +113,24 @@ public class MosquitoHealth : MonoBehaviour
     {
         return _model.GetFloat(name);
     }
+    void Pause()
+    {
+        _rb.isKinematic = true;
+        _sound.PauseSound(true);
+    }
+    void Resume()
+    {
+        _rb.isKinematic = false;
+        _sound.PauseSound(false);
+    }
+    private void OnEnable()
+    {
+        GameManager.Instance.OnPause += Pause;
+        GameManager.Instance.OnResume += Resume;
+    }
+    private void OnDisable()
+    {
+        GameManager.Instance.OnPause -= Pause;
+        GameManager.Instance.OnResume -= Resume;
+    }
 }
