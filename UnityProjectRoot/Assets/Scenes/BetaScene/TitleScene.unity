@@ -270,6 +270,10 @@ PrefabInstance:
       propertyPath: dontDestroyOnLoad
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1034167970264363598, guid: b791f7fbf9fb45148a8189bbba221008, type: 3}
+      propertyPath: cueSheets.Array.data[1].awbFile
+      value: StreamingAssets/SE.awb
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b791f7fbf9fb45148a8189bbba221008, type: 3}
 --- !u!1 &555889413

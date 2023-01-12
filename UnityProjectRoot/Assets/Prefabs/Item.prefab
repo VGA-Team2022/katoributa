@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4145511134005740353}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.76, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 58ba22c00da775e40be8ee0a80209914, type: 2}
+  - {fileID: 2100000, guid: d3309c1339e203e4b9c5c0af95f0b9cc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -113,7 +113,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _heal: 30
-  _respawnTime: 30
+  _objectCount: 0
+  _collider: {fileID: 319184292218366078}
+  _renderer: {fileID: 4145511134005740358}
   _senko: {fileID: 0}
   _soundPlayer: {fileID: 1671634840203246934}
   _soundName: SE_item get mono
