@@ -25,7 +25,7 @@ public class GameManagerAttachment : MonoBehaviour
     MonoEvent _updateEvent;
     #endregion
 
-    private void Start()
+    private void Awake()
     {
         GameManager.Instance.SetupUpdateCallback(this);
         GameManager.Instance.OnSetup(this);

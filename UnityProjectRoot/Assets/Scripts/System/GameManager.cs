@@ -162,8 +162,8 @@ public class GameManager
 
         GameStateChange(GameState.GameReady);
   
-        OnPause?.Invoke();
-        Debug.Log("ポーズ開始");
+        //OnPause?.Invoke();
+        //Debug.Log("ポーズ開始");
     }
 
     public void OnGameOver()
@@ -185,6 +185,8 @@ public class GameManager
     /// </summary>
     void OnUpdate()
     {
+        if (_gameState == GameState.GameFinish) return;
+
         if (_gameState == GameState.GameReady)
         {
             var flag = _countDown.Count();
