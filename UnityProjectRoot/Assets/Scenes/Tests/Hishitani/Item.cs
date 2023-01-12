@@ -4,17 +4,11 @@ public class Item : MonoBehaviour
 {
     [SerializeField] float _heal = 10;
     public int _objectCount;
-    public Collider _collider;
-    public Renderer _renderer;
     [SerializeField] SenkouHealth _senko;
-    [SerializeField] SoundPlayer _soundPlayer;
-    [SerializeField] string _soundName = "SE_item get mono";
     ItemSpawn _itemSpawn;
     bool _pauseSwich = false;
     private void Start()
     {
-        _collider = gameObject.GetComponent<Collider>();
-        _renderer = gameObject.GetComponent<Renderer>();
         _itemSpawn = GameObject.FindObjectOfType<ItemSpawn>();
         _senko = GameObject.FindGameObjectWithTag("Player").GetComponent<SenkouHealth>();
         GameManager.Instance.OnPause += Pause;
@@ -32,7 +26,6 @@ public class Item : MonoBehaviour
             {
                 _itemSpawn._getCount++;
                 _itemSpawn.Spawn(_objectCount);
-                _soundPlayer.PlaySound(_soundName);
                 _senko.GetHeal(_heal);
                 Destroy(this.gameObject);
             } 

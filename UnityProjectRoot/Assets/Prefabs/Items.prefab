@@ -227,6 +227,8 @@ GameObject:
   m_Component:
   - component: {fileID: 792436789663254149}
   - component: {fileID: 792436789663254148}
+  - component: {fileID: 3048360159533220217}
+  - component: {fileID: 7401887201468188448}
   m_Layer: 9
   m_Name: Items
   m_TagString: Untagged
@@ -280,11 +282,60 @@ MonoBehaviour:
   - {fileID: 792436789255805289}
   - {fileID: 792436788714345861}
   - {fileID: 792436788674192884}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   _itemOdject: {fileID: 4145511134005740352, guid: 28f1445af57596f47ab555e7c6357538, type: 3}
   _getCount: 0
+  _soundPlayer: {fileID: 7401887201468188448}
+  _soundName: SE_item get mono
+--- !u!114 &3048360159533220217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 792436789663254146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1e631c3b9947b54c823c6853a05529c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playOnStart: 0
+  _regionOnStart: {fileID: 0}
+  _listenerOnStart: {fileID: 0}
+  _use3dPositioning: 0
+  _freezeOrientation: 0
+  _loop: 0
+  _volume: 1
+  _pitch: 0
+  _androidUseLowLatencyVoicePool: 0
+  need_to_player_update_all: 1
+  _use3dRandomization: 0
+  _randomPositionListMaxLength: 0
+  randomize3dConfig:
+    followsOriginalSource: 0
+    calculationType: 0
+    calculationParameters:
+    - 0
+    - 0
+    - 0
+  _cueName: SE_item get mono
+  _cueSheet: SE
+--- !u!114 &7401887201468188448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 792436789663254146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d94f8f170743ca438b5a2802799224b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _3DPositioning: 0
+  _loop: 0
+  _volume: 1
+  _cueSheet: 1
+  _debugLog: 1
 --- !u!1 &792436789995254923
 GameObject:
   m_ObjectHideFlags: 0

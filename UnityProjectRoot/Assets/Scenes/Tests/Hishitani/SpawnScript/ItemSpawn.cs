@@ -9,16 +9,20 @@ public class ItemSpawn : MonoBehaviour
     public int _getCount = 0;
     Item[] _items;
     bool _pauseSwich = false;
+
+    [SerializeField] SoundPlayer _soundPlayer;
+    [SerializeField] string _soundName = "SE_item get mono";
+
     private void Start()
     {
-        
+        _soundPlayer = GetComponent<SoundPlayer>();
+
         _items = new Item[_spawnPosition.Length];
         for (int i = 0; i < 2;)
         {
             int x = Random.Range(0, 2);
             if(!_items[x])
             {
-                 
                 _items[x] = Instantiate(_itemOdject, _spawnPosition[i].transform);
                 _items[x]._objectCount = x;
                 i++;
@@ -28,7 +32,9 @@ public class ItemSpawn : MonoBehaviour
     }
     public void Spawn(int offNumber)
     {
-        if(_getCount < 5)
+        _soundPlayer.PlaySound(_soundName);
+
+        if (_getCount < 5)
         {
             for(int i = 0; i < 3; i++)
             {

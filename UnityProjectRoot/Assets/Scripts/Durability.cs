@@ -32,6 +32,7 @@ public class Durability : MonoBehaviour
     [SerializeField, Tooltip("クッション接触時")] int _cushionSEID;
     [SerializeField, Tooltip("鉄接触時")] int _metalSEID;
     [SerializeField, Tooltip("紙接触時")] int _paperSEID;
+    [SerializeField, Tooltip("ヒビ入る時")] int _damageSEID;
     [SerializeField, Tooltip("壊れる時")] int _breakSEID;
 
     [Header("無敵フラグ")]
@@ -109,10 +110,14 @@ public class Durability : MonoBehaviour
             {
                 OnDead();
             }
+            else
+            {
+                _soundPlayer.PlaySound(_damageSEID);
+            }
         }
 
         _sc?.ShakeMethod();
-
+        
         Debug.Log($"ダメージを受けた : HP = {_hp} : Damage = {damage}");
     }
 
