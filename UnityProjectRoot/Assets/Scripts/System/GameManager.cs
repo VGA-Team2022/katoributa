@@ -29,10 +29,8 @@ public class GameManager
     IntReactiveProperty _score = new IntReactiveProperty();
     GameState _gameState;
 
-    Image _gameOverPanel;
-    Image _gameClearPanel;
-
     Combo _combo;
+    CountDown _countDown;
 
     bool _isPause;
     #endregion
@@ -55,7 +53,7 @@ public class GameManager
      */
 
     //コンストラクタ
-    public GameManager() 
+    public GameManager()
     {
         Debug.Log("New GameManager");
     }
@@ -97,7 +95,7 @@ public class GameManager
     /// <param name="mode"></param>
     public void PlayerModeChange(PlayerMode mode)
     {
-        switch(mode)
+        switch (mode)
         {
             case PlayerMode.PowerUp:
                 OnPowerUpEvent?.Invoke();
@@ -114,7 +112,7 @@ public class GameManager
     {
         if (_gameState == mode)
         {
-            Debug.LogError("GameStateが一緒です");
+            Debug.Log("GameStateが一緒です");
             return;
         }
 
@@ -138,7 +136,7 @@ public class GameManager
     /// </summary>
     public void AddScore(int score)
     {
-        if(score < 0)
+        if (score < 0)
         {
             Debug.Log("与えられた値が不正な値でした");
             return;
@@ -160,25 +158,25 @@ public class GameManager
 
         _score.Value = 0;
         _combo = new Combo(attachment.ComboTime, attachment.MultiplicationLimit);
-
-        _gameClearPanel = attachment.GameClearPanel;
-        _gameOverPanel = attachment.GameOverPanel;
+        _countDown = new CountDown(attachment.CountSprites, attachment.CountImage);
 
         GameStateChange(GameState.GameReady);
+  
+        //OnPause?.Invoke();
+        //Debug.Log("ポーズ開始");
     }
 
     public void OnGameOver()
     {
         OnGameOverEvent?.Invoke();
         GameStateChange(GameState.GameFinish);
-        _gameOverPanel?.gameObject.SetActive(true);
         Debug.Log("OnGameOver");
     }
 
     public void OnGameEnd()
     {
         OnGameEndEvent?.Invoke();
-        _gameClearPanel?.gameObject.SetActive(true);
+        GameStateChange(GameState.GameFinish);
         Debug.Log("OnGameClear");
     }
 
@@ -187,9 +185,27 @@ public class GameManager
     /// </summary>
     void OnUpdate()
     {
-        if(InputUtility.GetDownPause)
+        if (_gameState == GameState.GameFinish) return;
+
+        if (_gameState == GameState.GameReady)
         {
-            if(_isPause)
+            var flag = _countDown.Count();
+
+            if (flag)
+            {
+                _gameState = GameState.InGame;
+                OnResume?.Invoke();
+                Debug.Log("ポーズ解除");
+            }
+
+            return;
+        }
+
+        if (InputUtility.GetDownPause)
+        {
+            if (_gameState != GameState.InGame) return;
+
+            if (_isPause)
             {
                 OnResume?.Invoke();
                 Debug.Log("ポーズ解除");
@@ -229,7 +245,7 @@ public enum PlayerMode
 }
 
 public enum GameState
-{ 
+{
     GameReady = 0,
     InGame = 1,
     GameFinish = 2,
@@ -253,7 +269,7 @@ public class Combo
     }
     public void Run()
     {
-        if(_timer > _comboTime)
+        if (_timer > _comboTime)
         {
             _currentValue = 0;
             _count.Value = 0;
@@ -278,5 +294,42 @@ public class Combo
         Debug.Log($"現在の乗算値 {_currentValue + 1}");
 
         return _currentValue + 1;
+    }
+}
+public class CountDown
+{
+    float _count;
+    int _index;
+    readonly Sprite[] _sprites;
+    readonly Image _image;
+
+    public CountDown(Sprite[] sprites, Image image)
+    {
+        _count = sprites.Length + 0.5f;
+        _index = (int)_count - 1;
+        _sprites = sprites;
+        _image = image;
+
+        _image.sprite = _sprites[_index];
+    }
+    public bool Count()
+    {
+        _count -= Time.deltaTime;
+
+        if (_count <= _index)
+        {
+            _index = (int)Math.Round(_count) - 1;
+
+            if (_index >= 0)
+                _image.sprite = _sprites[_index];
+        }
+
+        if (_index < 0)
+        {
+            _image.enabled = false;
+            return true;
+        }
+
+        return false;
     }
 }

@@ -10,4 +10,11 @@ public class SceneChanger : MonoBehaviour
         SceneManager.LoadSceneAsync(sceneName);
         Debug.Log($"シーンが切り替わりました : Scene = {sceneName}");
     }
+
+    public void ResetScene()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(sceneName);
+        Debug.Log($"シーンが再度読み込まれました : Scene = {sceneName}");
+    }
 }

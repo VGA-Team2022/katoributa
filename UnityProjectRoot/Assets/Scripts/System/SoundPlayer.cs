@@ -139,6 +139,21 @@ public class SoundPlayer : MonoBehaviour
             _source.Play();
         //}
     }
+    /**
+ * <summary>一時停止／再開します。</summary>
+ * <param name='sw'>true:一時停止、false:再開</param>
+ * <remarks>
+ * <para header='説明'>再生のポーズ／ポーズ解除を行います。<br/>
+ * sw に true を指定して本関数を実行すると、 CriAtomSource
+ * コンポーネントは再生中の音声をポーズ（一時停止）します。<br/>
+ * sw に false を指定して本関数を実行すると、 CriAtomSource
+ * コンポーネントはポーズを解除し、一時停止していた音声の再生を再開します。<br/></para>
+ * </remarks>
+ */
+    public void PauseSound(bool sw)
+    {
+        _source.Pause(sw);
+    }
 
     public void StopSound()
     {
