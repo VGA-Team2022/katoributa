@@ -8,8 +8,12 @@ public class GameManagerAttachment : MonoBehaviour
     #region ïœêî
     [SerializeField] float _comboTime = 3f;
     [SerializeField] float _multiplicationLimit = 2f;
+    [Space(10)]
     [SerializeField] Image _countDownImage;
     [SerializeField] Sprite[] _countSprites;
+    [Space(10)]
+    [SerializeField] SoundPlayer _sound;
+    [SerializeField] int _soundCue = 35;
 
     #endregion
 
@@ -41,5 +45,22 @@ public class GameManagerAttachment : MonoBehaviour
     public void SetupCallBack(MonoEvent e)
     {
         _updateEvent = e;
+    }
+    private void OnEnable()
+    {
+        GameManager.Instance.OnGameEndEvent += OnTimeUp;
+        GameManager.Instance.OnGameOverEvent += OnTimeUp;
+    }
+    private void OnDisable()
+    {
+        GameManager.Instance.OnGameEndEvent -= OnTimeUp;
+        GameManager.Instance.OnGameOverEvent -= OnTimeUp;
+    }
+    void OnTimeUp()
+    {
+        if(_sound)
+        {
+            _sound.PlaySound(_soundCue);
+        }
     }
 }
