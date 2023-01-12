@@ -50,11 +50,11 @@ public class ScoreBoardBuilder : MonoBehaviour
     [SerializeField, Tooltip("MEを再生する専用プレイヤー")]
     SoundPlayer _mePlayer = null;
 
-    [SerializeField, Tooltip("良・普通評価ファンファーレ音のID")]
-    int _meIdFanfare = 1;
+    [SerializeField, Tooltip("良・普通評価ファンファーレ音の名称")]
+    string _meNameFanfare = "ME_Fanfare";
 
-    [SerializeField, Tooltip("悪評価の残念音のID")]
-    int _meIdFailure = 2;
+    [SerializeField, Tooltip("悪評価の残念音の名称")]
+    string _meNameFailure = "ME_failure";
 
 
     [SerializeField, Tooltip("ダンス映像を流すプレイヤー")]
@@ -96,19 +96,19 @@ public class ScoreBoardBuilder : MonoBehaviour
 
             Array.ForEach(_danceMovie, dm => dm.SetActive(true));
             _animator.Play(_animNameOnGood);
-            _mePlayer?.PlaySound(_meIdFanfare);
+            _mePlayer?.PlaySound(_meNameFanfare);
         }
         else if (_score >= _scoreBorderNormal)
         {
             Array.ForEach(_playerIllust, pi => pi.SetActive(true));
             _animator.Play(_animNameOnNormal);
-            _mePlayer?.PlaySound(_meIdFanfare);
+            _mePlayer?.PlaySound(_meNameFanfare);
         }
         else
         {
             Array.ForEach(_burnEndIllust, bei => bei.SetActive(true));
             _animator.Play(_animNameOnBad);
-            _mePlayer?.PlaySound(_meIdFailure);
+            _mePlayer?.PlaySound(_meNameFailure);
         }
     }
 }

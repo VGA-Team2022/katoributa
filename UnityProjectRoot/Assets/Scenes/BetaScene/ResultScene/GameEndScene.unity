@@ -2097,8 +2097,8 @@ MonoBehaviour:
   _scoreBorderGood: 3000
   _scoreBorderNormal: 500
   _mePlayer: {fileID: 1296452715}
-  _meIdFanfare: 0
-  _meIdFailure: 1
+  _meIdFanfare: 1
+  _meIdFailure: 2
   _vPlayer: {fileID: 1688593304352131983}
   _normalDance: {fileID: 32900000, guid: 13ac75c07c1085c4399fa05b3e11485c, type: 3}
   _meraDance: {fileID: 32900000, guid: 25ab124390d9d64428fb8b33a53b9bb1, type: 3}
