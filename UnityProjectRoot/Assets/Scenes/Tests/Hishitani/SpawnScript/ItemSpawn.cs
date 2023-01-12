@@ -8,6 +8,7 @@ public class ItemSpawn : MonoBehaviour
     [SerializeField] Item _itemOdject;
     public int _getCount = 0;
     Item[] _items;
+    bool _pauseSwich = false;
     private void Start()
     {
         
@@ -72,5 +73,13 @@ public class ItemSpawn : MonoBehaviour
                 }
             }
         }
+    }
+    void Pause()
+    {
+        _pauseSwich = true;
+    }
+    void Resume()
+    {
+        _pauseSwich = false;
     }
 }
