@@ -134,7 +134,7 @@ MonoBehaviour:
   _playOnStart: 0
   _regionOnStart: {fileID: 0}
   _listenerOnStart: {fileID: 0}
-  _use3dPositioning: 1
+  _use3dPositioning: 0
   _freezeOrientation: 0
   _loop: 0
   _volume: 1
@@ -150,8 +150,8 @@ MonoBehaviour:
     - 0
     - 0
     - 0
-  _cueName: 
-  _cueSheet: 
+  _cueName: SE_item get mono
+  _cueSheet: SE
 --- !u!114 &1671634840203246934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d94f8f170743ca438b5a2802799224b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _3DPositioning: 1
+  _3DPositioning: 0
   _loop: 0
   _volume: 1
   _cueSheet: 1
