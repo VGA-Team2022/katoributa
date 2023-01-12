@@ -31,6 +31,7 @@ public class Durability : MonoBehaviour
     [SerializeField, Tooltip("–ØŞÚG")] int _woodSEID;
     [SerializeField, Tooltip("ƒNƒbƒVƒ‡ƒ“ÚG")] int _cushionSEID;
     [SerializeField, Tooltip("“SÚG")] int _metalSEID;
+    [SerializeField, Tooltip("†ÚG")] int _paperSEID;
     [SerializeField, Tooltip("‰ó‚ê‚é")] int _breakSEID;
 
     [Header("–³“Gƒtƒ‰ƒO")]
@@ -158,6 +159,10 @@ public class Durability : MonoBehaviour
         else if (collision.gameObject.CompareTag("Metal"))
         {
             _soundPlayer.PlaySound(_metalSEID);
+        }
+        else if (collision.gameObject.CompareTag("Paper"))
+        {
+            _soundPlayer.PlaySound(_paperSEID);
         }
         else
         {
