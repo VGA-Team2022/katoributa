@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589245, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -760,6 +760,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: InGameUIRoot
       objectReference: {fileID: 0}
+    - target: {fileID: 4684710781882964652, guid: 32f7bf42b5f64d347a9636d9a3f03fd6, type: 3}
+      propertyPath: _lifeImage
+      value: 
+      objectReference: {fileID: 21300000, guid: a63c75ad6aa1ace4d97a906f27e3cc29, type: 3}
+    - target: {fileID: 4684710781882964652, guid: 32f7bf42b5f64d347a9636d9a3f03fd6, type: 3}
+      propertyPath: _lifeParent
+      value: 
+      objectReference: {fileID: 1594892342}
+    - target: {fileID: 4684710781882964652, guid: 32f7bf42b5f64d347a9636d9a3f03fd6, type: 3}
+      propertyPath: _lifeBackImage
+      value: 
+      objectReference: {fileID: 21300000, guid: 1e844948e87239c4489d70e0a3811384, type: 3}
     - target: {fileID: 5118059894498357468, guid: 32f7bf42b5f64d347a9636d9a3f03fd6, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1726,6 +1738,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cf588ed1e9f1b440aa968d9dc894e86, type: 3}
+--- !u!224 &1594892342 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 341798016081366891, guid: 32f7bf42b5f64d347a9636d9a3f03fd6, type: 3}
+  m_PrefabInstance: {fileID: 294749183}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1676283482
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -52,6 +52,8 @@ public class InGameUIPresenter : MonoBehaviour
                 return;
             }
 
+            _lifeIcon.Setup(hp.HP.Value);
+
             hp.HP.Subscribe(x =>
             {
                 _lifeIcon.UpdateUI(x);
