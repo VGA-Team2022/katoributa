@@ -34,6 +34,7 @@ public class Fade : MonoBehaviour
                 {
                     _changer.ChangeScene(sceneName);
                 });
+            _fadePanel.raycastTarget = true;
         }
         else
         {
@@ -48,6 +49,7 @@ public class Fade : MonoBehaviour
         {
             AlphaReset(1);
             _fadePanel.DOFade(_fadeOut, _fadeSpeed);
+            _fadePanel.raycastTarget = false;
         }
         else
         {

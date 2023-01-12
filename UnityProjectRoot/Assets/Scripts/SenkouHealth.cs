@@ -28,6 +28,8 @@ public class SenkouHealth : MonoBehaviour
     }
     private void Update()
     {
+        if (GameManager.Instance.GameState != GameState.InGame) return;
+
         ReduceHealth();
     }
 

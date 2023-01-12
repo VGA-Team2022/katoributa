@@ -161,6 +161,7 @@ public class GameManager
         _countDown = new CountDown(attachment.CountSprites, attachment.CountImage);
 
         GameStateChange(GameState.GameReady);
+        Cursor.lockState = CursorLockMode.Locked;
   
         //OnPause?.Invoke();
         //Debug.Log("ポーズ開始");
@@ -170,6 +171,7 @@ public class GameManager
     {
         OnGameOverEvent?.Invoke();
         GameStateChange(GameState.GameFinish);
+        Cursor.lockState = CursorLockMode.None;
         Debug.Log("OnGameOver");
     }
 
@@ -177,6 +179,7 @@ public class GameManager
     {
         OnGameEndEvent?.Invoke();
         GameStateChange(GameState.GameFinish);
+        Cursor.lockState = CursorLockMode.None;
         Debug.Log("OnGameClear");
     }
 
@@ -194,8 +197,8 @@ public class GameManager
             if (flag)
             {
                 _gameState = GameState.InGame;
-                OnResume?.Invoke();
-                Debug.Log("ポーズ解除");
+                //OnResume?.Invoke();
+                //Debug.Log("ポーズ解除");
             }
 
             return;
@@ -208,11 +211,13 @@ public class GameManager
             if (_isPause)
             {
                 OnResume?.Invoke();
+                Cursor.lockState = CursorLockMode.Locked;
                 Debug.Log("ポーズ解除");
             }
             else
             {
                 OnPause?.Invoke();
+                Cursor.lockState = CursorLockMode.None;
                 Debug.Log("ポーズ開始");
             }
 
