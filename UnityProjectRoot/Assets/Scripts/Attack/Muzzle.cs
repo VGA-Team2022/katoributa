@@ -11,7 +11,7 @@ public class Muzzle : MonoBehaviour
     [SerializeField] Bullet _bullet;
     [SerializeField] Transform _muzzuleTransform;
     [Space(5)]
-    [SerializeField, Range(0.5f,1.5f)] float _reloadTime = 0.5f;
+    [SerializeField, Range(0.5f, 1.5f)] float _reloadTime = 0.5f;
     [Header("ƒŒƒeƒBƒNƒ‹UI")]
     [SerializeField] Image _reticle;
     [SerializeField] SoundPlayer _soundPlayer;
@@ -23,14 +23,25 @@ public class Muzzle : MonoBehaviour
 
     const int _limit = 20;
 
-    ObjectPool<Bullet> _pool = new ObjectPool<Bullet> ();
+    ObjectPool<Bullet> _pool = new ObjectPool<Bullet>();
 
     private void Awake()
     {
-        if(!_muzzuleTransform)
+        if (!_muzzuleTransform)
         {
             _muzzuleTransform = this.transform;
         }
+    }
+    void OnEnable()
+    {
+        GameManager.Instance.OnPowerUpEvent += PlayerShotPowerUp;
+        GameManager.Instance.OnPowerDownEvent += PlayerShotPowerDown;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.OnPowerUpEvent -= PlayerShotPowerUp;
+        GameManager.Instance.OnPowerDownEvent -= PlayerShotPowerDown;
     }
 
     private void Start()
@@ -58,7 +69,7 @@ public class Muzzle : MonoBehaviour
             return;
         }
 
-        if(InputUtility.GetDownFire)
+        if (InputUtility.GetDownFire)
         {
             Fire();
         }
@@ -66,7 +77,7 @@ public class Muzzle : MonoBehaviour
 
     void Fire()
     {
-        if(_isPowerUp)
+        if (_isPowerUp)
         {
             _soundPlayer.PlaySound(_merameraShotSoundId);
         }
@@ -74,11 +85,21 @@ public class Muzzle : MonoBehaviour
         {
             _soundPlayer.PlaySound(_shotSoundId);
         }
-       
+
         var bullet = _pool.Instantiate();
         bullet.transform.position = _muzzuleTransform.position;
         bullet.transform.rotation = _muzzuleTransform.rotation;
 
         _reloadTimer = 0;
+    }
+
+    void PlayerShotPowerUp()
+    {
+        _isPowerUp = true;
+    }
+
+    void PlayerShotPowerDown()
+    {
+        _isPowerUp = false;
     }
 }
