@@ -7,21 +7,31 @@ public class CameraStateController : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.Instance.OnGameOverEvent += OnDead;
+        GameManager.Instance.OnGameOverEvent += Pause;
+        GameManager.Instance.OnPause += Pause;
+        GameManager.Instance.OnResume += Resume;
     }
 
     private void OnDisable()
     {
-        GameManager.Instance.OnGameOverEvent -= OnDead;
+        GameManager.Instance.OnGameOverEvent -= Pause;
+        GameManager.Instance.OnPause -= Pause;
+        GameManager.Instance.OnResume -= Resume;
     }
 
     private void Start()
     {
         _vcam = GetComponent<CinemachineVirtualCamera>();
+        Pause();
     }
 
-    void OnDead()
+    void Pause()
     {
         _vcam.enabled = false;
+    }
+
+    void Resume()
+    {
+        _vcam.enabled = true;
     }
 }

@@ -25,6 +25,8 @@ public class PlayerJump : MonoBehaviour
 
     float _currentJumpSpeed;
 
+    bool _isPause;
+
     void Start()
     {
         _playerState = GetComponent<PlayerState>();
@@ -37,16 +39,21 @@ public class PlayerJump : MonoBehaviour
     {
         GameManager.Instance.OnPowerUpEvent += PlayerJumpPowerUp;
         GameManager.Instance.OnPowerDownEvent += PlayerJumpPowerDown;
+        GameManager.Instance.OnPause += PlayerJumpPause;
+        GameManager.Instance.OnResume += PlayerJumpResume;
     }
 
     private void OnDisable()
     {
         GameManager.Instance.OnPowerUpEvent -= PlayerJumpPowerUp;
         GameManager.Instance.OnPowerDownEvent -= PlayerJumpPowerDown;
+        GameManager.Instance.OnPause -= PlayerJumpPause;
+        GameManager.Instance.OnResume -= PlayerJumpResume;
     }
 
     void Update()
     {
+        if (GameManager.Instance.GameState != GameState.InGame || _isPause) return;
         PlayerJumpMethod();
     }
 
@@ -71,5 +78,19 @@ public class PlayerJump : MonoBehaviour
     void PlayerJumpPowerDown()
     {
         _currentJumpSpeed = _playerJumpSpeed;
+    }
+
+    void PlayerJumpPause()
+    {
+        _rb.isKinematic = true;
+        _soundPlayer.PauseSound(true);
+        _isPause = true;
+    }
+
+    void PlayerJumpResume()
+    {
+        _rb.isKinematic = false;
+        _soundPlayer.PauseSound(false);
+        _isPause = false;
     }
 }
