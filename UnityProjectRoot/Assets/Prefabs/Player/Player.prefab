@@ -486,6 +486,7 @@ MonoBehaviour:
   _woodSEID: 13
   _cushionSEID: 11
   _metalSEID: 14
+  _paperSEID: 32
   _breakSEID: 10
   _godMode: 0
 --- !u!114 &3873197416987307822
@@ -917,6 +918,23 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1470111233609200011, guid: f81b27ca0c49d0346bd37e180c802305, type: 3}
   m_PrefabInstance: {fileID: 2152329436805006759}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1805613587478998081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700448662302979116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d94f8f170743ca438b5a2802799224b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _3DPositioning: 0
+  _loop: 0
+  _volume: 1
+  _cueSheet: 1
+  _debugLog: 1
 --- !u!114 &2479838955542375422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -950,23 +968,6 @@ MonoBehaviour:
     - 0
   _cueName: 
   _cueSheet: SE
---- !u!114 &1805613587478998081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 700448662302979116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d94f8f170743ca438b5a2802799224b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _3DPositioning: 0
-  _loop: 0
-  _volume: 1
-  _cueSheet: 1
-  _debugLog: 1
 --- !u!4 &1004880676100956178 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1165466514540193205, guid: f81b27ca0c49d0346bd37e180c802305, type: 3}

@@ -1306,6 +1306,8 @@ GameObject:
   - component: {fileID: 1688593303813841523}
   - component: {fileID: 1688593303813841521}
   - component: {fileID: 1688593303813841522}
+  - component: {fileID: 1688593303813841534}
+  - component: {fileID: 1688593303813841533}
   m_Layer: 5
   m_Name: Dancing
   m_TagString: Untagged
@@ -1313,6 +1315,56 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1688593303813841533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688593303813841532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1e631c3b9947b54c823c6853a05529c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playOnStart: 1
+  _regionOnStart: {fileID: 0}
+  _listenerOnStart: {fileID: 0}
+  _use3dPositioning: 0
+  _freezeOrientation: 0
+  _loop: 1
+  _volume: 1
+  _pitch: 0
+  _androidUseLowLatencyVoicePool: 0
+  need_to_player_update_all: 1
+  _use3dRandomization: 0
+  _randomPositionListMaxLength: 0
+  randomize3dConfig:
+    followsOriginalSource: 0
+    calculationType: 0
+    calculationParameters:
+    - 0
+    - 0
+    - 0
+  _cueName: SE_dance
+  _cueSheet: SE
+--- !u!114 &1688593303813841534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688593303813841532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d94f8f170743ca438b5a2802799224b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _3DPositioning: 0
+  _loop: 0
+  _volume: 1
+  _cueSheet: 1
+  _debugLog: 1
 --- !u!224 &1688593304352131976
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2097,8 +2149,8 @@ MonoBehaviour:
   _scoreBorderGood: 3000
   _scoreBorderNormal: 500
   _mePlayer: {fileID: 1296452715}
-  _meIdFanfare: 1
-  _meIdFailure: 2
+  _meNameFanfare: ME_Fanfare
+  _meNameFailure: ME_failure
   _vPlayer: {fileID: 1688593304352131983}
   _normalDance: {fileID: 32900000, guid: 13ac75c07c1085c4399fa05b3e11485c, type: 3}
   _meraDance: {fileID: 32900000, guid: 25ab124390d9d64428fb8b33a53b9bb1, type: 3}
