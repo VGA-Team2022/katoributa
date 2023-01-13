@@ -7,6 +7,7 @@ public class ItemSpawn : MonoBehaviour
     [SerializeField] GameObject[] _spawnPosition;//アイテムの位置
     [SerializeField] Item _itemOdject;
     public int _getCount = 0;
+    [SerializeField] int _changeCount = 3;
     Item[] _items;
     bool _pauseSwich = false;
 
@@ -34,7 +35,7 @@ public class ItemSpawn : MonoBehaviour
     {
         _soundPlayer.PlaySound(_soundName);
 
-        if (_getCount < 5)
+        if (_getCount < _changeCount)
         {
             for(int i = 0; i < 3; i++)
             {
@@ -49,7 +50,7 @@ public class ItemSpawn : MonoBehaviour
                 }
             }
         }
-        else if(_getCount < 10)
+        else if(_getCount < _changeCount * 2)
         {
             for (int i = 3; i < 6; i++)
             {
