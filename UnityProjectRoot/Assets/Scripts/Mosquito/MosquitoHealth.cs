@@ -57,8 +57,8 @@ public class MosquitoHealth : MonoBehaviour
             Debug.Log($"蚊が倒された");
             _isDead = true;
             _landingPosition = PositionCalculation();
-            SetProperty("Turbulence Intensity", 0);
-            SetProperty("Turbulence Drag", 0);
+            //SetProperty("Turbulence Intensity", 0);
+            //SetProperty("Turbulence Drag", 0);
             GameManager.Instance.AddScore(_score);
         }
     }
