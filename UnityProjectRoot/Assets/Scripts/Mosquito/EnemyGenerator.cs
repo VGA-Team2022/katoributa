@@ -24,7 +24,10 @@ public class EnemyGenerator : MonoBehaviour
 
         for(int i = 0; i < _limit; i++)
         {
-            Spawn();
+            if(i < _limit)
+                Spawn();
+
+            OnSetEvent(i);
         }
     }
 
@@ -45,7 +48,10 @@ public class EnemyGenerator : MonoBehaviour
         enemy.transform.position = points[0];
         enemy.Move.Init(points);
         enemy.Health.Init();
-
-        enemy.Health.OnDestroy = Spawn;
+    }
+    void OnSetEvent(int i)
+    {
+        var e = _pool.PoolList[i];
+        e.Health.OnDestroy = Spawn;
     }
 }

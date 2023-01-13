@@ -22,7 +22,7 @@ public class CameraStateController : MonoBehaviour
     private void Start()
     {
         _vcam = GetComponent<CinemachineVirtualCamera>();
-        Pause();
+        //Pause();
     }
 
     void Pause()

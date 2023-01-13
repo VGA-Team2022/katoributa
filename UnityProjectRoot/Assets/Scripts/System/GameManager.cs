@@ -196,7 +196,7 @@ public class GameManager
 
             if (flag)
             {
-                _gameState = GameState.InGame;
+                GameStateChange(GameState.InGame);
                 //OnResume?.Invoke();
                 //Debug.Log("ポーズ解除");
             }
