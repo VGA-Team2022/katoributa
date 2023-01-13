@@ -476,7 +476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hp:
-    value: 5
+    value: 3
   _damageSpeed: 9
   _damageHeight: 11
   _damage: 1
@@ -487,6 +487,7 @@ MonoBehaviour:
   _cushionSEID: 11
   _metalSEID: 14
   _paperSEID: 32
+  _damageSEID: 34
   _breakSEID: 10
   _godMode: 0
 --- !u!114 &3873197416987307822
@@ -918,6 +919,24 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1470111233609200011, guid: f81b27ca0c49d0346bd37e180c802305, type: 3}
   m_PrefabInstance: {fileID: 2152329436805006759}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &730237828381071406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700448662302979116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c325b82146b1d46429f089fbcda1cf3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _muzzleTransform: {fileID: 5019939926179757190}
+  _length: 50
+  _reticleTransform: {fileID: 0}
+  _onReticle:
+    serializedVersion: 2
+    m_Bits: 136
 --- !u!114 &1805613587478998081
 MonoBehaviour:
   m_ObjectHideFlags: 0
