@@ -49,6 +49,9 @@ public class PlayerState : MonoBehaviour
     public bool IsMove => _isMove;
 
     public float PlayerSpeedSqrMagnitude => _playerSpeedSqrMagnitude;
+
+    bool _isPause;
+
     private void Start()
     {
         SetUp();
@@ -56,7 +59,7 @@ public class PlayerState : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.GameState == GameState.GameFinish) return;
+        if (GameManager.Instance.GameState != GameState.InGame || _isPause) return;
         PlayerStateMethod();
         ControlDrag();
         PlayerPowerUpControll();
@@ -157,5 +160,31 @@ public class PlayerState : MonoBehaviour
         {
             Gizmos.DrawCube(_centor, _groundCollisionSize);
         }
+    }
+
+    void OnEnable()
+    {
+        GameManager.Instance.OnPause += PlayerStatePause;
+        GameManager.Instance.OnResume += PlayerStateResume;
+    }
+
+    void OnDisable()
+    {
+        GameManager.Instance.OnPause -= PlayerStatePause;
+        GameManager.Instance.OnResume -= PlayerStateResume;
+    }
+
+    void PlayerStatePause()
+    {
+        _rb.isKinematic = true;
+        _soundPlayer.PauseSound(true);
+        _isPause = true;
+    }
+
+    void PlayerStateResume()
+    {
+        _rb.isKinematic = false;
+        _soundPlayer.PauseSound(false);
+        _isPause = false;
     }
 }

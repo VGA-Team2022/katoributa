@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -58,6 +56,8 @@ public class PlayerMove : MonoBehaviour
 
     bool _isPowerUp;
 
+    bool _isPause;
+
     void Start()
     {
         SetUp();
@@ -65,7 +65,7 @@ public class PlayerMove : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GameManager.Instance.GameState == GameState.GameFinish) return;
+        if (GameManager.Instance.GameState != GameState.InGame || _isPause) return;
         PlayerMoveMethod();
     }
 
@@ -89,12 +89,16 @@ public class PlayerMove : MonoBehaviour
     {
         GameManager.Instance.OnPowerUpEvent += PlayerMovePowerUp;
         GameManager.Instance.OnPowerDownEvent += PlayerMovePowerDown;
+        GameManager.Instance.OnPause += PlayerMovePause;
+        GameManager.Instance.OnResume += PlayerMoveResume;
     }
 
     private void OnDisable()
     {
         GameManager.Instance.OnPowerUpEvent -= PlayerMovePowerUp;
         GameManager.Instance.OnPowerDownEvent -= PlayerMovePowerDown;
+        GameManager.Instance.OnPause -= PlayerMovePause;
+        GameManager.Instance.OnResume -= PlayerMoveResume;
     }
 
     /// <summary>
@@ -161,5 +165,19 @@ public class PlayerMove : MonoBehaviour
         {
             _soundPlayer.PlaySound(_walkSoundId);
         }
+    }
+
+    void PlayerMovePause()
+    {
+        _rb.isKinematic = true;
+        _soundPlayer.PauseSound(true);
+        _isPause = true;
+    }
+
+    void PlayerMoveResume()
+    {
+        _rb.isKinematic = false;
+        _soundPlayer.PauseSound(false);
+        _isPause = false;
     }
 }
