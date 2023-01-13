@@ -90,5 +90,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemy: {fileID: 3006994490007975339, guid: 1fa21a7f331710e45afb70483cc2bc4b, type: 3}
-  _wayPointsLimit: 100
-  _limit: 10
+  _wayPointsLimit: 10
+  _limit: 30
