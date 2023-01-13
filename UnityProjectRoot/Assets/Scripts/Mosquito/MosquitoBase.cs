@@ -34,14 +34,11 @@ public class MosquitoBase : MonoBehaviour, IObjectPool
     {
         if (_isPause) return;
 
-        if(_health.IsDead)
+        if (_health.IsDead)
         {
             var fall = _health.Falling();
 
-            if(!fall)
-            {
-                Destroy();
-            }
+            Destroy();
         }
         else
         {
