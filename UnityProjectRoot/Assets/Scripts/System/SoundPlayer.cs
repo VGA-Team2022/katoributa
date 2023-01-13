@@ -107,13 +107,13 @@ public class SoundPlayer : MonoBehaviour
             return;
         }
 
-        //var atomExPlayer = _source.player;
+        var atomExPlayer = _source.player;
 
         ////このオブジェクトについているSourceが再生中で無ければ
-        //if (atomExPlayer.GetStatus() != CriAtomExPlayer.Status.Playing)
-        //{
-        //例外をチェック
-        for (int i = 0; i < _cueInfoList.Length; i++)
+        if (atomExPlayer.GetStatus() != CriAtomExPlayer.Status.Playing)
+        {
+            //例外をチェック
+            for (int i = 0; i < _cueInfoList.Length; i++)
             {
                 //CueInfoListに指定されたIDがあったら通す
                 if (_cueInfoList[i].id == id)
@@ -137,7 +137,7 @@ public class SoundPlayer : MonoBehaviour
             _source.cueSheet = _cueSheet.ToString();
 
             _source.Play();
-        //}
+        }
     }
     /**
  * <summary>一時停止／再開します。</summary>
